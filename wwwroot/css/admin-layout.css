@@ -1,0 +1,13 @@
+.sidebar-link {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sidebar-link.active {
+  background-color: var(--primary);
+  color: white;
+}
+
+.sidebar-link.active:hover {
+  text-decoration: none;
+}

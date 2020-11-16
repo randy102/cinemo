@@ -1,0 +1,57 @@
+@page
+@model Cinemo.Pages.Admin.ListUserModel
+@using Cinemo.Models;
+@inject UserManager<User> UserManager
+
+@{
+  Layout = "_AdminLayout";
+}
+
+@section Styles {
+   <link href="~/css/table.css" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts {
+  <script src="@Url.Content("~/js/ListUser.js")"></script>
+}
+<div class="container">
+  <div class="mb-3">
+    <div class="d-inline-block display-4 mr-3">Users</div>
+
+    <a class="btn btn-success btn-sm align-text-bottom ml-auto" href="/Admin/Users/Create">
+      <i class="fas fa-plus"></i>
+      Create User
+    </a>
+  </div>
+
+  <div class="cinemo-datatable">
+    <table class="table">
+      <thead>
+        <tr>
+          <th><div>Email</div></th>
+          <th><div>Admin</div></th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        @foreach (var user in Model.Users) {
+          <tr>
+            <td>@user.Email</td>
+
+            <td>
+              <form method="post" asp-page-handler="ChangeRole">
+                <input type="hidden" name="id" value="@user.Id">
+
+                <div class="custom-control custom-switch">
+                  <input hidden checked="@(await UserManager.IsInRoleAsync(user, "Admin"))" onchange="this.form.submit()" type="checkbox" class="custom-control-input" id="toggle-moderator-@user.Id">
+                  <label class="custom-control-label" for="toggle-moderator-@user.Id"></label>
+                </div>
+              </form>
+            </td>
+
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

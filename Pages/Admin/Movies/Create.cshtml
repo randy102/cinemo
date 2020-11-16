@@ -1,0 +1,91 @@
+﻿@page
+@model Cinemo.Pages.CreatePostModel
+@{
+    Layout="_AdminLayout";
+}
+
+@section Scripts{
+    <script src="~/js/taxonomy.min.js"></script>
+   <script src="~/js/Validation.js"></script>
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/post.css">
+}
+
+<div class="container">
+    <h1 class="display-4">Create Post</h1>
+
+    <hr class="my-4">
+
+    <form method="post"  class="needs-validation" novalidate>
+        <div class="form-group">
+            <label class="h5" for="title-input">Title</label>
+
+            <input asp-for="@Model.title" required type="text" class="form-control" id="title-input" placeholder="Enter a title">
+
+            <div class="invalid-feedback">
+                Please provide a title.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="h5" for="category-select">Category</label>
+
+            <select asp-for="@Model.categoryId" asp-items="@Model.categories" class="custom-select" id="category-select" required>
+                <option selected="selected" value="">Please select</option>
+            </select>
+
+            <div class="invalid-feedback">
+                Please select a category.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="h5" for="content">Content</label>
+
+            <textarea class="ck-content" id="content" asp-for="@Model.content" cols="30" rows="10"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label class="h5">Tags</label>
+
+            <input id="tags" type="text" asp-for="@Model.tags" hidden>
+
+            <ul id="my-tags" class="tag-cloud list-inline row"></ul>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Submit post</button>
+
+    </form>
+</div>
+<script>
+    /*Khi nhấn submit form các tags sẽ được lưu vào tags[] và đưa tags[] vào input tags*/
+    $('form').submit(function () {
+        //mảng chứa các tag 
+        tags=[];
+        $("#my-tags li a").each(function () {
+            //Thêm vào mảng
+            tags.push($(this).attr('data-tag-slug'));
+        });
+        
+        //Lưu vào ô input
+        $('#tags').val(tags.join(','));
+    })
+
+    /*Script tags*/
+    $('#my-tags').taxonomy_jquery();
+    $('#my-second-tags').taxonomy_jquery({
+        createButton:false,
+        hiddenFieldName:'my-second-tags[]'
+    });
+    
+
+  // CKEditor
+  ClassicEditor
+    .create(document.querySelector('#content'))
+    .catch(error => {
+      console.error(error);
+    });
+
+</script>

@@ -1,0 +1,53 @@
+@RenderSection("Scripts", false)
+
+@RenderSection("Styles", false)
+
+@{
+  Layout = "_Layout";
+
+  ViewData["Title"] = "Admin";
+
+  string pageUrl = Context.Request.Path;
+
+  var links = new[] {
+    new {
+      Url = "/Admin/Users",
+      Icon = "users",
+      Label = "Users",
+    },
+    new {
+      Url = "/Admin/Categories",
+      Icon = "tags",
+      Label = "Categories",
+    },
+    new {
+      Url = "/Admin/Movies",
+      Icon = "tags",
+      Label = "Movies",
+    },
+  };
+}
+
+<div class="row w-100 my-n3 mx-0">
+  <!-- Sidebar -->
+  <nav class="h-100 border-right bg-light py-3" style="width: 200px">
+    <ul class="list-unstyled">
+      @foreach (var link in links) {
+        var activeLabelClass = pageUrl.StartsWith(link.Url) ? "active" : "";
+
+        <a href="@link.Url" class="sidebar-link d-block h5 px-3 py-2 @activeLabelClass">
+          <i class="fas fa-@(link.Icon) fa-fw mr-2"></i>@(link.Label)
+        </a>
+      }
+    </ul>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="col pt-3 pr-0 pb-3 pl-3 overflow-auto">
+    @RenderBody()
+  </div>
+</div>    
+
+@section Styles {
+  <link href="~/css/admin-layout.css" rel="stylesheet" type="text/css" />
+}
