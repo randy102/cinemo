@@ -2,3 +2,17 @@
 @model Cinemo.Pages.Admin.TicketType.UpdateModel
 @{
 }
+<form action="" method="POST">
+        Name 
+        <select value='@Model.ticketType.Name' asp-for="name">
+        @{
+          foreach (Cinemo.Models.TicketType.Type type in Enum.GetValues(typeof(Cinemo.Models.TicketType.Type)))
+          {
+            <option asp-value="type">@type</option>
+          }
+
+        }
+        </select>
+        Price <input type="number" value='@Model.ticketType.Price' step="0.1" asp-for="price"><br>
+        <input type="submit" name="Submit" id="">
+</form>

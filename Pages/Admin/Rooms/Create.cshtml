@@ -2,3 +2,21 @@
 @model Cinemo.Pages.Admin.Room.CreateModel
 @{
 }
+@Model.errMsg
+<form action="" method="POST">
+        Name <input type="text" asp-for="name"><br>
+        NumCol <input type="number" asp-for="numCol"><br>
+        NumRow <input type="number" asp-for="numRow"><br>
+        Formats :<br>
+        <input type="text" asp-for="formats">
+        @{
+                foreach (Cinemo.Models.Room.Format format in Enum.GetValues(typeof(Cinemo.Models.Room.Format)))
+          {
+            <br>
+            <input type="checkbox" name="format" value="@format" />@format
+          }
+
+        }
+        <br>
+        <input type="submit" name="Submit" id="">
+</form>

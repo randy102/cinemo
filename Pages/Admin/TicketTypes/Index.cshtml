@@ -2,3 +2,18 @@
 @model Cinemo.Pages.Admin.TicketType.IndexModel
 @{
 }
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    @foreach (var type in Model.ticketTypes)
+    {
+        <tr>
+                <th>@type.Name</th>
+                <th>@type.Price</th>
+        </tr>
+    }
+</table>

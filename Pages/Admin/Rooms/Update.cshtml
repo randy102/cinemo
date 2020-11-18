@@ -2,3 +2,23 @@
 @model Cinemo.Pages.Admin.Room.UpdateModel
 @{
 }
+<table>
+  <tr>
+    <td>
+      <div class="text-danger">
+        @Model.errMsg
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <form action="" method="post">
+        Name<input  value="@Model.room.Name" asp-for="@Model.name" required> <br>
+        Formats<input value="@Model.room.Formats" asp-for="@Model.formats" required><br>
+        NumCol<input value="@Model.room.NumCol" asp-for="@Model.numCol" required><br>
+        NumRow<input value="@Model.room.NumRow" asp-for="@Model.numRow" required><br>
+        <input type="submit" value="Submit">
+      </form>
+    </td>
+  </tr>
+</table>

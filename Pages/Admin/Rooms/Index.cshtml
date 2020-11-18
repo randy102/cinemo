@@ -2,3 +2,25 @@
 @model Cinemo.Pages.Admin.Room.IndexModel
 @{
 }
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Formats</th>
+            <th>NumCol</th>
+            <th>NumRow</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    @foreach (var r in Model.rooms)
+    {
+        <tr>
+            <th>@r.Name</th>
+            <th>@r.Formats</th>
+            <th>@r.NumCol</th>
+            <th>@r.NumRow</th>
+            <th>@r.Total</th>
+        </tr>
+    }
+</table>

@@ -9,8 +9,12 @@ namespace Cinemo.Pages.Admin.TicketType
 {
     public class IndexModel : PageModel
     {
+        private Cinemo.Data.ApplicationDbContext db;
+        public IndexModel(Cinemo.Data.ApplicationDbContext db) => this.db = db;
+        public List<Cinemo.Models.TicketType> ticketTypes { get; set; }
         public void OnGet()
         {
+            ticketTypes=db.TicketTypes.ToList();
         }
     }
 }

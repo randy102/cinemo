@@ -13,6 +13,8 @@ namespace Cinemo.Data
     public override DbSet<User> Users {get; set;}
     public DbSet<Category> Categories { get; set; }
     public DbSet<Movie> Movies { get; set; }
+    public DbSet<Room> Rooms { get; set; }
+    public DbSet<TicketType> TicketTypes { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
