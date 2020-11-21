@@ -19,7 +19,7 @@ namespace Cinemo.Pages.Admin.Room
         public int numRow { get; set; }
         [BindProperty]
         public string formats { get; set; }
-        public string errMsg { get; set; }="init";
+        public string errMsg { get; set; }
         public void OnGet(){}
         public IActionResult OnPost()
         {

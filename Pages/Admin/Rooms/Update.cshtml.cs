@@ -35,8 +35,12 @@ namespace Cinemo.Pages.Admin.Room
       room = db.Rooms.Find(id);
       //Định dạng chuỗi
       name = Cinemo.Utils.FormatString.Trim_MultiSpaces_Title(name);
+      bool isExist=false;
       //Kiểm tra tên đã được sử dụng hay chưa
-      bool isExist = (db.Rooms.Where(r => !r.Id.Equals(room.Id) && r.Name.Equals(name))).ToList().Any();
+      if (!room.Name.Equals(name))
+      {
+          isExist = (db.Rooms.Where((r => r.Name.Equals(name)))).ToList().Any();
+      }
       //Input hợp lệ và tên thể loại chưa tồn tại
       if (!isExist) {
         //Thay đổi tên

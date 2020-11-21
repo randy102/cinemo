@@ -1,4 +1,74 @@
 ﻿@page
 @model Cinemo.Pages.Admin.Theater.IndexModel
 @{
+  Layout = "_AdminLayout";
 }
+
+@section Scripts {
+  <script>
+    function handleDelete(form) {
+      confirmDelete({
+        form: form,
+        title: "Delete category?",
+        message: "Are you sure you want to delete this theater?",
+      });
+    }
+  </script>
+}
+
+<div class="container">
+  <div class="mb-3">
+    <div class="d-inline-block display-4 mr-3">Theaters</div>
+    <a class="btn btn-success btn-sm align-text-bottom ml-auto" href="/Admin/Theaters/Create">
+        <i class="fas fa-plus"></i>
+        Create Theater
+    </a>
+  </div>
+
+  @*@if(Model.ErrorMessage != null){
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      @Model.ErrorMessage
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  }*@
+
+  <div class="cinemo-datatable">
+    <table class="table">
+      <thead>
+        <tr>
+          <th><div>Theater</div></th>
+          <th><div>Edit</div></th>
+          <th><div>Delete</div></th>
+        </tr>
+      </thead>
+  
+      <tbody>
+       @* @foreach (var category in Model.Categories) {*@
+          <tr>
+            <td>NameTheater</td>
+            
+            <td>
+              <a class="btn btn-round btn-primary btn-sm" href="/Admin/Theaters/Update" @*?id=@category.Id"*@>
+                <i class="fas fa-pen"></i>
+              </a>
+            </td>
+  
+            <td>
+              <form id="delete-category" method="POST" asp-page-handler="Delete">
+                <input type="hidden" name="id" @*value="@category.Id"*@>
+
+                <button type="button" class="btn btn-round btn-danger btn-sm"
+                  onclick="handleDelete(this.form)"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+        @*}*@
+      </tbody>
+    </table>
+  </div>
+</div>
