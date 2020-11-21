@@ -1,24 +1,76 @@
 ﻿@page
 @model Cinemo.Pages.Admin.Room.UpdateModel
-@{
+
+@section Scripts{
+    <script src="~/js/Validation.js"></script>
 }
-<table>
-  <tr>
-    <td>
-      <div class="text-danger">
-        @Model.errMsg
+
+<div class="row no-gutters justify-content-center align-self-center m-auto">
+	<div style="width: 400px">
+		<div class="display-4 text-center">
+			Change room
+		</div>
+
+		<hr class="my-4">
+
+		<form method="POST" class="needs-validation" novalidate>
+      <div class="form-group row mx-0">
+        <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
+         New name:
+        </label>
+        <input class="form-control col" value="@Model.room.Name" asp-for="@Model.name" required>
+				<div class="invalid-feedback">
+					Room name is required !
+				</div>
+        
       </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <form action="" method="post">
-        Name<input  value="@Model.room.Name" asp-for="@Model.name" required> <br>
-        Formats<input value="@Model.room.Formats" asp-for="@Model.formats" required><br>
-        NumCol<input value="@Model.room.NumCol" asp-for="@Model.numCol" required><br>
-        NumRow<input value="@Model.room.NumRow" asp-for="@Model.numRow" required><br>
-        <input type="submit" value="Submit">
-      </form>
-    </td>
-  </tr>
-</table>
+
+      <div class="form-group row mx-0">
+        <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
+         Formats:
+        </label>
+        <input class="form-control col" value="@Model.room.Formats" asp-for="@Model.formats" required>
+				<div class="invalid-feedback">
+					Formats is required !
+				</div>
+      </div>
+
+      <div class="form-group row mx-0">
+        <label for="new-name" class="col-sm-3 col-form-label mr-sm-1 pl-0">
+         Column number:
+        </label>
+        <input class="form-control col" value="@Model.room.NumCol" asp-for="@Model.numCol" required>
+				<div class="invalid-feedback">
+					Column number is required !
+				</div>
+      </div>
+
+      <div class="form-group row mx-0">
+        <label for="new-name" class="col-sm-3 col-form-label mr-sm-1 pl-0">
+         Row number:
+        </label>
+        <input class="form-control col" value="@Model.room.NumRow" asp-for="@Model.numRow" required>
+				<div class="invalid-feedback">
+					Row number is required !
+				</div>
+      </div>
+
+      @if (@Model.errMsg != null)
+      {
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius: 10px;">
+              <strong>Error:</strong> @Model.errMsg
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <i class="fas fa-times"></i>
+              </button>
+          </div>
+      }
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
+			</div>
+
+			<a href="/Admin/Rooms">
+				<i class="fa fa-arrow-left mr-1"></i>Back to Rooms
+			</a>
+		</form>
+	</div>
+</div>

@@ -1,18 +1,53 @@
 ﻿@page
 @model Cinemo.Pages.Admin.TicketType.CreateModel
+
 @{
+  Layout = "_AdminLayout";
 }
-<form action="" method="POST">
-        Name 
-        <select asp-for="name">
-        @{
+
+@section Scripts {
+    <script src="~/js/Validation.js"></script>
+}
+
+<div class="container">
+    <div class="display-4">
+      Create Ticket Type
+    </div>
+
+    <hr class="my-4">
+
+    <form method="post" class="needs-validation" novalidate>
+    
+        <div class="form-group mx-0" >
+        <label>Name:</label><br>
+        <select class="col" style="border: 1px solid #ced4da; border-radius: 0.25rem; outline: none; height: 2.5rem;" id="exampleFormControlSelect1">
+          @{
           foreach (Cinemo.Models.TicketType.Type type in Enum.GetValues(typeof(Cinemo.Models.TicketType.Type)))
           {
             <option asp-value="type">@type</option>
           }
 
-        }
+          }
         </select>
-        Price <input type="number" step="0.1" asp-for="price"><br>
-        <input type="submit" name="Submit" id="">
-</form>
+      </div>
+
+      <div class="form-group mx-0">
+        <label>Price:</label>
+        <input class="form-control" value="" placeholder="Enter numer..." type="number" step="0.1" asp-for="price" required><br>
+        <div class="invalid-feedback">
+            Please provide price.
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">
+          Create
+        </button>
+      </div>
+
+      <a href="/Admin/TicketTypes">
+        <i class="fas fa-angle-left mr-1"></i>Back to Ticket Types
+      </a>
+    </form>
+</div>

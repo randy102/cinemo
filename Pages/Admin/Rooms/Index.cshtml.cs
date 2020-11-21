@@ -11,10 +11,20 @@ namespace Cinemo.Pages.Admin.Room
     {       
         private Cinemo.Data.ApplicationDbContext db;
         public IndexModel(Cinemo.Data.ApplicationDbContext db) => this.db = db;
+
+        [BindProperty(SupportsGet = true)]
+        public int id { get; set; }
         public List<Cinemo.Models.Room> rooms { get; set; }
         public void OnGet()
         {
             rooms=db.Rooms.ToList();
+        }
+
+        public IActionResult OnPost() {
+            var room = db.Rooms.Find(id);
+            db.Remove(room);
+            db.SaveChanges();
+            return Redirect("/Admin/Rooms");
         }
     }
 }

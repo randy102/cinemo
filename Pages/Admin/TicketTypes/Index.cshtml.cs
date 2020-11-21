@@ -11,10 +11,21 @@ namespace Cinemo.Pages.Admin.TicketType
     {
         private Cinemo.Data.ApplicationDbContext db;
         public IndexModel(Cinemo.Data.ApplicationDbContext db) => this.db = db;
+
+        [BindProperty(SupportsGet = true)]
+        public int id { get; set; } 
         public List<Cinemo.Models.TicketType> ticketTypes { get; set; }
         public void OnGet()
         {
             ticketTypes=db.TicketTypes.ToList();
+        }
+
+         public IActionResult OnPost()
+        {
+           var ticketType = db.TicketTypes.Find(id);
+            db.Remove(ticketType);
+            db.SaveChanges();
+            return Redirect("/Admin/TicketTypes");
         }
     }
 }
