@@ -1,5 +1,5 @@
 ﻿@page
-@model Cinemo.Pages.ListPostModel
+@model Cinemo.Pages.Movie.IndexModel
 @{
   Layout = "_AdminLayout";
 }
@@ -18,8 +18,8 @@
 
 <div class="container">
   <div class="mb-3">
-    <div class="d-inline-block display-4 mr-3">Posts</div>
-    <a class="btn btn-success btn-sm align-text-bottom ml-auto" href="Movies/Create">
+    <div class="d-inline-block display-4 mr-3">Movies</div>
+    <a class="btn btn-success btn-sm align-text-bottom ml-auto" href="/Admin/Movies/Create">
       <i class="fas fa-plus"></i>
       Create Movie
     </a>
@@ -49,6 +49,9 @@
             <div>CreatedAt</div>
           </th>
           <th>
+            <div>CreatedBy</div>
+          </th>
+          <th>
             <div>Delete</div>
           </th>
         </tr>
@@ -59,6 +62,7 @@
             <td>@post.Title</td>
             <td>@post.Category.Name</td>
             <td>@post.CreatedAt.ToShortDateString()</td>
+            <td>@post.Author.UserName</td>
             <td>
               <form id="delete-category" method="POST" asp-page-handler="Delete">
                 <input type="hidden" name="id" value="@post.Id">

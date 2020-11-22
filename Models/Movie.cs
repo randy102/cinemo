@@ -1,8 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System;
+using Cinemo.Interface;
+using Microsoft.AspNetCore.Http;
 
 namespace Cinemo.Models {
-  public class Movie {
+  public class Movie: IEntity {
     public int Id { get; set; }
 
     public string AuthorId {get; set;}
@@ -19,5 +21,17 @@ namespace Cinemo.Models {
     
     [DataType(DataType.DateTime)]
     public DateTime CreatedAt {get; set;}
+  }
+
+  public class MovieCreateDto {
+    public int CategoryId {get; set;}=1;
+    public string Tags { get; set; }
+    public string Title {get; set;}
+    public IFormFile Upload {get; set;}
+    public string Content {get; set;}
+  }
+
+  public class MovieUpdateDto: MovieCreateDto {
+    public int Id { get; set; }
   }
 }

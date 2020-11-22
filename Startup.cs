@@ -51,7 +51,8 @@ namespace Cinemo
       services.AddScoped<TheaterRepository>();
       services.AddScoped<TheaterService>();
 
-
+      services.AddScoped<MovieRepository>();
+      services.AddScoped<MovieService>();
 
       
     }

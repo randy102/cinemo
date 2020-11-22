@@ -1,5 +1,5 @@
 ﻿@page
-@model Cinemo.Pages.CreatePostModel
+@model Cinemo.Pages.Movie.CreateModel
 @{
   Layout = "_AdminLayout";
 }
@@ -14,7 +14,7 @@
 }
 
 <div class="container">
-  <h1 class="display-4">Create Post</h1>
+  <h1 class="display-4">Create Movie</h1>
 
   <hr class="my-4">
 
@@ -22,7 +22,7 @@
     <div class="form-group">
       <label class="h5" for="title-input">Title</label>
 
-      <input asp-for="@Model.title" required type="text" class="form-control" id="title-input" placeholder="Enter a title">
+      <input asp-for="@Model.CreateDto.Title" required type="text" class="form-control" id="title-input" placeholder="Enter a title">
 
       <div class="invalid-feedback">
         Please provide a title.
@@ -32,7 +32,7 @@
     <div class="form-group">
       <label class="h5" for="category-select">Category</label>
 
-      <select asp-for="@Model.categoryId" asp-items="@Model.categories" class="custom-select" id="category-select" required>
+      <select asp-for="@Model.CreateDto.CategoryId" asp-items="@Model.categories" class="custom-select" id="category-select" required>
         <option selected="selected" value="">Please select</option>
       </select>
 
@@ -44,13 +44,13 @@
     <div class="form-group">
       <label class="h5" for="content">Content</label>
 
-      <textarea class="ck-content" id="content" asp-for="@Model.content" cols="30" rows="10"></textarea>
+      <textarea asp-for="@Model.CreateDto.Content" class="ck-content" id="content" cols="30" rows="10"></textarea>
     </div>
 
     <div class="form-group">
       <label class="h5">Tags</label>
 
-      <input id="tags" type="text" asp-for="@Model.tags" hidden>
+      <input asp-for="@Model.CreateDto.Tags" id="tags" type="text"  hidden>
 
       <ul id="my-tags" class="tag-cloud list-inline row"></ul>
     </div>

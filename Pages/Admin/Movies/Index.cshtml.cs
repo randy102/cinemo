@@ -1,42 +1,42 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Cinemo.Data;
-using Cinemo.Models;
-using System.Security.Claims;
+using Cinemo.Service;
 
-namespace Cinemo.Pages {
-  public class ListPostModel : PageModel {
-    private ApplicationDbContext db;
-    public ListPostModel(ApplicationDbContext db) => this.db = db;
+namespace Cinemo.Pages.Movie
+{
+  public class IndexModel : PageModel
+  {
+    private readonly MovieService service;
+    public IndexModel(MovieService service)
+    {
+      this.service = service;
+    }
 
-    public List<Movie> Movies { get; set; }
+    public List<Cinemo.Models.Movie> Movies { get; set; }
 
     [BindProperty(Name = "error", SupportsGet = true)]
     public string ErrorMessage { get; set; }
 
-    public void OnGet() {
-      Movies = db.Movies.ToList();
+    public void OnGet()
+    {
+      Movies = service.GetAll();
     }
 
-    public IActionResult OnPostDelete(int id) {
-      try{
-        var post = db.Movies.Find(id);
-
-        // Todo: Check if movie is used in showtime
-
-        db.Movies.Remove(post);
-        db.SaveChanges();
+    public IActionResult OnPostDelete(int id)
+    {
+      try
+      {
+        service.Delete(id);
         return RedirectToPage();
-      } 
-      catch(Exception error){
+      }
+      catch (Exception error)
+      {
         ErrorMessage = error.Message;
-        return RedirectToPage(new {error = error.Message});
-      } 
-      
+        return RedirectToPage(new { error = error.Message });
+      }
+
     }
   }
 }

@@ -1,37 +1,30 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Cinemo.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
 using Cinemo.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Identity;
+using Cinemo.Service;
 
-namespace Cinemo.Pages
+namespace Cinemo.Pages.Movie
 {
-  public class CreatePostModel : PageModel
+  public class CreateModel : PageModel
   {
-    private UserManager<User> manager;
     private ApplicationDbContext db;
-    public CreatePostModel(ApplicationDbContext db, UserManager<User> manager)
+    private readonly MovieService service;
+
+    public CreateModel(ApplicationDbContext db, MovieService service)
     {
       this.db = db;
-      this.manager = manager;
+      this.service = service;
     }
 
     [BindProperty]
-    public string title { get; set; }
-    [BindProperty]
-    public string content { get; set; }
-    [BindProperty]
-    public string categoryId { get; set; }
-    [BindProperty]
-    public string tags { get; set; }
-    public List<SelectListItem> categories { get; set; }
+    public MovieCreateDto CreateDto { get; set; }
 
+    public List<SelectListItem> categories { get; set; }
 
     public User getUser()
     {
@@ -51,23 +44,7 @@ namespace Cinemo.Pages
 
     public IActionResult OnPost()
     {
-      if (!ModelState.IsValid)
-        return Page();
-
-      var author = getUser();
-      var post = new Movie();
-      post.AuthorId = author.Id;
-      post.Author = author;
-      post.Title = title;
-      post.Content = content;
-      post.Tags = tags;
-      post.CategoryId = Int16.Parse(categoryId);
-      post.Category = db.Categories.Find(Int32.Parse(categoryId));
-      post.CreatedAt = System.DateTime.Now;
-
-      db.Movies.Add(post);
-      db.SaveChanges();
-
+      service.Create(CreateDto, getUser());
       return Redirect("./Index");
     }
   }

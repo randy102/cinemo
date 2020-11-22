@@ -19,8 +19,8 @@
         <label for="new-name" class="col-sm-3 col-form-label mr-sm-1 pl-0">
           Name:
         </label>
-        <input value="@Model.OldTheater.Id" asp-for="@Model.Theater.Id"  hidden>
-        <input value="@Model.OldTheater.Name" id="new-name" required type="text" class="form-control col" asp-for="@Model.Theater.Name">
+        <input value="@Model.OldTheater.Id" asp-for="@Model.UpdateDto.Id"  hidden>
+        <input value="@Model.OldTheater.Name" id="new-name" required type="text" class="form-control col" asp-for="@Model.UpdateDto.Name">
         
         <div class="invalid-feedback">
           Theater name is required !
@@ -33,7 +33,7 @@
                 <label for="new-theatername" class="col-sm-3 col-form-label mr-sm-1 pl-0">
                    Address:
                 </label>
-                <input value="@Model.OldTheater.Address" id="new-name" required type="text" class="form-control col" asp-for="@Model.Theater.Address">
+                <input value="@Model.OldTheater.Address" id="new-name" required type="text" class="form-control col" asp-for="@Model.UpdateDto.Address">
         
                 <div class="invalid-feedback">
                     Theater address is required !
