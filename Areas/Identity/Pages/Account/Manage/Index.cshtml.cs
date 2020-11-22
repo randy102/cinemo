@@ -38,11 +38,13 @@ namespace Cinemo.Areas.Identity.Pages.Account.Manage {
     private async Task LoadAsync(User user) {
       var userName = await _userManager.GetUserNameAsync(user);
       var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+      var fullName = "Full name here";
 
       Username = userName;
 
       Input = new InputModel {
-        PhoneNumber = phoneNumber
+        PhoneNumber = phoneNumber,
+        FullName = fullName
       };
     }
 
