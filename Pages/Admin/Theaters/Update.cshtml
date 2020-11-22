@@ -17,10 +17,10 @@
             <div class="form-group row mx-0">
             
                 <label for="new-name" class="col-sm-3 col-form-label mr-sm-1 pl-0">
-                    New name:
+                    Name:
                 </label>
-                <input @*asp-for="@Model.theater.Id"*@ hidden>
-                <input @*value="@Model.theater.Name"*@ id="new-name" required type="text" class="form-control col" @*asp-for="@Model.newName"*@>
+                <input value="@Model.OldTheater.Id" asp-for="@Model.Theater.Id"  hidden>
+                <input value="@Model.OldTheater.Name" id="new-name" required type="text" class="form-control col" asp-for="@Model.Theater.Name">
         
                 <div class="invalid-feedback">
                     Theater name is required !
@@ -31,10 +31,9 @@
             <div class="form-group row mx-0">
                
                 <label for="new-theatername" class="col-sm-3 col-form-label mr-sm-1 pl-0">
-                    New address:
+                   Address:
                 </label>
-                <input @*asp-for="@Model.theater.Id"*@ hidden>
-                <input @*value="@Model.theater.Name"*@ id="new-name" required type="text" class="form-control col" @*asp-for="@Model.newAddress"*@>
+                <input value="@Model.OldTheater.Address" id="new-name" required type="text" class="form-control col" asp-for="@Model.Theater.Address">
         
                 <div class="invalid-feedback">
                     Theater address is required !
