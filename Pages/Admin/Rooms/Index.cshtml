@@ -21,52 +21,50 @@
   <div class="mb-3">
     <div class="d-inline-block display-4 mr-3">Rooms</div>
     <a class="btn btn-success btn-sm align-text-bottom ml-auto" href="/Admin/Rooms/Create">
-        <i class="fas fa-plus"></i>
-        Create Room
+      <i class="fas fa-plus"></i>
+      Create Room
     </a>
   </div>
-    <div class="cinemo-datatable">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th><div>Name</div></th>
-                    <th><div>Formats</div></th>
-                    <th><div>NumCol</div></th>
-                    <th><div>NumRow</div></th>
-                    <th><div>Total</div></th>
-                    <th><div>Edit</div></th>
-                    <th><div>Delete</div></th>
-                </tr>
-            </thead>
-            <tbody>
-              @foreach (var r in Model.rooms)
-              {
-                  <tr>
-                      <td>@r.Name</td>
-                      <td>@r.Formats</td>
-                      <td>@r.NumCol</td>
-                      <td>@r.NumRow</td>
-                      <td>@r.Total</td>
-                      <td>
-                        <a class="btn btn-round btn-primary btn-sm" href="/Admin/Rooms/Update?id=@r.Id">
-                          <i class="fas fa-pen"></i>
-                        </a>
-                      </td>
-            
-                      <td>
-                        <form id="delete-room" method="POST" asp-page-handler="Delete">
-                          <input type="hidden" name="id" value="@r.Id">
+  <div class="cinemo-datatable">
+    <table class="table">
+      <thead>
+        <tr>
+          <th><div>Name</div></th>
+          <th><div>Formats</div></th>
+          <th><div>NumCol</div></th>
+          <th><div>NumRow</div></th>
+          <th><div>Total</div></th>
+          <th><div>Edit</div></th>
+          <th><div>Delete</div></th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var r in Model.rooms) {
+          <tr>
+            <td>@r.Name</td>
+            <td>@r.Formats</td>
+            <td>@r.NumCol</td>
+            <td>@r.NumRow</td>
+            <td>@r.Total</td>
+            <td>
+              <a class="btn btn-round btn-primary btn-sm" href="/Admin/Rooms/Update?id=@r.Id">
+                <i class="fas fa-pen"></i>
+              </a>
+            </td>
 
-                          <button type="button" class="btn btn-round btn-danger btn-sm"
-                            onclick="handleDelete(this.form)"
-                          >
-                            <i class="fas fa-trash"></i>
-                          </button>
-                        </form>
-                      </td>
-                  </tr>
-              }
-            </tbody>
-        </table>
-    </div>
+            <td>
+              <form id="delete-room" method="POST" asp-page-handler="Delete">
+                <input type="hidden" name="id" value="@r.Id">
+
+                <button type="button" class="btn btn-round btn-danger btn-sm"
+                        onclick="handleDelete(this.form)">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 </div>

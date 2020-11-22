@@ -24,8 +24,8 @@
       Create Movie
     </a>
   </div>
-  
-  @if(Model.ErrorMessage != null){
+
+  @if (Model.ErrorMessage != null) {
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
       @Model.ErrorMessage
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -54,8 +54,7 @@
         </tr>
       </thead>
       <tbody>
-        @foreach (var post in Model.Movies)
-        {
+        @foreach (var post in Model.Movies) {
           <tr>
             <td>@post.Title</td>
             <td>@post.Category.Name</td>

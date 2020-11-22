@@ -29,7 +29,8 @@ namespace Cinemo.Pages {
 
       if (category == null) {
         return Redirect("/Admin/Categories");
-      } else {
+      }
+      else {
         return Page();
       }
     }
@@ -54,7 +55,8 @@ namespace Cinemo.Pages {
         db.SaveChanges();
         //Chuyển hướng đến trang ListCategory
         return Redirect("/Admin/Categories");
-      } else {
+      }
+      else {
         //Tên thể loại đã tồn tại => tạo thất bại
         //Lời nhắn 
         ErrorMessage = newName + " existed";

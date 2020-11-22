@@ -20,59 +20,58 @@
   <div class="mb-3">
     <div class="d-inline-block display-4 mr-3">Show Times</div>
     <a class="btn btn-success btn-sm align-text-bottom ml-auto" href="/Admin/ShowTimes/Create">
-        <i class="fas fa-plus"></i>
-        Create Show Time
+      <i class="fas fa-plus"></i>
+      Create Show Time
     </a>
   </div>
-    <div class="cinemo-datatable">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="pr-1"><div>Theater</div></th>
-                    <th class="pr-1"><div>Movie</div></th>
-                    <th class="pr-1"><div>Extra Price</div></th>
-                    <th class="pr-1"><div>Type</div></th>
-                    <th class="pr-1"><div>Format</div></th>
-                    <th class="pr-1"><div>Time</div></th>
-                    <th class="pr-1"><div>Status</div></th>
-                    <th class="pr-1"><div>Change Status</div></th>
-                    <th class="pr-1"><div>Edit</div></th>
-                    <th class="pr-1"><div>Delete</div></th>
-                </tr>
-            </thead>
-            <tbody>
-            @* @foreach (var r in Model.showTimes)
-              {*@
-                  <tr>
-                      <td class="pr-1"><div>theatername</div></td>
-                      <td class="pr-1">moviename</td>
-                      <td class="pr-1">150000</td>
-                      <td class="pr-1">VietNam</td>
-                      <td class="pr-1">_2D</td>
-                      <td class="pr-1">1h 50'</td>
-                      <td class="pr-1">draft</td>
-                      <td class="pr-1"><button class="btn btn-round btn-primary btn-sm">Published</button></td>
-                      <td class="pr-1">
-                        <a class="btn btn-round btn-primary btn-sm" href="/Admin/ShowTimes/Update" @*?id=@r.Id"*@>
-                          <i class="fas fa-pen"></i>
-                        </a>
-                      </td>
-            
-                      <td class="pr-1">
-                        <form id="delete-room" method="POST" asp-page-handler="Delete">
-                          <input type="hidden" name="id" @*value="@r.Id"*@>
+  <div class="cinemo-datatable">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="pr-1"><div>Theater</div></th>
+          <th class="pr-1"><div>Movie</div></th>
+          <th class="pr-1"><div>Extra Price</div></th>
+          <th class="pr-1"><div>Type</div></th>
+          <th class="pr-1"><div>Format</div></th>
+          <th class="pr-1"><div>Time</div></th>
+          <th class="pr-1"><div>Status</div></th>
+          <th class="pr-1"><div>Change Status</div></th>
+          <th class="pr-1"><div>Edit</div></th>
+          <th class="pr-1"><div>Delete</div></th>
+        </tr>
+      </thead>
+      <tbody>
+        @* @foreach (var r in Model.showTimes)
+          {*@
+        <tr>
+          <td class="pr-1"><div>theatername</div></td>
+          <td class="pr-1">moviename</td>
+          <td class="pr-1">150000</td>
+          <td class="pr-1">VietNam</td>
+          <td class="pr-1">_2D</td>
+          <td class="pr-1">1h 50'</td>
+          <td class="pr-1">draft</td>
+          <td class="pr-1"><button class="btn btn-round btn-primary btn-sm">Published</button></td>
+          <td class="pr-1">
+            <a class="btn btn-round btn-primary btn-sm" href="/Admin/ShowTimes/Update" @*?id=@r.Id"*@>
+              <i class="fas fa-pen"></i>
+            </a>
+          </td>
 
-                          <button type="button" class="btn btn-round btn-danger btn-sm"
-                            onclick="handleDelete(this.form)"
-                          >
-                            <i class="fas fa-trash"></i>
-                          </button>
-                        </form>
-                      </td>
-                  </tr>
-              @*}*@
-            </tbody>
-        </table>
-    </div>
+          <td class="pr-1">
+            <form id="delete-room" method="POST" asp-page-handler="Delete">
+              <input type="hidden" name="id" @*value="@r.Id"*@>
+
+              <button type="button" class="btn btn-round btn-danger btn-sm"
+                      onclick="handleDelete(this.form)">
+                <i class="fas fa-trash"></i>
+              </button>
+            </form>
+          </td>
+        </tr>
+        @*}*@
+      </tbody>
+    </table>
+  </div>
 </div>
 

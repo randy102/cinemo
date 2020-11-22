@@ -1,6 +1,5 @@
 .custom-switch-danger
-  .custom-control-input:checked
-  ~ .custom-control-label::before {
+.custom-control-input:checked ~ .custom-control-label::before {
   border-color: var(--danger);
   background-color: var(--danger);
 }

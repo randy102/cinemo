@@ -2,28 +2,27 @@
 @model Cinemo.Pages.Admin.TicketType.UpdateModel
 
 @section Scripts{
-    <script src="~/js/Validation.js"></script>
+  <script src="~/js/Validation.js"></script>
 }
 
 <div class="row no-gutters justify-content-center align-self-center m-auto">
-	<div style="width: 500px">
-		<div class="display-4 text-center">
-			Change ticket type
-		</div>
+  <div style="width: 500px">
+    <div class="display-4 text-center">
+      Change ticket type
+    </div>
 
-		<hr class="my-4">
+    <hr class="my-4">
 
-		<form method="POST" class="needs-validation" novalidate>
+    <form method="POST" class="needs-validation" novalidate>
       <div class="form-group row mx-0">
         <label for="new-name" class="col-sm-3 col-form-label mr-sm-1 pl-0">
-         New name:
+          New name:
         </label>
         <select class="col" style="border: 1px solid #ced4da; border-radius: 0.25rem; outline: none;" value='@Model.ticketType.Name' asp-for="name">
-         @{
-          foreach (Cinemo.Models.TicketType.Type type in Enum.GetValues(typeof(Cinemo.Models.TicketType.Type)))
-          {
-            <option asp-value="type">@type</option>
-          }
+          @{
+            foreach (Cinemo.Models.TicketType.Type type in Enum.GetValues(typeof(Cinemo.Models.TicketType.Type))) {
+              <option asp-value="type">@type</option>
+            }
 
           }
         </select>
@@ -31,31 +30,30 @@
 
       <div class="form-group row mx-0">
         <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
-         Price:
+          Price:
         </label>
         <input class="form-control col" type="number" value='@Model.ticketType.Price' step="0.1" asp-for="price">
         <div class="invalid-feedback">
-            Price is required !
+          Price is required !
         </div>
       </div>
 
-      @if (@Model.errMsg != null)
-      {
-          <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius: 10px;">
-              <strong>Error:</strong> @Model.errMsg
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <i class="fas fa-times"></i>
-              </button>
-          </div>
+      @if (@Model.errMsg != null) {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius: 10px;">
+          <strong>Error:</strong> @Model.errMsg
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
       }
 
-			<div class="form-group">
-				<button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
-			</div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
+      </div>
 
-			<a href="/Admin/TicketTypes/Index">
-				<i class="fa fa-arrow-left mr-1"></i>Back to Ticket Types
-			</a>
-		</form>
-	</div>
+      <a href="/Admin/TicketTypes/Index">
+        <i class="fa fa-arrow-left mr-1"></i>Back to Ticket Types
+      </a>
+    </form>
+  </div>
 </div>

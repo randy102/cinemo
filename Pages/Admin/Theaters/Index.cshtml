@@ -20,19 +20,19 @@
   <div class="mb-3">
     <div class="d-inline-block display-4 mr-3">Theaters</div>
     <a class="btn btn-success btn-sm align-text-bottom ml-auto" href="/Admin/Theaters/Create">
-        <i class="fas fa-plus"></i>
-        Create Theater
+      <i class="fas fa-plus"></i>
+      Create Theater
     </a>
   </div>
 
   @*@if(Model.ErrorMessage != null){
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      @Model.ErrorMessage
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  }*@
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @Model.ErrorMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    }*@
 
   <div class="cinemo-datatable">
     <table class="table">
@@ -44,7 +44,7 @@
           <th><div>Delete</div></th>
         </tr>
       </thead>
-  
+
       <tbody>
         @foreach (var theater in Model.Theaters) {
           <tr>
