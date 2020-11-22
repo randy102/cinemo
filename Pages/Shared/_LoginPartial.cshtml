@@ -9,37 +9,33 @@
 
 
 <ul class="navbar-nav">
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <div class="dropdown">
-            <button class="btn btn-primary text-white dropdown-toggle" data-toggle="dropdown">
-                @User.Identity.Name
-            </button>
-            
-            <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item @(pageUrl == "/Account/Manage" ? "active" : "")" href="/Account/Manage">
-                    <i class="fa fa-user fa-fw mr-2"></i> Profile
-                </a>
+  @if (SignInManager.IsSignedIn(User)) {
+    <div class="dropdown">
+      <button class="btn btn-primary text-white dropdown-toggle" data-toggle="dropdown">
+        @User.Identity.Name
+      </button>
 
-                @if (User.IsInRole("Admin")) {
-                    <a class="dropdown-item @(pageUrl == "/Admin/Users" ? "active" : "")" href="/Admin/Users">
-                        <i class="fa fa-cog fa-fw mr-2"></i> Management
-                    </a>
-                }
+      <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item @(pageUrl == "/Account/Manage" ? "active" : "")" href="/Account/Manage">
+          <i class="fa fa-user fa-fw mr-2"></i> Profile
+        </a>
 
-                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                    <button type="submit" class="dropdown-item">
-                        <i class="fa fa-sign-out-alt fa-fw mr-2"></i> Logout
-                    </button>
-                </form>
+        @if (User.IsInRole("Admin")) {
+          <a class="dropdown-item @(pageUrl == "/Admin/Users" ? "active" : "")" href="/Admin/Users">
+            <i class="fa fa-cog fa-fw mr-2"></i> Management
+          </a>
+        }
 
-                
-            </div>
-        </div>
-    }
-    else
-    {
-        <a class="btn btn-primary mr-2" asp-area="Identity" asp-page="/Account/Login">Login</a>
-        <a class="btn btn-outline-primary" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    }
+        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+          <button type="submit" class="dropdown-item">
+            <i class="fa fa-sign-out-alt fa-fw mr-2"></i> Logout
+          </button>
+        </form>
+      </div>
+    </div>
+  }
+  else {
+    <a class="btn btn-primary mr-2" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    <a class="btn btn-outline-primary" asp-area="Identity" asp-page="/Account/Register">Register</a>
+  }
 </ul>

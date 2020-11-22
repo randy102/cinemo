@@ -3,27 +3,26 @@
   max-height: 500px;
 }
 
-.cinemo-datatable td {
-  vertical-align: middle;
-}
+  .cinemo-datatable td {
+    vertical-align: middle;
+  }
 
-.cinemo-datatable thead th {
-  position: sticky;
-  top: 0;
-  background-color: white;
-  z-index: 3;
-  padding: 0;
-  border: none;
-}
+  .cinemo-datatable thead th {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 3;
+    padding: 0;
+    border: none;
+  }
 
-.cinemo-datatable th div {
-  padding: 0.75rem;
-  border-style: solid;
-  border-color: #dee2e6;
-  border-width: 1px 0 2px 0;
-}
+  .cinemo-datatable th div {
+    padding: 0.75rem;
+    border-style: solid;
+    border-color: #dee2e6;
+    border-width: 1px 0 2px 0;
+  }
 
-.cinemo-datatable tbody tr:first-child td {
-  border-top: none;
-}
-
+  .cinemo-datatable tbody tr:first-child td {
+    border-top: none;
+  }

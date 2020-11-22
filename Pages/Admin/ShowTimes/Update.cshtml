@@ -2,102 +2,102 @@
 @model Cinemo.Pages.Admin.ShowTime.UpdateModel
 
 @section Scripts{
-    <script src="~/js/Validation.js"></script>
+  <script src="~/js/Validation.js"></script>
 }
 
 <div class="row no-gutters justify-content-center align-self-center m-auto">
-	<div style="width: 600px">
-		<div class="display-4 text-center">
-			Change show time
-		</div>
+  <div style="width: 600px">
+    <div class="display-4 text-center">
+      Change show time
+    </div>
 
-		<hr class="my-4">
+    <hr class="my-4">
 
-		<form method="POST" class="needs-validation" novalidate>
+    <form method="POST" class="needs-validation" novalidate>
       <div class="form-group row mx-0">
         <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
-         Theater:
+          Theater:
         </label>
         <input class="form-control col" @*value="" asp-for=""*@ required>
-				<div class="invalid-feedback">
-					Theater is required !
-				</div>
-        
+        <div class="invalid-feedback">
+          Theater is required !
+        </div>
+
       </div>
 
       <div class="form-group row mx-0">
         <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
-         Movie:
+          Movie:
         </label>
         <input class="form-control col" @*value="" asp-for=""*@ required>
         <div class="invalid-feedback">
-            Movie is required !
+          Movie is required !
         </div>
       </div>
 
       <div class="form-group row mx-0">
         <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
-         Extra price:
+          Extra price:
         </label>
         <input class="form-control col" @*value="" asp-for=""*@ required>
         <div class="invalid-feedback">
-            Extra price is required !
+          Extra price is required !
         </div>
       </div>
 
-      <div class="form-group row mx-0" >
-        <label class="col-sm-3 mr-sm-1 col-form-label pl-0" for="exampleFormControlSelect1">Type:
+      <div class="form-group row mx-0">
+        <label class="col-sm-3 mr-sm-1 col-form-label pl-0" for="exampleFormControlSelect1">
+          Type:
         </label>
         <select class="col" style="border: 1px solid #ced4da; border-radius: 0.25rem; outline: none;" id="exampleFormControlSelect1">
-            <option>Subtitle</option>
-            <option>Dubbed</option>
-            <option>Viet Nam</option>
+          <option>Subtitle</option>
+          <option>Dubbed</option>
+          <option>Viet Nam</option>
         </select>
       </div>
 
       <div class="form-group row mx-0">
         <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
-         Time:
+          Time:
         </label>
         <input class="form-control col" type="time" @*value="" asp-for=""*@ required>
         <div class="invalid-feedback">
-            Time is required !
+          Time is required !
         </div>
       </div>
 
       <div class="form-group row mx-0">
-            <label class="col-sm-3 col-form-label mr-sm-1 pl-0">Formats:</label>
-            <input class="form-control" type="text" @*asp-for=""*@ placeholder="Enter formats or checkbox..." hidden>
-           
-            @{
-                    foreach (Cinemo.Models.Room.Format format in Enum.GetValues(typeof(Cinemo.Models.Room.Format)))
-              {
-                <div class="form-check">
-                  <input type="checkbox" name="format" value="@format" />
-                  <label class="form-check-label">@format</label>
-                </div>
-               
-              }
+        <label class="col-sm-3 col-form-label mr-sm-1 pl-0">Formats:</label>
+        <input class="form-control" type="text" @*asp-for=""*@ placeholder="Enter formats or checkbox..." hidden>
 
-            }
-        </div>
+        @{
+          foreach (Cinemo.Models.Room.Format format in Enum.GetValues(typeof(Cinemo.Models.Room.Format))) {
+            <div class="form-check">
+              <input type="checkbox" name="format" value="@format" />
+              <label class="form-check-label">@format</label>
+            </div>
+
+          }
+
+        }
+      </div>
 
       @*@if (@Model.errMsg != null)
-      {
-          <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius: 10px;">
-              <strong>Error:</strong> @Model.errMsg
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <i class="fas fa-times"></i>
-              </button>
-          </div>
-      }*@
-			<div class="form-group">
-				<button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
-			</div>
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius: 10px;">
+                <strong>Error:</strong> @Model.errMsg
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        }*@
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
+      </div>
 
-			<a href="/Admin/ShowTimes">
-				<i class="fa fa-arrow-left mr-1"></i>Back to Show Times
-			</a>
-		</form>
-	</div>
+      <a href="/Admin/ShowTimes">
+        <i class="fa fa-arrow-left mr-1"></i>Back to Show Times
+      </a>
+    </form>
+  </div>
 </div>

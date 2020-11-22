@@ -23,20 +23,21 @@ namespace Cinemo.Pages {
     }
 
     public IActionResult OnPostDelete(int id) {
-      try{
+      try {
         var category = db.Categories.Find(id);
         var postsOfCate = db.Movies.Where(post => post.CategoryId == id).ToList();
 
-        if(postsOfCate.Any())
+        if (postsOfCate.Any())
           throw new Exception("Category has been used!");
 
         db.Categories.Remove(category);
         db.SaveChanges();
 
         return RedirectToPage();
-      } catch(Exception error){
+      }
+      catch (Exception error) {
         ErrorMessage = error.Message;
-        return RedirectToPage(new {error = error.Message});
+        return RedirectToPage(new { error = error.Message });
       }
     }
   }

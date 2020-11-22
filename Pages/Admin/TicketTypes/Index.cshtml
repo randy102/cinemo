@@ -1,6 +1,6 @@
 ﻿@page
 @model Cinemo.Pages.Admin.TicketType.IndexModel
- 
+
 @{
   Layout = "_AdminLayout";
 }
@@ -21,46 +21,44 @@
   <div class="mb-3">
     <div class="d-inline-block display-4 mr-3">Ticket Types</div>
     <a class="btn btn-success btn-sm align-text-bottom ml-auto" href="/Admin/TicketTypes/Create">
-        <i class="fas fa-plus"></i>
-        Create Ticket Type
+      <i class="fas fa-plus"></i>
+      Create Ticket Type
     </a>
   </div>
-    <div class="cinemo-datatable">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th><div>Name</div></th>
-                    <th><div>Price</div></th>
-                    <th><div>Edit</div></th>
-                    <th><div>Delete</div></th>
-                </tr>
-            </thead>
-            <tbody>
-             @foreach (var type in Model.ticketTypes)
-            {
-                <tr>
-                    <td>@type.Name</td>
-                    <td>@type.Price</td>
-                    <td>
-                    <a class="btn btn-round btn-primary btn-sm" href="/Admin/TicketTypes/Update?id=@type.Id">
-                        <i class="fas fa-pen"></i>
-                    </a>
-                    </td>
-            
-                    <td>
-                        <form id="delete-room" method="POST" asp-page-handler="Delete">
-                        <input type="hidden" name="id" value="@type.Id">
+  <div class="cinemo-datatable">
+    <table class="table">
+      <thead>
+        <tr>
+          <th><div>Name</div></th>
+          <th><div>Price</div></th>
+          <th><div>Edit</div></th>
+          <th><div>Delete</div></th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var type in Model.ticketTypes) {
+          <tr>
+            <td>@type.Name</td>
+            <td>@type.Price</td>
+            <td>
+              <a class="btn btn-round btn-primary btn-sm" href="/Admin/TicketTypes/Update?id=@type.Id">
+                <i class="fas fa-pen"></i>
+              </a>
+            </td>
 
-                        <button type="button" class="btn btn-round btn-danger btn-sm"
-                            onclick="handleDelete(this.form)"
-                        >
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        </form>
-                    </td>
-                </tr>
-            }
-            </tbody>
-        </table>
-    </div>
+            <td>
+              <form id="delete-room" method="POST" asp-page-handler="Delete">
+                <input type="hidden" name="id" value="@type.Id">
+
+                <button type="button" class="btn btn-round btn-danger btn-sm"
+                        onclick="handleDelete(this.form)">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 </div>
