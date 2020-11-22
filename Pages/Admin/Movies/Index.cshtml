@@ -52,20 +52,28 @@
             <div>CreatedBy</div>
           </th>
           <th>
+            <div>Edit</div>
+          </th>
+          <th>
             <div>Delete</div>
           </th>
         </tr>
       </thead>
       <tbody>
-        @foreach (var post in Model.Movies) {
+        @foreach (var movie in Model.Movies) {
           <tr>
-            <td>@post.Title</td>
-            <td>@post.Category.Name</td>
-            <td>@post.CreatedAt.ToShortDateString()</td>
-            <td>@post.Author.UserName</td>
+            <td>@movie.Title</td>
+            <td>@movie.Category.Name</td>
+            <td>@movie.CreatedAt.ToShortDateString()</td>
+            <td>@movie.Author.UserName</td>
+            <td>
+              <a class="btn btn-round btn-primary btn-sm" href="/Admin/Movies/Update?id=@movie.Id">
+                <i class="fas fa-pen"></i>
+              </a>
+            </td>
             <td>
               <form id="delete-category" method="POST" asp-page-handler="Delete">
-                <input type="hidden" name="id" value="@post.Id">
+                <input type="hidden" name="id" value="@movie.Id">
 
                 <button type="button" class="btn btn-round btn-danger btn-sm" onclick="handleDelete(this.form)">
                   <i class="fas fa-trash"></i>

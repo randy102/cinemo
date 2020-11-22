@@ -14,6 +14,9 @@
 }
 
 <div class="container">
+  <a href="/Admin/Movies/Index">
+    <i class="fa fa-arrow-left mr-1"></i>Back to Movies
+  </a>
   <h1 class="display-4">Create Movie</h1>
 
   <hr class="my-4">
@@ -60,32 +63,24 @@
   </form>
 </div>
 <script>
-  /*Khi nhấn submit form các tags sẽ được lưu vào tags[] và đưa tags[] vào input tags*/
-  $('form').submit(function () {
-    //mảng chứa các tag
-    tags = [];
-    $("#my-tags li a").each(function () {
-      //Thêm vào mảng
-      tags.push($(this).attr('data-tag-slug'));
+  $(function(){
+    
+    /*Script tags*/
+    $('#my-tags').taxonomy_jquery({
+      hiddenFieldName: 'CreateDto.Tags'
     });
 
-    //Lưu vào ô input
-    $('#tags').val(tags.join(','));
-  })
 
-  /*Script tags*/
-  $('#my-tags').taxonomy_jquery();
-  $('#my-second-tags').taxonomy_jquery({
-    createButton: false,
-    hiddenFieldName: 'my-second-tags[]'
+    // CKEditor
+    ClassicEditor
+      .create(document.querySelector('#content'))
+      .catch(error => {
+        console.error(error);
+      });
   });
+  
 
 
-  // CKEditor
-  ClassicEditor
-    .create(document.querySelector('#content'))
-    .catch(error => {
-      console.error(error);
-    });
+  
 
 </script>

@@ -14,15 +14,21 @@
 }
 
 <div class="container">
-  <h1 class="display-4">Create Movie</h1>
+  <a href="/Admin/Movies">
+    <i class="fas fa-angle-left mr-1"></i>Back to Movies
+  </a>
+
+  <h1 class="display-4">Update Movie</h1>
 
   <hr class="my-4">
 
   <form method="post" class="needs-validation" novalidate>
+    <input value="@Model.OldMovie.Id" asp-for="@Model.UpdateDto.Id"  hidden>
+
     <div class="form-group">
       <label class="h5" for="title-input">Title</label>
 
-      <input asp-for="@Model.UpdateDto.Title" required type="text" class="form-control" id="title-input" placeholder="Enter a title">
+      <input value="@Model.OldMovie.Title" asp-for="@Model.UpdateDto.Title" required type="text" class="form-control" id="title-input" placeholder="Enter a title">
 
       <div class="invalid-feedback">
         Please provide a title.
@@ -32,8 +38,8 @@
     <div class="form-group">
       <label class="h5" for="category-select">Category</label>
 
-      <select asp-for="@Model.UpdateDto.CategoryId" asp-items="@Model.Categories" class="custom-select" id="category-select" required>
-        <option selected="selected" value="">Please select</option>
+      <select asp-items="@Model.Categories" asp-for="@Model.UpdateDto.CategoryId" class="custom-select" id="category-select" required>
+        
       </select>
 
       <div class="invalid-feedback">
@@ -50,9 +56,17 @@
     <div class="form-group">
       <label class="h5">Tags</label>
 
-      <input asp-for="@Model.UpdateDto.Tags" id="tags" type="text"  hidden>
-
-      <ul id="my-tags" class="tag-cloud list-inline row"></ul>
+      <ul id="my-tags" class="tag-cloud list-inline row">
+        @if(Model.OldMovie.Tags != null)
+        @foreach (string tag in Model.OldMovie.Tags.Split(',').ToList())
+        {    
+          <li class="btn btn-primary ml-3 tag tag-active">
+            @tag
+            <a href="#" class="tag-undo" data-tag-slug="@tag">X</a>
+          </li>
+          <input hidden name="UpdateDto.Tags" value="@tag">
+        }
+      </ul>
     </div>
 
     <button class="btn btn-primary" type="submit">Submit post</button>
@@ -60,30 +74,19 @@
   </form>
 </div>
 <script>
-  /*Khi nhấn submit form các tags sẽ được lưu vào tags[] và đưa tags[] vào input tags*/
-  $('form').submit(function () {
-    //mảng chứa các tag
-    tags = [];
-    $("#my-tags li a").each(function () {
-      //Thêm vào mảng
-      tags.push($(this).attr('data-tag-slug'));
-    });
-
-    //Lưu vào ô input
-    $('#tags').val(tags.join(','));
-  })
-
+ 
   /*Script tags*/
-  $('#my-tags').taxonomy_jquery();
-  $('#my-second-tags').taxonomy_jquery({
-    createButton: false,
-    hiddenFieldName: 'my-second-tags[]'
+  $('#my-tags').taxonomy_jquery({
+    hiddenFieldName: 'UpdateDto.Tags'
   });
 
 
   // CKEditor
   ClassicEditor
     .create(document.querySelector('#content'))
+    .then(editor => {
+      editor.data.set('@Html.Raw(Model.OldMovie.Content)')
+    })
     .catch(error => {
       console.error(error);
     });
