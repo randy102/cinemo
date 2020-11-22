@@ -10,6 +10,7 @@ namespace Cinemo.Models {
 
     public int CategoryId {get; set;}=1;
     public virtual Category Category {get; set;}
+
     public string Tags { get; set; }
 
     public string Title {get; set;}

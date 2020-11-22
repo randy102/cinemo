@@ -15,6 +15,7 @@ namespace Cinemo.Data
     public DbSet<Movie> Movies { get; set; }
     public DbSet<Room> Rooms { get; set; }
     public DbSet<TicketType> TicketTypes { get; set; }
+    public DbSet<Theater> Theaters {get; set;}
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)

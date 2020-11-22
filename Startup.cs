@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Cinemo.Data;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authorization;
 using Cinemo.Models;
+using Cinemo.Repository;
+using Cinemo.Service;
 
 namespace Cinemo
 {
@@ -52,6 +48,12 @@ namespace Cinemo
         options.AddPolicy("OnlyAdmin", policy => policy.RequireRole("Admin"));
       });
 
+      services.AddScoped<TheaterRepository>();
+      services.AddScoped<TheaterService>();
+
+
+
+      
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

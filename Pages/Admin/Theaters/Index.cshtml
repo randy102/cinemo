@@ -39,34 +39,36 @@
       <thead>
         <tr>
           <th><div>Theater</div></th>
+          <th><div>Address</div></th>
           <th><div>Edit</div></th>
           <th><div>Delete</div></th>
         </tr>
       </thead>
 
       <tbody>
-        @* @foreach (var category in Model.Categories) {*@
-        <tr>
-          <td>NameTheater</td>
+        @foreach (var theater in Model.Theaters) {
+          <tr>
+            <td>@theater.Name</td>
+            <td>@theater.Address</td>
+            <td>
+              <a class="btn btn-round btn-primary btn-sm" href="/Admin/Theaters/Update?id=@theater.Id">
+                <i class="fas fa-pen"></i>
+              </a>
+            </td>
+  
+            <td>
+              <form id="delete-category" method="POST" asp-page-handler="Delete">
+                <input type="hidden" name="id" value="@theater.Id">
 
-          <td>
-            <a class="btn btn-round btn-primary btn-sm" href="/Admin/Theaters/Update" @*?id=@category.Id"*@>
-              <i class="fas fa-pen"></i>
-            </a>
-          </td>
-
-          <td>
-            <form id="delete-category" method="POST" asp-page-handler="Delete">
-              <input type="hidden" name="id" @*value="@category.Id"*@>
-
-              <button type="button" class="btn btn-round btn-danger btn-sm"
-                      onclick="handleDelete(this.form)">
-                <i class="fas fa-trash"></i>
-              </button>
-            </form>
-          </td>
-        </tr>
-        @*}*@
+                <button type="button" class="btn btn-round btn-danger btn-sm"
+                  onclick="handleDelete(this.form)"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>
