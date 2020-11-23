@@ -31,13 +31,6 @@ namespace Cinemo {
         .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>();
 
-      services.AddIdentity<User, IdentityRole>()
-        .AddEntityFrameworkStores<ApplicationDbContext>()
-        .AddDefaultTokenProviders();
-
-      services.AddScoped<IUserClaimsPrincipalFactory<User>,
-        AdditionalUserClaimsPrincipalFactory>();
-
       services.AddRazorPages(options => {
         options.Conventions.AuthorizeFolder("/Admin", "OnlyAdmin");
       });
