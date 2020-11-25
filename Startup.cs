@@ -43,16 +43,16 @@ namespace Cinemo
             services.AddAuthorization(options =>
             {
                 options.FallbackPolicy = new AuthorizationPolicyBuilder()
-            .RequireAuthenticatedUser()
-            .Build();
+                  .RequireAuthenticatedUser()
+                  .Build();
                 options.AddPolicy("OnlyAdmin", policy => policy.RequireRole("Admin"));
             });
 
             services.AddScoped<TheaterRepository>();
             services.AddScoped<TheaterService>();
 
-            services.AddScoped<CategoryRepository>();
-            services.AddScoped<CategoryService>();
+            services.AddScoped<MovieRepository>();
+            services.AddScoped<MovieService>();
 
             services.AddScoped<RoomRepository>();
             services.AddScoped<RoomService>();
@@ -60,6 +60,8 @@ namespace Cinemo
             services.AddScoped<TicketTypeRepository>();
             services.AddScoped<TicketTypeService>();
 
+            services.AddScoped<CategoryRepository>();
+            services.AddScoped<CategoryService>();
 
         }
 

@@ -1,0 +1,102 @@
+﻿@page
+@model RegisterModel
+@{
+  ViewData["Title"] = "Register";
+}
+
+<div class="row no-gutters justify-content-center align-self-center m-auto">
+  <div style="width: 400px">
+    <div class="display-4 text-center">
+      Register
+    </div>
+
+    <hr class="my-4">
+
+    <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+      <div asp-validation-summary="All" class="text-danger"></div>
+
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-white">
+              <i class="fas fa-user fa-fw text-primary"></i>
+            </div>
+          </div>
+
+          <input asp-for="Input.FullName" class="form-control rounded-right" placeholder="Full name">
+        </div>
+
+        <span asp-validation-for="Input.FullName" class="text-danger"></span>
+      </div>
+
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-white">
+              <i class="fas fa-phone fa-fw text-primary"></i>
+            </div>
+          </div>
+
+          <input asp-for="Input.PhoneNumber" class="form-control rounded-right" placeholder="Phone number">
+        </div>
+
+        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+      </div>
+
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-white">
+              <i class="fas fa-envelope fa-fw text-primary"></i>
+            </div>
+          </div>
+
+          <input asp-for="Input.Email" class="form-control rounded-right" placeholder="Email">
+        </div>
+
+        <span asp-validation-for="Input.Email" class="text-danger"></span>
+      </div>
+
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-white">
+              <i class="fas fa-lock fa-fw text-primary"></i>
+            </div>
+          </div>
+
+          <input asp-for="Input.Password" class="form-control rounded-right" placeholder="Password">
+        </div>
+
+        <span asp-validation-for="Input.Password" class="text-danger"></span>
+      </div>
+
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-white">
+              <i class="fas fa-lock fa-fw text-primary"></i>
+            </div>
+          </div>
+
+          <input asp-for="Input.ConfirmPassword" class="form-control rounded-right" placeholder="Confirm Password">
+        </div>
+
+        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+      </div>
+
+      <div class="text-center">
+        Already have an account? <a href="/Identity/Account/Login">Login</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+}

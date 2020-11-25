@@ -25,7 +25,7 @@ namespace Cinemo.Pages.Admin.Theater
     public int id { get; set; }
 
     [BindProperty]
-    public TheaterUpdateDto Theater {get; set;}
+    public TheaterUpdateDto UpdateDto {get; set;}
 
     public IActionResult OnGet()
     {
@@ -39,7 +39,7 @@ namespace Cinemo.Pages.Admin.Theater
 
     public IActionResult OnPost()
     {
-      service.Update(Theater);
+      service.Update(UpdateDto);
       return Redirect("./");
     }
   }

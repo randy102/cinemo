@@ -40,7 +40,8 @@ namespace Cinemo.Pages.Admin.Category
 
     public IActionResult OnPost()
     {
-      if (service.GetDetail(Category.Name)!=null) {
+      var isExist=service.GetDetail(Category.Name);
+      if (isExist!=null && isExist.Id!=Category.Id) {
         ErrorMessage = Category.Name + " existed";
 
         return Page();
