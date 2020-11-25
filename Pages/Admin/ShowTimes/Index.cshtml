@@ -28,37 +28,41 @@
     <table class="table">
       <thead>
         <tr>
-          <th class="pr-1"><div>Theater</div></th>
-          <th class="pr-1"><div>Movie</div></th>
-          <th class="pr-1"><div>Extra Price</div></th>
-          <th class="pr-1"><div>Type</div></th>
-          <th class="pr-1"><div>Format</div></th>
-          <th class="pr-1"><div>Time</div></th>
-          <th class="pr-1"><div>Status</div></th>
-          <th class="pr-1"><div>Change Status</div></th>
-          <th class="pr-1"><div>Edit</div></th>
-          <th class="pr-1"><div>Delete</div></th>
+          <th><div>Theater</div></th>
+          <th><div>Movie</div></th>
+          <th><div>Extra Price</div></th>
+          <th><div>Type</div></th>
+          <th><div>Format</div></th>
+          <th><div>Time</div></th>
+          <th><div>Status</div></th>
+          <th><div>Change Status</div></th>
+          <th><div>Edit</div></th>
+          <th><div>Delete</div></th>
         </tr>
       </thead>
       <tbody>
         @* @foreach (var r in Model.showTimes)
           {*@
         <tr>
-          <td class="pr-1"><div>theatername</div></td>
-          <td class="pr-1">moviename</td>
-          <td class="pr-1">150000</td>
-          <td class="pr-1">VietNam</td>
-          <td class="pr-1">_2D</td>
-          <td class="pr-1">1h 50'</td>
-          <td class="pr-1">draft</td>
-          <td class="pr-1"><button class="btn btn-round btn-primary btn-sm">Published</button></td>
-          <td class="pr-1">
+          <td>Theater name</td>
+          <td>Movie name</td>
+          <td>150.000đ</td>
+          <td>Vietnamese</td>
+          <td>2D</td>
+          <td>110m</td>
+          <td>Draft</td>
+          <td>
+            <button class="btn btn-primary btn-sm">
+              Publish
+            </button>
+          </td>
+          <td>
             <a class="btn btn-round btn-primary btn-sm" href="/Admin/ShowTimes/Update" @*?id=@r.Id"*@>
               <i class="fas fa-pen"></i>
             </a>
           </td>
 
-          <td class="pr-1">
+          <td>
             <form id="delete-room" method="POST" asp-page-handler="Delete">
               <input type="hidden" name="id" @*value="@r.Id"*@>
 
