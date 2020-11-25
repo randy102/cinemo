@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System;
+using Cinemo.Interface;
 
 namespace Cinemo.Models {
-  public class Movie {
+  public class Movie : IEntity{
     public int Id { get; set; }
 
     public string AuthorId {get; set;}

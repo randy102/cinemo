@@ -43,7 +43,7 @@ namespace Cinemo.Repository
 
     public List<TEntity> FindAll()
     {
-      return context.Set<TEntity>().ToList();
+      return context.Set<TEntity>().AsNoTracking().ToList();
     }
 
     public List<TEntity> FindWhere(Func<TEntity, bool> predicate)

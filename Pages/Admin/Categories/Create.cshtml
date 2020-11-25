@@ -1,5 +1,5 @@
 ﻿@page
-@model Cinemo.Pages.CreateCategoryModel
+@model Cinemo.Pages.Admin.Category.CreateModel
 
 @{
   Layout = "_AdminLayout";
@@ -20,7 +20,7 @@
     <div class="form-group">
       <label>Name:</label>
 
-      <input required type="text" asp-for="newName" class="form-control">
+      <input required type="text" asp-for="CreateDto.Name" class="form-control">
 
       <div class="invalid-feedback">
         Please provide a name.

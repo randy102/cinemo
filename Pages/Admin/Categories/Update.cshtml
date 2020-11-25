@@ -1,5 +1,5 @@
 ﻿@page
-@model Cinemo.Pages.UpdateCategoryModel
+@model Cinemo.Pages.Admin.Category.UpdateModel
 
 @section Scripts{
   <script src="~/js/Validation.js"></script>
@@ -18,8 +18,8 @@
         <label for="new-name" class="col-sm-3 col-form-label mr-sm-1 pl-0">
           New name:
         </label>
-        <input asp-for="@Model.category.Id" hidden>
-        <input value="@Model.category.Name" id="new-name" required type="text" class="form-control col" asp-for="@Model.newName">
+        <input asp-for="@Model.Category.Id" value="@Model.OldCategory.Id" hidden>
+        <input value="@Model.OldCategory.Name" id="new-name" required type="text" class="form-control col" asp-for="@Model.Category.Name">
 
         <div class="invalid-feedback">
           Category name is required !
