@@ -4,30 +4,24 @@ using Cinemo.Interface;
 using System;
 using System.Linq;
 
-namespace Cinemo.Repository
-{
+namespace Cinemo.Repository {
   public abstract class EfCoreRepository<TEntity, TContext> : IRepository<TEntity>
       where TContext : DbContext
-      where TEntity : class, IEntity
-  {
+      where TEntity : class, IEntity {
     protected readonly TContext context;
-    public EfCoreRepository(TContext context)
-    {
+    public EfCoreRepository(TContext context) {
       this.context = context;
     }
 
-    public TEntity Add(TEntity entity)
-    {
+    public TEntity Add(TEntity entity) {
       context.Set<TEntity>().Add(entity);
       context.SaveChanges();
       return entity;
     }
 
-    public TEntity Delete(int id)
-    {
+    public TEntity Delete(int id) {
       var entity = context.Set<TEntity>().Find(id);
-      if (entity == null)
-      {
+      if (entity == null) {
         return entity;
       }
 
@@ -36,23 +30,19 @@ namespace Cinemo.Repository
       return entity;
     }
 
-    public TEntity FindById(int id)
-    {
-      return  context.Set<TEntity>().Find(id);
+    public TEntity FindById(int id) {
+      return context.Set<TEntity>().Find(id);
     }
 
-    public List<TEntity> FindAll()
-    {
+    public List<TEntity> FindAll() {
       return context.Set<TEntity>().AsNoTracking().ToList();
     }
 
-    public List<TEntity> FindWhere(Func<TEntity, bool> predicate)
-    {
+    public List<TEntity> FindWhere(Func<TEntity, bool> predicate) {
       return context.Set<TEntity>().Where(predicate).ToList();
     }
 
-    public TEntity Update(TEntity entity)
-    {
+    public TEntity Update(TEntity entity) {
       context.Set<TEntity>().Update(entity);
       context.SaveChanges();
       return entity;
