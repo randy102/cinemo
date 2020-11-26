@@ -31,16 +31,20 @@
         <select asp-for="@Model.Room.Formats" class="col" style="border: 1px solid #ced4da; border-radius: 0.25rem; outline: none;">
               <option>@Model.OldRoom.Formats</option>
             @{
-              if(@Model.OldRoom.Formats.Equals("_2D")){
-                <option>_3D</option>
-                <option>_IMAX</option>
-              } else {if(@Model.OldRoom.Formats.Equals("_3D")){
-                <option>_2D</option>
-                <option>_IMAX</option>
-              } else{
-                <option>_2D</option>
-                <option>_3D</option>
-              }}
+              switch(@Model.OldRoom.Formats){
+                case "_2D":
+                    <option>_3D</option>
+                    <option>_IMAX</option>
+                    break;
+                case "_3D":
+                    <option>_2D</option>
+                    <option>_IMAX</option>
+                    break;
+                case "_IMAX":
+                    <option>_2D</option>
+                    <option>_3D</option>
+                    break;
+              } 
             }
         </select>
       </div>
