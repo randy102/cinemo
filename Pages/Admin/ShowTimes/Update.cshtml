@@ -18,28 +18,33 @@
         <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
           Theater:
         </label>
-        <input class="form-control col" @*value="" asp-for=""*@ required>
-        <div class="invalid-feedback">
-          Theater is required !
-        </div>
-
+        <select class="col" style="border: 1px solid #ced4da; border-radius: 0.25rem; outline: none;" id="exampleFormControlSelect1">
+          @*@{
+            foreach(var theater in Theaters){
+              <option>@theater</option>
+            }
+          }*@
+        </select>
       </div>
 
       <div class="form-group row mx-0">
         <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
           Movie:
         </label>
-        <input class="form-control col" @*value="" asp-for=""*@ required>
-        <div class="invalid-feedback">
-          Movie is required !
-        </div>
+        <select class="col" style="border: 1px solid #ced4da; border-radius: 0.25rem; outline: none;" id="exampleFormControlSelect1">
+          @*@{
+            foreach(var movie in Movies){
+              <option>@movie</option>
+            }
+          }*@
+        </select>
       </div>
 
       <div class="form-group row mx-0">
         <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
           Extra price:
         </label>
-        <input class="form-control col" @*value="" asp-for=""*@ required>
+        <input type="number" class="form-control col" @*asp-for=""*@ required>
         <div class="invalid-feedback">
           Extra price is required !
         </div>
@@ -60,26 +65,21 @@
         <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
           Time:
         </label>
-        <input class="form-control col" type="time" @*value="" asp-for=""*@ required>
+        <input class="form-control col" type="time" @*asp-for=""*@ required>
         <div class="invalid-feedback">
           Time is required !
         </div>
       </div>
 
       <div class="form-group row mx-0">
-        <label class="col-sm-3 col-form-label mr-sm-1 pl-0">Formats:</label>
-        <input class="form-control" type="text" @*asp-for=""*@ placeholder="Enter formats or checkbox..." hidden>
-
-        @{
-          foreach (Cinemo.Models.Room.Format format in Enum.GetValues(typeof(Cinemo.Models.Room.Format))) {
-            <div class="form-check">
-              <input type="checkbox" name="format" value="@format" />
-              <label class="form-check-label">@format</label>
-            </div>
-
-          }
-
-        }
+        <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
+          Formats:
+        </label>
+        <select class="col" style="border: 1px solid #ced4da; border-radius: 0.25rem; outline: none;" id="exampleFormControlSelect1">
+          <option>_2D</option>
+          <option>_3D</option>
+          <option>_IMAX</option>
+        </select>
       </div>
 
       @*@if (@Model.errMsg != null)
