@@ -7,13 +7,15 @@
   <title>@ViewData["Title"] - Cinemo</title>
   <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css">
+  <link rel="stylesheet" href="https://npmcdn.com/flatpickr/dist/themes/airbnb.css">
+  <link rel="stylesheet" href="~/css/flatpickr.css">
   <link rel="stylesheet" href="~/css/site.css">
   <link rel="stylesheet" href="~/css/button.css">
   <link rel="stylesheet" href="~/css/datatable.css">
   <link rel="stylesheet" href="~/css/toggle-switch.css">
   <link rel="stylesheet" href="~/css/flex.css">
   <link rel="stylesheet" href="~/css/select.css">
+  <link rel="stylesheet" href="~/css/form.css">
   @await RenderSectionAsync("Styles", required: false)
 
   <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -25,7 +27,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.1/bootbox.min.js"
           integrity="sha512-eoo3vw71DUo5NRvDXP/26LFXjSFE1n5GQ+jZJhHz+oOTR4Bwt7QBCjsgGvuVMQUMMMqeEvKrQrNEI4xQMXp3uA=="
           crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="~/js/confirmDelete.js"></script>
   <script src="~/js/site.js" asp-append-version="true"></script>
   @await RenderSectionAsync("Scripts", required: false)
@@ -66,7 +68,7 @@
     </div>
   </footer>
 
-  
+
 </body>
 
 </html>
