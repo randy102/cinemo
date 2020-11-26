@@ -25,7 +25,7 @@ namespace Cinemo.Models {
 
   public class MovieCreateDto {
     public int CategoryId {get; set;}=1;
-    public string Tags { get; set; }
+    public string[] Tags { get; set; }
     public string Title {get; set;}
     public IFormFile Upload {get; set;}
     public string Content {get; set;}
