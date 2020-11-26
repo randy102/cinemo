@@ -5,8 +5,11 @@
   <script src="~/js/Validation.js"></script>
 }
 
-<div class="row no-gutters justify-content-center align-self-center m-auto">
+  <div class="row no-gutters justify-content-center align-self-center m-auto">
 	<div style="width: 500px">
+    <a href="/Admin/Theaters/Index">
+      <i class="fa fa-arrow-left mr-1"></i>Back to Theaters
+    </a>
 		<div class="display-4 text-center">
 			Change Theater
 		</div>
@@ -39,14 +42,20 @@
                     Theater address is required !
                 </div>
              </div>
-
+@if (Model.ErrorMessage != null) {
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @Model.ErrorMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    }
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
                 </div>
 
-                <a href="/Admin/Theaters/Index">
-                    <i class="fa fa-arrow-left mr-1"></i>Back to Theaters
-                </a>
+                
 		</form>
 	</div>
 </div>
+

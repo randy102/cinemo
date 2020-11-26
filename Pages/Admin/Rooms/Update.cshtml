@@ -13,12 +13,12 @@
 
     <hr class="my-4">
     <form method="POST" class="needs-validation" novalidate>
-      <input value="@Model.OldRoom.Id" asp-for="@Model.Room.Id" hidden> 
+      <input value="@Model.OldRoom.Id" asp-for="@Model.UpdateDto.Id" hidden> 
       <div class="form-group row mx-0">
         <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
           New name:
         </label>
-        <input class="form-control col" value="@Model.OldRoom.Name" asp-for="@Model.Room.Name" required>
+        <input class="form-control col" value="@Model.OldRoom.Name" asp-for="@Model.UpdateDto.Name" required>
         <div class="invalid-feedback">
           Room name is required !
         </div>
@@ -27,7 +27,7 @@
 <div class="form-group">
       <label class="h5" for="theater-select">Theater</label>
 
-      <select asp-for="@Model.Room.TheaterId" asp-items="@Model.theaters" class="custom-select" id="theater-select" required>
+      <select asp-for="@Model.UpdateDto.TheaterId" asp-items="@Model.theaters" class="custom-select" id="theater-select" required>
         <option selected="selected" value="">Please select</option>
       </select>
 
@@ -39,7 +39,7 @@
         <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
           Formats:
         </label>
-        <input class="form-control col" value="@Model.OldRoom.Formats" asp-for="@Model.Room.Formats" required>
+        <input class="form-control col" value="@Model.OldRoom.Formats" asp-for="@Model.UpdateDto.Formats" required>
         <div class="invalid-feedback">
           Formats is required !
         </div>
@@ -49,7 +49,7 @@
         <label for="new-name" class="col-sm-3 col-form-label mr-sm-1 pl-0">
           Column number:
         </label>
-        <input class="form-control col" value="@Model.OldRoom.NumCol" asp-for="@Model.Room.NumCol" required>
+        <input class="form-control col" value="@Model.OldRoom.NumCol" asp-for="@Model.UpdateDto.NumCol" required>
         <div class="invalid-feedback">
           Column number is required !
         </div>
@@ -59,7 +59,7 @@
         <label for="new-name" class="col-sm-3 col-form-label mr-sm-1 pl-0">
           Row number:
         </label>
-        <input class="form-control col" value="@Model.OldRoom.NumRow" asp-for="@Model.Room.NumRow" required>
+        <input class="form-control col" value="@Model.OldRoom.NumRow" asp-for="@Model.UpdateDto.NumRow" required>
         <div class="invalid-feedback">
           Row number is required !
         </div>

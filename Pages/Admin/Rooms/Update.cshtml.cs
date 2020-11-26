@@ -26,7 +26,7 @@ namespace Cinemo.Pages.Admin.Room
     public int id { get; set; }
 
     [BindProperty]
-    public RoomUpdateDto Room {get; set;}
+    public RoomUpdateDto UpdateDto {get; set;}
     public List<SelectListItem> theaters { get; set; }
     public string ErrorMessage {get; set;}
 
@@ -46,14 +46,14 @@ namespace Cinemo.Pages.Admin.Room
     }
     public IActionResult OnPost()
     {
-      var isExist=service.GetDetail(Room.Name);
-      if (isExist!=null && isExist.Id!=Room.Id) {
-        ErrorMessage = Room.Name + " existed";
-
+      try{
+        service.Update(UpdateDto);
+        return Redirect("./");
+      } catch(Exception error){
+        ErrorMessage = error.Message;
+        OldRoom = service.GetDetail(id);
         return Page();
       }
-      service.Update(Room);
-      return Redirect("./");
     }
     }
 }

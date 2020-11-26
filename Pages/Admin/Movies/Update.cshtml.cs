@@ -42,17 +42,25 @@ namespace Cinemo.Pages.Movie
 
     public IActionResult OnGet()
     {
-      //Tạo list category
-      Categories = db.Categories.Select(c => new SelectListItem
-      {
-        Value = c.Id.ToString(),
-        Text = c.Name
-      }).ToList();
-
       OldMovie = service.GetDetail(id);
       if (OldMovie == null)
         return Redirect("./");
+
+      Categories = db.Categories.Select(c => new SelectListItem
+      {
+        Value = c.Id.ToString(),
+        Text = c.Name,
+        Selected = OldMovie.CategoryId.Equals(c.Id)
+      }).ToList();
+
+      
       return Page();
+    }
+
+    public IActionResult OnPost()
+    {
+      service.Update(UpdateDto);
+      return Redirect("./");
     }
   }
 }

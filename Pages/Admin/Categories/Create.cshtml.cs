@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Cinemo.Models;
 using Cinemo.Service;
+using System;
 
 namespace Cinemo.Pages.Admin.Category
 {
@@ -20,16 +21,13 @@ namespace Cinemo.Pages.Admin.Category
     public string ErrorMessage {get; set;}
 
     public IActionResult OnPost() {
-      var isExist = service.GetDetail(CreateDto.Name);
-
-      if (isExist!=null) {
-        ErrorMessage = CreateDto.Name + " existed";
-
+      try{
+        service.Create(CreateDto);
+        return Redirect("./");
+      } catch(Exception error){
+        ErrorMessage = error.Message;
         return Page();
       }
-      service.Create(CreateDto);
-
-      return Redirect("/Admin/Categories");
     }
   }
 }

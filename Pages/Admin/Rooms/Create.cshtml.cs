@@ -33,14 +33,13 @@ namespace Cinemo.Pages.Admin.Room
          }
         public IActionResult OnPost() {
 
-            if (service.GetDetail(CreateDto.Name)!=null) {
-                ErrorMessage = CreateDto.Name + " existed";
-
-                return Page();
-            }
-            service.Create(CreateDto);
-
-            return Redirect("/Admin/Rooms");
+            try{
+        service.Create(CreateDto);
+        return Redirect("./");
+      } catch(Exception error){
+        ErrorMessage = error.Message;
+        return Page();
+      }
         }
     }
 }
