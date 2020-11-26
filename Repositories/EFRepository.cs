@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Cinemo.Interface;
 using System;
 using System.Linq;
-
+using System.Data;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 namespace Cinemo.Repository
 {
   public abstract class EfCoreRepository<TEntity, TContext> : IRepository<TEntity>
@@ -38,12 +39,12 @@ namespace Cinemo.Repository
 
     public TEntity FindById(int id)
     {
-      return  context.Set<TEntity>().Find(id);
+      return context.Set<TEntity>().Find(id);
     }
 
     public List<TEntity> FindAll()
     {
-      return context.Set<TEntity>().AsNoTracking().ToList();
+      return context.Set<TEntity>().ToList();
     }
 
     public List<TEntity> FindWhere(Func<TEntity, bool> predicate)
@@ -53,9 +54,17 @@ namespace Cinemo.Repository
 
     public TEntity Update(TEntity entity)
     {
+      DetachAll();
       context.Set<TEntity>().Update(entity);
       context.SaveChanges();
       return entity;
+    }
+
+    public void DetachAll()
+    {
+      foreach (EntityEntry dbEntityEntry in context.ChangeTracker.Entries().ToArray())
+        if (dbEntityEntry.Entity != null)
+          dbEntityEntry.State = EntityState.Detached;
     }
 
   }

@@ -3,6 +3,7 @@ using Cinemo.Models;
 using System.Collections.Generic;
 using Cinemo.Utils;
 using System.Linq;
+using System;
 namespace Cinemo.Service
 {
   public class CategoryService{
@@ -37,6 +38,11 @@ namespace Cinemo.Service
     }
 
     public Category Update(CategoryUpdateDto dto){
+      var isExist = repository.FindWhere(c => c.Name == dto.Name);
+      if (isExist !=null && isExist.Count > 0) {
+        throw new Exception("Existed");
+      }
+      
       var entity = new Category {
         Id = dto.Id,
         Name = FormatString.Trim_MultiSpaces_Title(dto.Name)

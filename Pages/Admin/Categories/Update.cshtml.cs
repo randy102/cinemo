@@ -40,14 +40,14 @@ namespace Cinemo.Pages.Admin.Category
 
     public IActionResult OnPost()
     {
-      var isExist=service.GetDetail(Category.Name);
-      if (isExist!=null && isExist.Id!=Category.Id) {
-        ErrorMessage = Category.Name + " existed";
-
+      try{
+        service.Update(Category);
+        return Redirect("./");
+      } catch(Exception error){
+        ErrorMessage = error.Message;
+        OldCategory = service.GetDetail(id);
         return Page();
       }
-      service.Update(Category);
-      return Redirect("./");
     }
   }
 }
