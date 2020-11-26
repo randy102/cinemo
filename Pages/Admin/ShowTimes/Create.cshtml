@@ -36,35 +36,7 @@
           firstDayOfWeek: 1
         }
       });
-
-      $('#extra-price').on('input', onPriceInputKeyup);
     })
-
-    function onPriceInputKeyup(event) {
-      // 1.
-      var selection = window.getSelection().toString();
-      if (selection !== '') {
-        return;
-      }
-
-      // 2.
-      if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) {
-        return;
-      }
-
-      // 1
-      var $this = $(this);
-      var input = $(this).val();
-
-      // 2
-      var input = input.replace(/[\D\s\._\-]+/g, "");
-
-      // 3
-      input = input ? parseInt(input, 10) : 0;
-
-      // 4
-      $this.val(() => input === 0 ? "" : input.toLocaleString("en-US"));
-    }
 
   </script>
 }
@@ -121,7 +93,10 @@
       <label>Extra price</label>
 
       <div class="input-group">
-        <input id="extra-price" class="form-control col-3" placeholder="0" type="text">
+        <input class="form-control col-3 price-input"
+               placeholder="0"
+               value="0"
+               type="text">
 
         <div class="input-group-append">
           <span class="input-group-text">₫</span>
@@ -138,7 +113,13 @@
         var id = Guid.NewGuid().ToString("N");
 
         <div class="custom-control custom-radio custom-control-inline">
-          <input required type="radio" value="@type.value" id="@id" class="custom-control-input" name="type">
+          <input required
+                 type="radio"
+                 value="@type.value"
+                 id="@id"
+                 class="custom-control-input"
+                 name="type">
+
           <label class="custom-control-label" for="@id">@type.label</label>
         </div>
       }
@@ -161,8 +142,17 @@
 
       @foreach (string name in Enum.GetNames(typeof(Room.Format))) {
         <div class="custom-control custom-radio custom-control-inline">
-          <input required type="radio" value="@name" id="@name" class="custom-control-input" name="name">
-          <label class="custom-control-label" for="@name">@name.Substring(1)</label>
+          <input required
+                 type="radio"
+                 value="@name"
+                 id="@name"
+                 class="custom-control-input"
+                 name="format">
+
+          <label class="custom-control-label"
+                 for="@name">
+            @name.Substring(1)
+          </label>
         </div>
       }
     </div>

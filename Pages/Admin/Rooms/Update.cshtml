@@ -22,17 +22,31 @@
         <div class="invalid-feedback">
           Room name is required !
         </div>
-
       </div>
 
       <div class="form-group row mx-0">
         <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
-          Formats:
+          Format:
         </label>
-        <input class="form-control col" value="@Model.OldRoom.Formats" asp-for="@Model.Room.Formats" required>
-        <div class="invalid-feedback">
-          Formats is required !
-        </div>
+        <select asp-for="@Model.Room.Formats" class="col" style="border: 1px solid #ced4da; border-radius: 0.25rem; outline: none;">
+              <option>@Model.OldRoom.Formats</option>
+            @{
+              switch(@Model.OldRoom.Formats){
+                case "_2D":
+                    <option>_3D</option>
+                    <option>_IMAX</option>
+                    break;
+                case "_3D":
+                    <option>_2D</option>
+                    <option>_IMAX</option>
+                    break;
+                case "_IMAX":
+                    <option>_2D</option>
+                    <option>_3D</option>
+                    break;
+              } 
+            }
+        </select>
       </div>
 
       <div class="form-group row mx-0">
