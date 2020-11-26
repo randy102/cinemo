@@ -8,13 +8,10 @@ using Cinemo.Service;
 using Cinemo.Models;
 using Microsoft.Extensions.Logging;
 
-namespace Cinemo.Pages.Admin.Category
-{
-  public class UpdateModel : PageModel
-  {
+namespace Cinemo.Pages.Admin.Category {
+  public class UpdateModel : PageModel {
     private readonly CategoryService service;
-    public UpdateModel(CategoryService service)
-    {
+    public UpdateModel(CategoryService service) {
       this.service = service;
     }
 
@@ -25,15 +22,15 @@ namespace Cinemo.Pages.Admin.Category
     public int id { get; set; }
 
     [BindProperty]
-    public CategoryUpdateDto Category {get; set;}
-    public string ErrorMessage {get; set;}
+    public CategoryUpdateDto Category { get; set; }
+    public string ErrorMessage { get; set; }
 
-    public IActionResult OnGet()
-    {
+    public IActionResult OnGet() {
       OldCategory = service.GetDetail(id);
       if (OldCategory == null) {
         return Redirect("./");
-      } else {
+      }
+      else {
         return Page();
       }
     }

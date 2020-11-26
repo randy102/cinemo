@@ -9,26 +9,21 @@ namespace Cinemo.Repository
 {
   public abstract class EfCoreRepository<TEntity, TContext> : IRepository<TEntity>
       where TContext : DbContext
-      where TEntity : class, IEntity
-  {
+      where TEntity : class, IEntity {
     protected readonly TContext context;
-    public EfCoreRepository(TContext context)
-    {
+    public EfCoreRepository(TContext context) {
       this.context = context;
     }
 
-    public TEntity Add(TEntity entity)
-    {
+    public TEntity Add(TEntity entity) {
       context.Set<TEntity>().Add(entity);
       context.SaveChanges();
       return entity;
     }
 
-    public TEntity Delete(int id)
-    {
+    public TEntity Delete(int id) {
       var entity = context.Set<TEntity>().Find(id);
-      if (entity == null)
-      {
+      if (entity == null) {
         return entity;
       }
 
@@ -47,8 +42,7 @@ namespace Cinemo.Repository
       return context.Set<TEntity>().ToList();
     }
 
-    public List<TEntity> FindWhere(Func<TEntity, bool> predicate)
-    {
+    public List<TEntity> FindWhere(Func<TEntity, bool> predicate) {
       return context.Set<TEntity>().Where(predicate).ToList();
     }
 
