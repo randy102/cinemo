@@ -29,6 +29,7 @@
     <table class="table">
       <thead>
         <tr>
+          <th><div>Theater</div></th>
           <th><div>Name</div></th>
           <th><div>Formats</div></th>
           <th><div>NumCol</div></th>
@@ -41,6 +42,7 @@
       <tbody>
         @foreach (var r in Model.Rooms) {
           <tr>
+            <td>@r.Theater.Name</td>
             <td>@r.Name</td>
             <td>@r.Formats</td>
             <td>@r.NumCol</td>

@@ -38,6 +38,7 @@ namespace Cinemo.Service
         {
             var entity = new Room
             {
+                TheaterId=dto.TheaterId,
                 Name = FormatString.Trim_MultiSpaces_Title(dto.Name),
                 NumCol= dto.NumCol,
                 NumRow= dto.NumRow,
@@ -53,6 +54,7 @@ namespace Cinemo.Service
             var entity = new Room
             {
                 Id = dto.Id,
+                TheaterId=dto.TheaterId,
                 Name = FormatString.Trim_MultiSpaces_Title(dto.Name),
                 NumCol= dto.NumCol,
                 NumRow= dto.NumRow,

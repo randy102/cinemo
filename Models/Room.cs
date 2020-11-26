@@ -5,6 +5,8 @@ namespace Cinemo.Models
 {
     public class Room : IEntity{
         public int Id { get; set; }
+        public int TheaterId { get; set; }
+        public virtual Theater Theater {get; set;}
         public string Name { get; set; }
         public int NumCol { get; set; }
         public int NumRow { get; set; }
@@ -17,6 +19,7 @@ namespace Cinemo.Models
         }
     }
 public class RoomCreateDto {
+    public int TheaterId { get; set; }
     public string Name { get; set; }
         public int NumCol { get; set; }
         public int NumRow { get; set; }

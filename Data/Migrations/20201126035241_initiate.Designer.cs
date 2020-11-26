@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinemo.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201118084151_Edit2")]
-    partial class Edit2
+    [Migration("20201126035241_initiate")]
+    partial class initiate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,8 +70,9 @@ namespace Cinemo.Data.Migrations
 
             modelBuilder.Entity("Cinemo.Models.Room", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Formats")
                         .HasColumnType("TEXT");
@@ -85,18 +86,41 @@ namespace Cinemo.Data.Migrations
                     b.Property<int>("NumRow")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("TheaterId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Total")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TheaterId");
+
                     b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("Cinemo.Models.Theater", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Theaters");
                 });
 
             modelBuilder.Entity("Cinemo.Models.TicketType", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Name")
                         .HasColumnType("INTEGER");
@@ -127,6 +151,9 @@ namespace Cinemo.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
@@ -322,6 +349,15 @@ namespace Cinemo.Data.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("Cinemo.Models.Room", b =>
+                {
+                    b.HasOne("Cinemo.Models.Theater", null)
+                        .WithMany("Rooms")
+                        .HasForeignKey("TheaterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -376,6 +412,11 @@ namespace Cinemo.Data.Migrations
             modelBuilder.Entity("Cinemo.Models.Category", b =>
                 {
                     b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("Cinemo.Models.Theater", b =>
+                {
+                    b.Navigation("Rooms");
                 });
 #pragma warning restore 612, 618
         }

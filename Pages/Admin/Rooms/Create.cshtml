@@ -24,6 +24,17 @@
         Please provide a name.
       </div>
     </div>
+    <div class="form-group">
+      <label class="h5" for="theater-select">Theater</label>
+
+      <select asp-for="@Model.CreateDto.TheaterId" asp-items="@Model.theaters" class="custom-select" id="theater-select" required>
+        <option selected="selected" value="">Please select</option>
+      </select>
+
+      <div class="invalid-feedback">
+        Please select a theater.
+      </div>
+    </div>
     <div class="form-group row mx-0">
       <label>Column number:</label>
       <input class="form-control" type="number" value="" placeholder="Enter number..." asp-for="CreateDto.NumCol" required>

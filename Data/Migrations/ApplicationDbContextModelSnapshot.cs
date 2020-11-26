@@ -84,7 +84,7 @@ namespace Cinemo.Data.Migrations
                     b.Property<int>("NumRow")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("TheaterId")
+                    b.Property<int>("TheaterId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Total")
@@ -349,9 +349,13 @@ namespace Cinemo.Data.Migrations
 
             modelBuilder.Entity("Cinemo.Models.Room", b =>
                 {
-                    b.HasOne("Cinemo.Models.Theater", null)
+                    b.HasOne("Cinemo.Models.Theater", "Theater")
                         .WithMany("Rooms")
-                        .HasForeignKey("TheaterId");
+                        .HasForeignKey("TheaterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Theater");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
