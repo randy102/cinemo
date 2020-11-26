@@ -16,16 +16,22 @@
   <hr class="my-4">
 
   <form class="needs-validation" method="POST" novalidate>
-    <div class="form-group row mx-0">
+    <div class="form-group">
       <label>Theater:</label>
-      <input class="form-control" type="text" @*asp-for=""*@ placeholder="Enter..." required>
+
+      <select required class="custom-select">
+        <option>Choose theater</option>
+        <option value="theater-1">Theater 1</option>
+        <option value="theater-2">Theater 2</option>
+        <option value="theater-3">Theater 3</option>
+      </select>
 
       <div class="invalid-feedback">
         Please provide a theater name.
       </div>
     </div>
 
-    <div class="form-group row mx-0">
+    <div class="form-group">
       <label>Movie:</label>
       <input class="form-control" type="text" value="" placeholder="Enter movie..." @*asp-for=""*@ required>
       <div class="invalid-feedback">
@@ -33,16 +39,15 @@
       </div>
     </div>
 
-    <div class="form-group row mx-0">
+    <div class="form-group">
       <label>Extra price: </label>
       <input class="form-control" type="text" value="" placeholder="Enter extra price..." @*asp-for=""*@ required>
     </div>
 
     <div class="form-group mx-0">
-
       <label>Type:</label><br>
-      <select class="col-5" style="border: 1px solid #ced4da; border-radius: 0.25rem; outline: none; height: 2.5rem;" id="exampleFormControlSelect1">
-        <option>Subtitle</option>
+      <select class="custom-select">
+        <option value="">Subtitle</option>
         <option>Dubbed</option>
         <option>Viet Nam</option>
       </select>
