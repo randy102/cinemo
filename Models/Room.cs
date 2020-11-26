@@ -21,13 +21,13 @@ namespace Cinemo.Models
 public class RoomCreateDto {
     public int TheaterId { get; set; }
     public string Name { get; set; }
-        public int NumCol { get; set; }
-        public int NumRow { get; set; }
-        public int Total { get; set; }
-        public string Formats { get; set; }
+    public int NumCol { get; set; }
+    public int NumRow { get; set; }
+    public int Total { get; set; }
+    public string Formats { get; set; }
   }
 
-  public class RoomUpdateDto: RoomCreateDto {
+  public class RoomUpdateDto : RoomCreateDto {
     public int Id { get; set; }
   }
 }

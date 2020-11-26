@@ -24,9 +24,9 @@ namespace Cinemo.Service
         {
             return repository.FindById(id);
         }
-        public Room GetDetail(string name) {
+        public Room GetDetail(int theaterId,string name) {
             name = FormatString.Trim_MultiSpaces_Title(name);
-            return repository.FindAll().Where(c => c.Name.Equals(name)).FirstOrDefault();
+            return repository.FindAll().Where(c => c.TheaterId==theaterId&&c.Name.Equals(name) ).FirstOrDefault();
         }
 
         public Room Delete(int id)
@@ -36,7 +36,7 @@ namespace Cinemo.Service
 
         public Room Create(RoomCreateDto dto)
         {
-            var isExist = GetDetail(dto.Name);
+            var isExist = GetDetail(dto.TheaterId,dto.Name);
             if (isExist !=null &&dto.TheaterId==isExist.TheaterId) {
                 throw new Exception(dto.Name+" existed");
             }
@@ -55,7 +55,7 @@ namespace Cinemo.Service
 
         public Room Update(RoomUpdateDto dto)
         {
-            var isExist = GetDetail(dto.Name);
+            var isExist = GetDetail(dto.TheaterId,dto.Name);
             if (isExist !=null && dto.Id!=isExist.Id &&dto.TheaterId==isExist.TheaterId) {
                 throw new Exception(dto.Name+" existed");
             }

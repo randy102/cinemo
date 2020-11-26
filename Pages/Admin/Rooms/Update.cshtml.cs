@@ -29,14 +29,18 @@ namespace Cinemo.Pages.Admin.Room
     public RoomUpdateDto UpdateDto {get; set;}
     public List<SelectListItem> theaters { get; set; }
     public string ErrorMessage {get; set;}
-
-    public IActionResult OnGet()
-    {
-      theaters = theaterService.GetAll().Select(c => new SelectListItem
+    public List<SelectListItem> getTheaters()
+        {
+            var theaters = theaterService.GetAll().Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
                 Text = c.Name
             }).ToList();
+            return theaters;
+        }
+    public IActionResult OnGet()
+    {
+      theaters = getTheaters();
       OldRoom = service.GetDetail(id);
       if (OldRoom == null) {
         return Redirect("./");
@@ -51,6 +55,7 @@ namespace Cinemo.Pages.Admin.Room
         return Redirect("./");
       } catch(Exception error){
         ErrorMessage = error.Message;
+        theaters = getTheaters();
         OldRoom = service.GetDetail(id);
         return Page();
       }

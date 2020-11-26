@@ -13,33 +13,45 @@ namespace Cinemo.Pages.Admin.Room
     {
         private readonly RoomService service;
         private readonly TheaterService theaterService;
-        public CreateModel(RoomService service,TheaterService theaterService)
+        public CreateModel(RoomService service, TheaterService theaterService)
         {
-        this.service = service;
-        this.theaterService = theaterService;
+            this.service = service;
+            this.theaterService = theaterService;
         }
         [BindProperty]
         public RoomCreateDto CreateDto { get; set; }
         public List<SelectListItem> theaters { get; set; }
 
-        public string ErrorMessage {get; set;}
+        public string ErrorMessage { get; set; }
 
-        public void OnGet() { 
-            theaters = theaterService.GetAll().Select(c => new SelectListItem
+        public List<SelectListItem> getTheaters()
+        {
+            var theaters = theaterService.GetAll().Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
                 Text = c.Name
             }).ToList();
-         }
-        public IActionResult OnPost() {
+            return theaters;
+        }
 
-            try{
-        service.Create(CreateDto);
-        return Redirect("./");
-      } catch(Exception error){
-        ErrorMessage = error.Message;
-        return Page();
-      }
+        public void OnGet()
+        {
+            theaters = getTheaters();
+        }
+        public IActionResult OnPost()
+        {
+            try
+            {
+                service.Create(CreateDto);
+                return Redirect("./");
+            }
+            catch (Exception error)
+            {
+                ErrorMessage = error.Message;
+                theaters = getTheaters();
+                return Page();
+            }
         }
     }
 }
+
