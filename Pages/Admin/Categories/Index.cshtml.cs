@@ -6,11 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Cinemo.Models;
 using Cinemo.Data;
+using Cinemo.Service;
 
 namespace Cinemo.Pages {
   public class ListCategoryModel : PageModel {
-    private ApplicationDbContext db;
-    public ListCategoryModel(ApplicationDbContext db) => this.db = db;
+    private readonly CategoryService service;
+    public ListCategoryModel(CategoryService service)
+    {
+      this.service = service;
+    }
 
     public List<Category> Categories { get; set; }
 
@@ -18,20 +22,19 @@ namespace Cinemo.Pages {
     public string ErrorMessage { get; set; }
 
     public IActionResult OnGet() {
-      Categories = db.Categories.ToList();
+      Categories = service.GetAll();
       return Page();
     }
 
     public IActionResult OnPostDelete(int id) {
       try {
-        var category = db.Categories.Find(id);
-        var postsOfCate = db.Movies.Where(post => post.CategoryId == id).ToList();
+        var category =service.GetDetail(id);
+        var postsOfCate = category.Movies;
 
         if (postsOfCate.Any())
           throw new Exception("Category has been used!");
 
-        db.Categories.Remove(category);
-        db.SaveChanges();
+        service.Delete(id);
 
         return RedirectToPage();
       }

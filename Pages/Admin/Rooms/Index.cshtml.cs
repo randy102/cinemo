@@ -3,29 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Cinemo.Service;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Cinemo.Pages.Admin.Room
 {
     public class IndexModel : PageModel
     {       
-        private Cinemo.Data.ApplicationDbContext db;
-        public IndexModel(Cinemo.Data.ApplicationDbContext db) => this.db = db;
+        private readonly RoomService service;
+    public IndexModel(RoomService service)
+    {
+      this.service = service;
+    }
 
-        [BindProperty]
-        public int id { get; set; }
-        public List<Cinemo.Models.Room> rooms { get; set; }
-        public void OnGet()
-        {
-            rooms=db.Rooms.ToList();
-        }
+    [BindProperty]
+    public int id { get; set; }
 
-        public IActionResult OnPostDelete()
-        {
-            var room = db.Rooms.Find(id);
-            db.Remove(room);
-            db.SaveChanges();
-            return Redirect("/Admin/Rooms");
-        }
+    public List<Cinemo.Models.Room> Rooms { get; set; }
+
+    public void OnGet()
+    {
+      Rooms = service.GetAll();
+    }
+
+    public IActionResult OnPostDelete()
+    {
+      service.Delete(id);
+      return Redirect("/Admin/Rooms");
+    }
     }
 }

@@ -18,7 +18,7 @@
   <form class="needs-validation" method="POST" novalidate>
     <div class="form-group row mx-0">
       <label>Name:</label>
-      <input class="form-control" type="text" asp-for="name" placeholder="Enter..." required>
+      <input class="form-control" type="text" asp-for="CreateDto.Name" placeholder="Enter..." required>
 
       <div class="invalid-feedback">
         Please provide a name.
@@ -26,21 +26,21 @@
     </div>
     <div class="form-group row mx-0">
       <label>Column number:</label>
-      <input class="form-control" type="number" value="" placeholder="Enter number..." asp-for="numCol" required>
+      <input class="form-control" type="number" value="" placeholder="Enter number..." asp-for="CreateDto.NumCol" required>
       <div class="invalid-feedback">
         Please provide column number.
       </div>
     </div>
     <div class="form-group row mx-0">
       <label>Row number: </label>
-      <input class="form-control" type="number" value="" placeholder="Enter number..." asp-for="numRow" required>
+      <input class="form-control" type="number" value="" placeholder="Enter number..." asp-for="CreateDto.NumRow" required>
       <div class="invalid-feedback">
         Please provide row number.
       </div>
     </div>
     <div class="form-group row mx-0">
       <label>Formats:</label>
-      <input class="form-control" type="text" asp-for="formats" placeholder="Enter formats or checkbox..." hidden>
+      <input class="form-control" type="text" asp-for="CreateDto.Formats" placeholder="Enter formats or checkbox..." hidden>
 
       @{
         foreach (Cinemo.Models.Room.Format format in Enum.GetValues(typeof(Cinemo.Models.Room.Format))) {
@@ -54,9 +54,9 @@
       }
     </div>
 
-    @if (Model.errMsg != null) {
+    @if (Model.ErrorMessage != null) {
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        @Model.errMsg
+        @Model.ErrorMessage
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

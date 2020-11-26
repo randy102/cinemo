@@ -1,44 +1,33 @@
-using System;
-using System.Linq;
-using Cinemo.Data;
-using Cinemo.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Cinemo.Utils;
-using System.ComponentModel.DataAnnotations;
+using Cinemo.Models;
+using Cinemo.Service;
 
-namespace Cinemo.Pages {
-  public class CreateCategoryModel : PageModel {
-    private ApplicationDbContext db;
-
-    public CreateCategoryModel(ApplicationDbContext db) => this.db = db;
+namespace Cinemo.Pages.Admin.Category
+{
+  public class CreateModel : PageModel
+  {
+    private readonly CategoryService service;
+    public CreateModel(CategoryService service)
+    {
+      this.service = service;
+    }
 
     [BindProperty]
-    public string newName { get; set; }
+    public CategoryCreateDto CreateDto { get; set; }
 
-    public string ErrorMessage { get; set; }
+    public string ErrorMessage {get; set;}
 
     public IActionResult OnPost() {
-      if (!ModelState.IsValid)
-        return Page();
+      var isExist = service.GetDetail(CreateDto.Name);
 
-      newName = FormatString.Trim_MultiSpaces_Title(newName);
-
-      bool isExist = (db.Categories.Where(c => c.Name.Equals(newName))).ToList().Any();
-
-      if (isExist) {
-        ErrorMessage = newName + " existed";
+      if (isExist!=null) {
+        ErrorMessage = CreateDto.Name + " existed";
 
         return Page();
       }
-
-      Category category = new Category();
-
-      category.Name = newName;
-
-      db.Categories.Add(category);
-
-      db.SaveChanges();
+      service.Create(CreateDto);
 
       return Redirect("/Admin/Categories");
     }

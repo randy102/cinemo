@@ -31,13 +31,6 @@ namespace Cinemo {
         .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>();
 
-      services.AddIdentity<User, IdentityRole>()
-        .AddEntityFrameworkStores<ApplicationDbContext>()
-        .AddDefaultTokenProviders();
-
-      services.AddScoped<IUserClaimsPrincipalFactory<User>,
-        AdditionalUserClaimsPrincipalFactory>();
-
       services.AddRazorPages(options => {
         options.Conventions.AuthorizeFolder("/Admin", "OnlyAdmin");
       });
@@ -54,6 +47,15 @@ namespace Cinemo {
 
       services.AddScoped<MovieRepository>();
       services.AddScoped<MovieService>();
+
+      services.AddScoped<RoomRepository>();
+      services.AddScoped<RoomService>();
+
+      services.AddScoped<TicketTypeRepository>();
+      services.AddScoped<TicketTypeService>();
+
+      services.AddScoped<CategoryRepository>();
+      services.AddScoped<CategoryService>();
 
     }
 

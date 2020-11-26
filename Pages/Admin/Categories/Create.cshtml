@@ -1,5 +1,5 @@
 ﻿@page
-@model Cinemo.Pages.CreateCategoryModel
+@model Cinemo.Pages.Admin.Category.CreateModel
 
 @{
   Layout = "_AdminLayout";
@@ -9,7 +9,12 @@
   <script src="~/js/Validation.js"></script>
 }
 
+
 <div class="container">
+  <a href="/Admin/Categories">
+    <i class="fas fa-angle-left mr-1"></i>Back to Categories
+  </a>
+
   <div class="display-4">
     Create Category
   </div>
@@ -20,7 +25,7 @@
     <div class="form-group">
       <label>Name:</label>
 
-      <input required type="text" asp-for="newName" class="form-control">
+      <input required type="text" asp-for="CreateDto.Name" class="form-control">
 
       <div class="invalid-feedback">
         Please provide a name.
@@ -43,8 +48,6 @@
       </button>
     </div>
 
-    <a href="/Admin/Categories">
-      <i class="fas fa-angle-left mr-1"></i>Back to Categories
-    </a>
+
   </form>
 </div>

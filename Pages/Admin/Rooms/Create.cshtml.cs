@@ -4,44 +4,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-
+using Cinemo.Service;
+using Cinemo.Models;
 namespace Cinemo.Pages.Admin.Room
 {
     public class CreateModel : PageModel
     {
-        private Cinemo.Data.ApplicationDbContext db;
-        public CreateModel(Cinemo.Data.ApplicationDbContext db) => this.db = db;
-        [BindProperty]
-        public string name { get; set; }
-        [BindProperty]
-        public int numCol { get; set; }
-        [BindProperty]
-        public int numRow { get; set; }
-        [BindProperty]
-        public string formats { get; set; }
-        public string errMsg { get; set; }
-        public void OnGet(){}
-        public IActionResult OnPost()
+        private readonly RoomService service;
+        public CreateModel(RoomService service)
         {
-            name=Cinemo.Utils.FormatString.Trim_MultiSpaces_Title(name);
-            bool isExist = (db.Rooms.Where(r => r.Name.Equals(name))).ToList().Any();
-            if(!isExist){
-                var room=new Cinemo.Models.Room{
-                    Name=name,
-                    NumCol=numCol,
-                    NumRow=numRow,
-                    Total=numCol*numRow,
-                    Formats=formats
-                };
-                db.Rooms.Add(room);
-                db.SaveChanges();
-                return Redirect("./");
-            }
-            else
-            {
-                errMsg="Exist";
+        this.service = service;
+        }
+        [BindProperty]
+        public RoomCreateDto CreateDto { get; set; }
+
+        public string ErrorMessage {get; set;}
+        public IActionResult OnPost() {
+
+            if (service.GetDetail(CreateDto.Name)!=null) {
+                ErrorMessage = CreateDto.Name + " existed";
+
                 return Page();
             }
+            service.Create(CreateDto);
+
+            return Redirect("/Admin/Rooms");
         }
     }
 }
