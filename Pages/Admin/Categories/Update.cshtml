@@ -1,46 +1,92 @@
 ﻿@page
 @model Cinemo.Pages.Admin.Category.UpdateModel
 
+@{
+  Layout = "_AdminLayout";
+}
+
 @section Scripts{
   <script src="~/js/Validation.js"></script>
 }
 
-<div class="row no-gutters justify-content-center align-self-center m-auto">
-  <div style="width: 400px">
-    <div class="display-4 text-center">
-      Change category
+@*<div class="row no-gutters justify-content-center align-self-center m-auto">
+    <div style="width: 400px">
+      <div class="display-4 text-center">
+        Change category
+      </div>
+
+      <hr class="my-4">
+
+      <form method="POST" class="needs-validation" novalidate>
+        <div class="form-group row mx-0">
+          <label for="new-name" class="col-sm-3 col-form-label mr-sm-1 pl-0">
+            New name:
+          </label>
+          <input asp-for="@Model.Category.Id" value="@Model.OldCategory.Id" hidden>
+          <input value="@Model.OldCategory.Name" id="new-name" required type="text" class="form-control col" asp-for="@Model.Category.Name">
+
+          <div class="invalid-feedback">
+            Category name is required !
+          </div>
+
+        </div>
+        @if (@Model.ErrorMessage != null) {
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius: 10px;">
+            <strong>Error:</strong> @Model.ErrorMessage
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        }
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
+        </div>
+
+        <a href="/Admin/Categories/Index">
+          <i class="fa fa-arrow-left mr-1"></i>Back to Categories
+        </a>
+      </form>
+    </div>
+  </div>*@
+
+
+<div class="container">
+  <a href="/Admin/Categories">
+    <i class="fas fa-angle-left mr-1"></i>Back to Categories
+  </a>
+
+  <div class="display-4">
+    Update Category
+  </div>
+
+  <hr class="my-4">
+
+  <form method="post" class="needs-validation" novalidate>
+    <input asp-for="@Model.Category.Id" value="@Model.OldCategory.Id" hidden>
+
+    <div class="form-group">
+      <label>New name:</label>
+
+      <input required type="text" asp-for="@Model.Category.Name" value="@Model.OldCategory.Name" class="form-control">
+
+      <div class="invalid-feedback">
+        Please provide a name.
+      </div>
     </div>
 
-    <hr class="my-4">
-
-    <form method="POST" class="needs-validation" novalidate>
-      <div class="form-group row mx-0">
-        <label for="new-name" class="col-sm-3 col-form-label mr-sm-1 pl-0">
-          New name:
-        </label>
-        <input asp-for="@Model.Category.Id" value="@Model.OldCategory.Id" hidden>
-        <input value="@Model.OldCategory.Name" id="new-name" required type="text" class="form-control col" asp-for="@Model.Category.Name">
-
-        <div class="invalid-feedback">
-          Category name is required !
-        </div>
-
+    @if (@Model.ErrorMessage != null) {
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error:</strong> @Model.ErrorMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
-      @if (@Model.ErrorMessage != null) {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius: 10px;">
-          <strong>Error:</strong> @Model.ErrorMessage
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-      }
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
-      </div>
+    }
 
-      <a href="/Admin/Categories/Index">
-        <i class="fa fa-arrow-left mr-1"></i>Back to Categories
-      </a>
-    </form>
-  </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">
+        Save
+      </button>
+    </div>
+  </form>
 </div>

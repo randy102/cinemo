@@ -6,12 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Cinemo.Pages.Admin
-{
-    public class IndexModel : PageModel
-    {
-        public void OnGet()
-        {
-        }
+namespace Cinemo.Pages.Admin {
+  public class IndexModel : PageModel {
+    public void OnGet() {
+      RedirectToPage("/Admin/Users");
     }
+  }
 }
