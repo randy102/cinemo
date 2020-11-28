@@ -25,6 +25,7 @@
       Create Room
     </a>
   </div>
+
   <div class="cinemo-datatable">
     <table class="table">
       <thead>
@@ -48,6 +49,7 @@
             <td>@r.NumCol</td>
             <td>@r.NumRow</td>
             <td>@r.Total</td>
+            
             <td>
               <a class="btn btn-round btn-primary btn-sm" href="/Admin/Rooms/Update?id=@r.Id">
                 <i class="fas fa-pen"></i>
@@ -57,7 +59,6 @@
             <td>
               <form id="delete-room" method="POST" asp-page-handler="Delete">
                 <input type="hidden" name="id" value="@r.Id">
-
                 <button type="button" class="btn btn-round btn-danger btn-sm"
                         onclick="handleDelete(this.form)">
                   <i class="fas fa-trash"></i>

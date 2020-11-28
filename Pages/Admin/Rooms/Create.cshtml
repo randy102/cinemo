@@ -8,7 +8,6 @@
 }
 
 <div class="container">
-    
   <a href="/Admin/Rooms">
     <i class="fas fa-angle-left mr-1"></i>Back to Rooms
   </a>
@@ -24,14 +23,17 @@
 
       <div class="form-group col-9 p-0 required">
           <label>Name</label>
-          <input class="form-control" type="text" asp-for="CreateDto.Name" placeholder="Enter a name" required>
-
+          <input class="form-control" 
+                 type="text" 
+                 asp-for="CreateDto.Name" 
+                 placeholder="Enter name" 
+                 required>
       </div>
 
       <div class="form-group required">
           <label for="theater-select">Theater</label>
-
-          <select asp-for="@Model.CreateDto.TheaterId" asp-items="@Model.theaters" required
+          <select asp-for="@Model.CreateDto.TheaterId" required
+                asp-items="@Model.theaters" 
                 id="theater-select"
                 class="selectpicker d-block col-6 p-0"
                 title="Choose theater"
@@ -41,45 +43,46 @@
                 data-live-search-normalize="true"
                 data-live-search-placeholder="Search...">
           </select>
-
       </div>
 
       <div class="form-group required">
           <label>Column number</label>
-          <input class="form-control col-3" type="number" min="0" placeholder="Enter number..." asp-for="CreateDto.NumCol" required>
+          <input asp-for="CreateDto.NumCol" required
+                 type="number" min="0" 
+                 placeholder="Enter number" 
+                 class="form-control col-3">
       </div>
 
       <div class="form-group required">
           <label>Row number</label>
-          <input class="form-control col-3" type="number" min="0" placeholder="Enter number..." asp-for="CreateDto.NumRow" required>
+          <input asp-for="CreateDto.NumRow" required
+                 type="number" min="0" 
+                 placeholder="Enter number" 
+                 class="form-control col-3">
       </div>
 
       <div class="form-group required">
           <label>Format</label>
-
           <br />
-
           @foreach (string name in Enum.GetNames(typeof(Room.Format))) {
-          <div class="custom-control custom-radio custom-control-inline">
-              <input asp-for="CreateDto.Formats" required
-                     type="radio"
-                     value="@name"
-                     id="@name"
-                     class="custom-control-input">
-
-              <label class="custom-control-label"
-                     for="@name">
-                  @name.Substring(1)
-              </label>
-          </div>
-        }
+            <div class="custom-control custom-radio custom-control-inline">
+                <input asp-for="CreateDto.Formats" required
+                       type="radio"
+                       value="@name"
+                       id="@name"
+                       class="custom-control-input">
+                <label class="custom-control-label"
+                       for="@name">
+                       @name.Substring(1)
+                </label>
+            </div>
+          }
       </div>
 
       <div class="form-group">
-          <button class="btn btn-primary" type="submit" name="Submit" id="">
+          <button class="btn btn-primary" type="submit" name="Submit">
               Create Room
           </button>
       </div>
-
   </form>
 </div>
