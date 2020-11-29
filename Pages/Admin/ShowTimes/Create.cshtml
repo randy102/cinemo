@@ -20,6 +20,9 @@
       value = "vietnamese"
     }
   };
+
+  DateTime time = DateTime.Now;
+  string format = "HH:mm - dd/MM/yyyy";
 }
 
 @section Scripts {
@@ -129,6 +132,7 @@
       <label>Time & Date</label>
 
       <input required
+             value="@time.ToString(format)"
              id="datetimepicker"
              class="form-control col-3 bg-white"
              placeholder="Choose time & date..."

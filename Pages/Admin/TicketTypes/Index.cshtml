@@ -39,7 +39,7 @@
         @foreach (var type in Model.TicketTypes) {
           <tr>
             <td>@type.Name</td>
-            <td>@type.Price</td>
+            <td>@type.Price ₫</td>
             <td>
               <a class="btn btn-round btn-primary btn-sm" href="/Admin/TicketTypes/Update?id=@type.Id">
                 <i class="fas fa-pen"></i>

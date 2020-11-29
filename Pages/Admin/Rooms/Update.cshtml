@@ -1,71 +1,44 @@
 ﻿@page
 @model Cinemo.Pages.Admin.Room.UpdateModel
 
+@using Cinemo.Models;
+
 @section Scripts{
   <script src="~/js/Validation.js"></script>
 }
 
 <div class="row no-gutters justify-content-center align-self-center m-auto">
-  <div style="width: 400px">
+  <div style="width: 550px">
+    <a href="/Admin/Rooms">
+      <i class="fa fa-arrow-left mr-1"></i>Back to Rooms
+    </a>
+
     <div class="display-4 text-center">
       Change room
     </div>
 
     <hr class="my-4">
     <form method="POST" class="needs-validation" novalidate>
+      <partial name="Shared/_ErrorAlert" model="@Model.ErrorMessage" />
+
       <input value="@Model.OldRoom.Id" asp-for="@Model.UpdateDto.Id" hidden> 
       <div class="form-group row mx-0">
         <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
-          New name:
+          New name:  
         </label>
-        <input class="form-control col" value="@Model.OldRoom.Name" asp-for="@Model.UpdateDto.Name" required>
-        <div class="invalid-feedback">
-          Room name is required !
+        <input class="form-control col" value="@Model.OldRoom.Name" asp-for="@Model.UpdateDto.Name" placeholder="Enter new name" required>
+        <div class="invalid-feedback text-center">
+          Room name is required.
         </div>
       </div>
-<div class="form-group">
-      <label class="h5" for="theater-select">Theater</label>
-
-      <select asp-for="@Model.UpdateDto.TheaterId" asp-items="@Model.theaters" class="custom-select" id="theater-select" required>
-        <option selected="selected" value="">Please select</option>
-      </select>
-
-      <div class="invalid-feedback">
-        Please select a theater.
-      </div>
-    </div>
-      <div class="form-group row mx-0">
-        <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
-          Format:
-        </label>
-        <select asp-for="@Model.UpdateDto.Formats" class="col" style="border: 1px solid #ced4da; border-radius: 0.25rem; outline: none;">
-              <option>@Model.OldRoom.Formats</option>
-            @{
-              switch(@Model.OldRoom.Formats){
-                case "_2D":
-                    <option>_3D</option>
-                    <option>_IMAX</option>
-                    break;
-                case "_3D":
-                    <option>_2D</option>
-                    <option>_IMAX</option>
-                    break;
-                case "_IMAX":
-                    <option>_2D</option>
-                    <option>_3D</option>
-                    break;
-              } 
-            }
-        </select>
-      </div>
-
+  
       <div class="form-group row mx-0">
         <label for="new-name" class="col-sm-3 col-form-label mr-sm-1 pl-0">
           Column number:
         </label>
-        <input class="form-control col" value="@Model.OldRoom.NumCol" asp-for="@Model.UpdateDto.NumCol" required>
-        <div class="invalid-feedback">
-          Column number is required !
+        <input class="form-control col" min="0" value="@Model.OldRoom.NumCol" asp-for="@Model.UpdateDto.NumCol" placeholder="Enter number"required>
+        <div class="invalid-feedback text-center">
+            Column number is required.
         </div>
       </div>
 
@@ -73,27 +46,53 @@
         <label for="new-name" class="col-sm-3 col-form-label mr-sm-1 pl-0">
           Row number:
         </label>
-        <input class="form-control col" value="@Model.OldRoom.NumRow" asp-for="@Model.UpdateDto.NumRow" required>
-        <div class="invalid-feedback">
-          Row number is required !
+        <input class="form-control col" min="0" value="@Model.OldRoom.NumRow" asp-for="@Model.UpdateDto.NumRow" placeholder="Enter number"required>
+        <br>
+        <div class="invalid-feedback text-center">
+          Row number is required.
         </div>
       </div>
 
-      @if (@Model.ErrorMessage != null) {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius: 10px;">
-          <strong>Error:</strong> @Model.ErrorMessage
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-      }
+      <div class="form-group row mx-0">
+          <label class="col-3 pl-0">
+            Format:
+          </label>
+          @foreach (string name in Enum.GetNames(typeof(Room.Format))) {
+            if(@Model.OldRoom.Formats.Equals(name)){
+              <div class="custom-control custom-radio custom-control-inline">
+                  <input asp-for="UpdateDto.Formats" required
+                        type="radio"
+                        value="@name"
+                        id="@name"
+                        class="custom-control-input" 
+                        checked>
+
+                  <label class="custom-control-label"
+                        for="@name">
+                      @name.Substring(1)
+                  </label>
+              </div>
+            }else{
+              <div class="custom-control custom-radio custom-control-inline">
+                <input asp-for="UpdateDto.Formats" required
+                      type="radio"
+                      value="@name"
+                      id="@name"
+                      class="custom-control-input">
+
+                <label class="custom-control-label"
+                      for="@name">
+                    @name.Substring(1)
+                </label>
+              </div>
+            }
+          }
+      </div>
+
       <div class="form-group">
         <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
       </div>
 
-      <a href="/Admin/Rooms">
-        <i class="fa fa-arrow-left mr-1"></i>Back to Rooms
-      </a>
     </form>
   </div>
 </div>
