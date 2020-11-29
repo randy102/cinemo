@@ -1,5 +1,6 @@
 ﻿@page
 @model Cinemo.Pages.Movie.IndexModel
+@inject Cinemo.Service.FileService FileService
 @{
   Layout = "_AdminLayout";
 }
@@ -40,6 +41,9 @@
       <thead>
         <tr>
           <th>
+            <div>Image</div>
+          </th>
+          <th>
             <div>Title</div>
           </th>
           <th>
@@ -62,6 +66,7 @@
       <tbody>
         @foreach (var movie in Model.Movies) {
           <tr>
+            <td><img src="@FileService.GetPath(movie.Img)" width="100" /></td>
             <td>@movie.Title</td>
             <td>@movie.Category.Name</td>
             <td>@movie.CreatedAt.ToShortDateString()</td>

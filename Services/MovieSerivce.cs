@@ -10,9 +10,11 @@ namespace Cinemo.Service
   {
     private MovieRepository repository;
     private UserManager<User> manager;
-    public MovieService(MovieRepository MovieRepository)
+    private FileService fileService;
+    public MovieService(MovieRepository MovieRepository, FileService fileService)
     {
       this.repository = MovieRepository;
+      this.fileService = fileService;
     }
 
     public List<Movie> GetAll()
@@ -26,17 +28,22 @@ namespace Cinemo.Service
     }
     public Movie Delete(int id)
     {
+      var existed = GetDetail(id);
+      if(existed.Img != null)
+        fileService.Remove(existed.Img);
       return repository.Delete(id);
     }
 
     public Movie Create(MovieCreateDto dto, User author)
     {
+      string imageName = fileService.Save(dto.Upload);
       var entity = new Movie
       {
         Title = dto.Title,
         Content = dto.Content,
-        Tags =  dto.Tags != null ? string.Join(',', dto.Tags) : null,
+        Tags = dto.Tags != null ? string.Join(',', dto.Tags) : null,
         AuthorId = author.Id,
+        Img = imageName,
         CategoryId = dto.CategoryId,
         CreatedAt = System.DateTime.Now
       };
@@ -51,6 +58,15 @@ namespace Cinemo.Service
       entity.Content = dto.Content;
       entity.Tags = dto.Tags != null ? string.Join(',', dto.Tags) : null;
       entity.CategoryId = dto.CategoryId;
+
+      if (dto.Upload != null)
+      {
+        if (entity.Img != null)
+          fileService.Remove(entity.Img);
+
+        entity.Img = fileService.Save(dto.Upload);
+      }
+
       return repository.Update(entity);
     }
   }

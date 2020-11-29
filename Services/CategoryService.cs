@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Cinemo.Utils;
 using System.Linq;
 using System;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace Cinemo.Service
 {
   public class CategoryService{
@@ -14,6 +16,14 @@ namespace Cinemo.Service
 
     public List<Category> GetAll() {
       return repository.FindAll();
+    }
+
+    public List<SelectListItem> GetSelectListItems(){
+      return GetAll().Select(c => new SelectListItem
+      {
+        Value = c.Id.ToString(),
+        Text = c.Name
+      }).ToList();
     }
 
     public Category GetDetail(int id) {

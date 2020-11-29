@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Cinemo.Service;
-using Cinemo.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 namespace Cinemo.Pages.Admin.Room
 {
