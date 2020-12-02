@@ -21,19 +21,18 @@
           New name
         </label>
         <div class="input-group col">
-          <select class="form-control col-12" value='@Model.OldTicketType.Name' asp-for="TicketType.Name">
+          <select class="form-control" value='@Model.OldTicketType.Name' asp-for="TicketType.Name">
             @{
               foreach (Cinemo.Models.TicketType.Type type in Enum.GetValues(typeof(Cinemo.Models.TicketType.Type))) {
                 <option asp-value="type">@type</option>
               }
-
             }
           </select>
         </div>
       </div>
 
       <div class="form-group row mx-0">
-        <label class="col-sm-3 mr-sm-0 pl-3">Price</label>
+        <label class="col-sm-3 col-form-label mr-sm-0 pl-3">Price</label>
         <div class="input-group col-6">
           <input asp-for="TicketType.Price"
                 class="form-control price-input"

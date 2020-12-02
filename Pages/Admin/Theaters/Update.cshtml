@@ -23,11 +23,11 @@
         </label>
         <input value="@Model.OldTheater.Id" asp-for="@Model.UpdateDto.Id" hidden>
         <input value="@Model.OldTheater.Name" 
-              id="new-name" required 
-              type="text" 
-              class="form-control col" 
-              asp-for="@Model.UpdateDto.Name"
-              placeholder="Enter a name">
+               id="new-name" required 
+               type="text" 
+               class="form-control col" 
+               asp-for="@Model.UpdateDto.Name"
+               placeholder="Enter name">
         <div class="invalid-feedback">
           Please provide name.
         </div>
@@ -42,7 +42,7 @@
                required type="text" 
                class="form-control col" 
                asp-for="@Model.UpdateDto.Address" 
-               placeholder="Enter an address">
+               placeholder="Enter address">
         <div class="invalid-feedback">
             Please provide address.
         </div>
