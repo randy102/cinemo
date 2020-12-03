@@ -2,3 +2,6 @@ obj
 .vscode
 bin
 core
+
+*.suo
+.dtbcache.v2
