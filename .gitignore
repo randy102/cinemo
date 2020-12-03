@@ -5,3 +5,5 @@ core
 
 *.suo
 .dtbcache.v2
+core
+app.db

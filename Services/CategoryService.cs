@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Cinemo.Utils;
 using System.Linq;
 using System;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace Cinemo.Service
 {
   public class CategoryService{
@@ -14,6 +16,14 @@ namespace Cinemo.Service
 
     public List<Category> GetAll() {
       return repository.FindAll();
+    }
+
+    public List<SelectListItem> GetSelectListItems(){
+      return GetAll().Select(c => new SelectListItem
+      {
+        Value = c.Id.ToString(),
+        Text = c.Name
+      }).ToList();
     }
 
     public Category GetDetail(int id) {
@@ -30,6 +40,10 @@ namespace Cinemo.Service
     }
 
     public Category Create(CategoryCreateDto dto) {
+      var isExist = GetDetail(dto.Name);
+      if (isExist !=null) {
+        throw new Exception(dto.Name+" existed");
+      }
       var entity = new Category {
         Name = FormatString.Trim_MultiSpaces_Title(dto.Name)
       };
@@ -38,9 +52,9 @@ namespace Cinemo.Service
     }
 
     public Category Update(CategoryUpdateDto dto){
-      var isExist = repository.FindWhere(c => c.Name == dto.Name);
-      if (isExist !=null && isExist.Count > 0) {
-        throw new Exception("Existed");
+      var isExist = GetDetail(dto.Name);
+      if (isExist !=null && dto.Id!=isExist.Id) {
+        throw new Exception(dto.Name+" existed");
       }
       
       var entity = new Category {

@@ -22,7 +22,7 @@ namespace Cinemo.Pages.Admin.Category {
     public int id { get; set; }
 
     [BindProperty]
-    public CategoryUpdateDto Category { get; set; }
+    public CategoryUpdateDto UpdateDto { get; set; }
     public string ErrorMessage { get; set; }
 
     public IActionResult OnGet() {
@@ -38,7 +38,7 @@ namespace Cinemo.Pages.Admin.Category {
     public IActionResult OnPost()
     {
       try{
-        service.Update(Category);
+        service.Update(UpdateDto);
         return Redirect("./");
       } catch(Exception error){
         ErrorMessage = error.Message;

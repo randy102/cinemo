@@ -4,6 +4,7 @@ using Cinemo.Models;
 using System.Collections.Generic;
 using Cinemo.Utils;
 using System.Linq;
+using System;
 namespace Cinemo.Service
 {
     public class RoomService
@@ -23,10 +24,9 @@ namespace Cinemo.Service
         {
             return repository.FindById(id);
         }
-
-        public Room GetDetail(string name){
+        public Room GetDetail(int theaterId,string name) {
             name = FormatString.Trim_MultiSpaces_Title(name);
-            return repository.FindAll().Where(r => r.Name.Equals(name)).FirstOrDefault();
+            return repository.FindAll().Where(c => c.TheaterId==theaterId&&c.Name.Equals(name) ).FirstOrDefault();
         }
 
         public Room Delete(int id)
@@ -36,8 +36,13 @@ namespace Cinemo.Service
 
         public Room Create(RoomCreateDto dto)
         {
+            var isExist = GetDetail(dto.TheaterId,dto.Name);
+            if (isExist !=null &&dto.TheaterId==isExist.TheaterId) {
+                throw new Exception(dto.Name+" existed");
+            }
             var entity = new Room
             {
+                TheaterId=dto.TheaterId,
                 Name = FormatString.Trim_MultiSpaces_Title(dto.Name),
                 NumCol= dto.NumCol,
                 NumRow= dto.NumRow,
@@ -50,9 +55,14 @@ namespace Cinemo.Service
 
         public Room Update(RoomUpdateDto dto)
         {
+            var isExist = GetDetail(dto.TheaterId,dto.Name);
+            if (isExist !=null && dto.Id!=isExist.Id &&dto.TheaterId==isExist.TheaterId) {
+                throw new Exception(dto.Name+" existed");
+            }
             var entity = new Room
             {
                 Id = dto.Id,
+                TheaterId=dto.TheaterId,
                 Name = FormatString.Trim_MultiSpaces_Title(dto.Name),
                 NumCol= dto.NumCol,
                 NumRow= dto.NumRow,

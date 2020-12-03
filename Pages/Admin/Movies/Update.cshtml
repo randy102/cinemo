@@ -1,5 +1,6 @@
 ﻿@page
 @model Cinemo.Pages.Movie.UpdateModel
+@inject Cinemo.Service.FileService FileService
 @{
   Layout = "_AdminLayout";
 }
@@ -22,7 +23,7 @@
 
   <hr class="my-4">
 
-  <form method="post" class="needs-validation" novalidate>
+  <form method="post" class="needs-validation" novalidate enctype="multipart/form-data">
     <input value="@Model.OldMovie.Id" asp-for="@Model.UpdateDto.Id"  hidden>
 
     <div class="form-group">
@@ -48,11 +49,29 @@
     </div>
 
     <div class="form-group">
+      <label class="h5" for="runtime-select">Runtime</label> <br>
+
+      <input asp-for="@Model.UpdateDto.Runtime" type="number" required></input> minutes
+    </div>
+
+    <div class="form-group">
       <label class="h5" for="content">Content</label>
 
       <textarea asp-for="@Model.UpdateDto.Content" class="ck-content" id="content" cols="30" rows="10"></textarea>
     </div>
 
+    <div class="form-group">
+      <label class="h5">Image</label>
+      <input type="file" asp-for="@Model.UpdateDto.Upload" />
+      
+    </div>
+    
+    @if(Model.OldMovie.Img != null){
+      <div class="form-group">
+        <img src="@FileService.GetPath(Model.OldMovie.Img)" width="300" />
+      </div>
+    }
+    
     <div class="form-group">
       <label class="h5">Tags</label>
 

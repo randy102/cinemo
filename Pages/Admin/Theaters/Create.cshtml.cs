@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Cinemo.Models;
 using Cinemo.Service;
+using System;
 
 namespace Cinemo.Pages.Admin.Theater
 {
@@ -25,8 +26,13 @@ namespace Cinemo.Pages.Admin.Theater
 
     public IActionResult OnPost()
     {
+      try{
         service.Create(CreateDto);
         return Redirect("./");
+      } catch(Exception error){
+        ErrorMessage = error.Message;
+        return Page();
+      }
     }
   }
 }

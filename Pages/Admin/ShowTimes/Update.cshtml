@@ -1,103 +1,146 @@
 ﻿@page
 @model Cinemo.Pages.Admin.ShowTime.UpdateModel
 
-@section Scripts{
-  <script src="~/js/Validation.js"></script>
+@using Cinemo.Models;
+
+@{
+  Layout = "_AdminLayout";
+
+  var types = new[] {
+    new {
+      label = "Subtitles",
+      value = "subtitles"
+    },
+    new {
+      label = "Dubbed",
+      value = "dubbed"
+    },
+    new {
+      label = "Vietnamese",
+      value = "vietnamese"
+    }
+  };
+
+  DateTime time = DateTime.Now;
+  string format = "HH:mm - dd/MM/yyyy";
 }
 
-<div class="row no-gutters justify-content-center align-self-center m-auto">
-  <div style="width: 600px">
-    <div class="display-4 text-center">
-      Change show time
+@section Scripts {
+  <script src="~/js/Validation.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#datetimepicker').flatpickr({
+        enableTime: true,
+        time_24hr: true,
+        dateFormat: "H:i - d/m/Y",
+        minDate: "today",
+        locale: {
+          firstDayOfWeek: 1
+        }
+      });
+    })
+
+  </script>
+}
+
+<div class="container">
+  <a href="/Admin/ShowTimes">
+    <i class="fas fa-angle-left mr-1"></i>Back to Show Times
+  </a>
+
+  <div class="display-4">
+    Change Show Time
+  </div>
+
+  <hr class="my-4">
+
+  <form class="needs-validation" method="POST">
+    <partial name="Shared/_ErrorAlert" model="@Model.ErrorMessage" />
+    <input hidden asp-for="@Model.UpdateDto.Id" value="@Model.OldShowTime.Id">
+    <div class="form-group required">
+          <label for="room-select">Room</label> @Model.OldShowTime.Room.Theater.Name / @Model.OldShowTime.Room.Name (@Model.OldShowTime.Room.Formats)
+          <select asp-for="@Model.UpdateDto.RoomId" required
+                asp-items="@Model.rooms" 
+                id="room-select"
+                class="selectpicker d-block col-6 p-0"
+                title="Choose room"
+                data-style="custom-select"
+                data-size="5"
+                data-live-search="true"
+                data-live-search-normalize="true"
+                data-live-search-placeholder="Search...">
+          </select>
     </div>
 
-    <hr class="my-4">
+    <div class="form-group required">
+          <label for="movie-select">Movie</label> @Model.OldShowTime.Movie.Title
+          <select asp-for="@Model.UpdateDto.MovieId" required
+                value="@Model.OldShowTime.Movie.Title"
+                asp-items="@Model.movies" 
+                id="movie-select"
+                class="selectpicker d-block col-6 p-0"
+                title="Choose movie"
+                data-style="custom-select"
+                data-size="5"
+                data-live-search="true"
+                data-live-search-normalize="true"
+                data-live-search-placeholder="Search...">
+          </select>
+    </div>
 
-    <form method="POST" class="needs-validation" novalidate>
-      <div class="form-group row mx-0">
-        <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
-          Theater:
-        </label>
-        <select class="col" style="border: 1px solid #ced4da; border-radius: 0.25rem; outline: none;" id="exampleFormControlSelect1">
-          @*@{
-            foreach(var theater in Theaters){
-              <option>@theater</option>
-            }
-          }*@
-        </select>
-      </div>
+    <div class="form-group">
+      <label>Extra price</label>@Model.OldShowTime.ExtraPrice $
 
-      <div class="form-group row mx-0">
-        <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
-          Movie:
-        </label>
-        <select class="col" style="border: 1px solid #ced4da; border-radius: 0.25rem; outline: none;" id="exampleFormControlSelect1">
-          @*@{
-            foreach(var movie in Movies){
-              <option>@movie</option>
-            }
-          }*@
-        </select>
-      </div>
+      <div class="input-group">
+        <input class="form-control col-3 price-input"
+               placeholder="0"
+               value="0"
+               type="number"
+               asp-for="UpdateDto.ExtraPrice">
 
-      <div class="form-group row mx-0">
-        <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
-          Extra price:
-        </label>
-        <input type="number" class="form-control col" @*asp-for=""*@ required>
-        <div class="invalid-feedback">
-          Extra price is required !
+        <div class="input-group-append">
+          <span class="input-group-text">₫</span>
         </div>
       </div>
+    </div>
 
-      <div class="form-group row mx-0">
-        <label class="col-sm-3 mr-sm-1 col-form-label pl-0" for="exampleFormControlSelect1">
-          Type:
-        </label>
-        <select class="col" style="border: 1px solid #ced4da; border-radius: 0.25rem; outline: none;" id="exampleFormControlSelect1">
-          <option>Subtitle</option>
-          <option>Dubbed</option>
-          <option>Viet Nam</option>
-        </select>
-      </div>
+    <div class="form-group mx-0">
+      <label>Show Type</label> @Model.OldShowTime.Type<br>
+      <select asp-for="UpdateDto.Type" class="form-control col-7">
+        @{
+          foreach (var type in Enum.GetValues(typeof(Cinemo.Models.ShowTime.ShowType))) {
+            <option asp-value="type">@type</option>
+          }
+        }
+      </select>
+    </div>
+    <div class="form-group required">
+      <label>Time & Date</label>@Model.OldShowTime.Time
 
-      <div class="form-group row mx-0">
-        <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
-          Time:
-        </label>
-        <input class="form-control col" type="time" @*asp-for=""*@ required>
-        <div class="invalid-feedback">
-          Time is required !
-        </div>
-      </div>
+      <input required
+             value="@time.ToString(format)"
+             id="datetimepicker"
+             class="form-control col-3 bg-white"
+             placeholder="Choose time & date..."
+             type="text"
+             asp-for="UpdateDto.Time">
+    </div>
 
-      <div class="form-group row mx-0">
-        <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
-          Formats:
-        </label>
-        <select class="col" style="border: 1px solid #ced4da; border-radius: 0.25rem; outline: none;" id="exampleFormControlSelect1">
-          <option>_2D</option>
-          <option>_3D</option>
-          <option>_IMAX</option>
-        </select>
-      </div>
+    <div class="form-group required">
+      <label>Format</label>@Model.OldShowTime.Format
 
-      @*@if (@Model.errMsg != null)
-        {
-            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius: 10px;">
-                <strong>Error:</strong> @Model.errMsg
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        }*@
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
-      </div>
-
-      <a href="/Admin/ShowTimes">
-        <i class="fa fa-arrow-left mr-1"></i>Back to Show Times
-      </a>
-    </form>
-  </div>
+      <br />
+<select asp-for="UpdateDto.Format" class="form-control col-7">
+      @foreach (string format in Enum.GetNames(typeof(ShowTime.FormatEnum))) {
+        <option value="@format">@format</option>
+      }
+    </select>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit" name="Submit" id="">
+        Change show time
+      </button>
+    </div>
+  </form>
 </div>

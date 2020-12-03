@@ -1,60 +1,53 @@
 ﻿@page
 @model Cinemo.Pages.Admin.TicketType.UpdateModel
 
-@section Scripts{
-  <script src="~/js/Validation.js"></script>
-}
-
 <div class="row no-gutters justify-content-center align-self-center m-auto">
   <div style="width: 500px">
+    <a href="/Admin/TicketTypes/Index">
+      <i class="fa fa-arrow-left mr-1"></i>Back to Ticket Types
+    </a>
+
     <div class="display-4 text-center">
       Change ticket type
     </div>
 
     <hr class="my-4">
 
-    <form method="POST" class="needs-validation" novalidate>
+    <form method="POST" class="needs-validation">
       <input value="@Model.OldTicketType.Id" asp-for="@Model.TicketType.Id"  hidden>
+
       <div class="form-group row mx-0">
-        <label for="new-name" class="col-sm-3 col-form-label mr-sm-1 pl-0">
-          New name:
+        <label class="col-sm-3 col-form-label mr-sm-0 pl-3">
+          New name
         </label>
-        <select class="col" style="border: 1px solid #ced4da; border-radius: 0.25rem; outline: none;" value='@Model.OldTicketType.Name' asp-for="TicketType.Name">
-          @{
-            foreach (Cinemo.Models.TicketType.Type type in Enum.GetValues(typeof(Cinemo.Models.TicketType.Type))) {
-              <option asp-value="type">@type</option>
+        <div class="input-group col">
+          <select class="form-control" value='@Model.OldTicketType.Name' asp-for="TicketType.Name">
+            @{
+              foreach (Cinemo.Models.TicketType.Type type in Enum.GetValues(typeof(Cinemo.Models.TicketType.Type))) {
+                <option asp-value="type">@type</option>
+              }
             }
-
-          }
-        </select>
+          </select>
+        </div>
       </div>
 
       <div class="form-group row mx-0">
-        <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
-          Price:
-        </label>
-        <input class="form-control col" type="number" value='@Model.OldTicketType.Price' step="0.1" asp-for="TicketType.Price">
-        <div class="invalid-feedback">
-          Price is required !
+        <label class="col-sm-3 col-form-label mr-sm-0 pl-3">Price</label>
+        <div class="input-group col-6">
+          <input asp-for="TicketType.Price"
+                class="form-control price-input"
+                placeholder="0"
+                value="@Model.OldTicketType.Price"
+                type="text">
+          <div class="input-group-append">
+            <span class="input-group-text">₫</span>
+          </div>
         </div>
       </div>
-
-      @* @if (@Model.errMsg != null) {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius: 10px;">
-          <strong>Error:</strong> @Model.e
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-      } *@
 
       <div class="form-group">
         <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
       </div>
-
-      <a href="/Admin/TicketTypes/Index">
-        <i class="fa fa-arrow-left mr-1"></i>Back to Ticket Types
-      </a>
     </form>
   </div>
 </div>

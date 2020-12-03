@@ -20,6 +20,9 @@
       value = "vietnamese"
     }
   };
+
+  DateTime time = DateTime.Now;
+  string format = "HH:mm - dd/MM/yyyy";
 }
 
 @section Scripts {
@@ -36,7 +39,9 @@
           firstDayOfWeek: 1
         }
       });
+      @* alert(document.getElementById("datetimepicker").value); *@
     })
+    
 
   </script>
 }
@@ -56,37 +61,33 @@
     <partial name="Shared/_ErrorAlert" model="@Model.ErrorMessage" />
 
     <div class="form-group required">
-      <label>Theater</label>
-
-      <select required
-              class="selectpicker d-block col-6 p-0"
-              title="Choose theater"
-              data-style="custom-select"
-              data-size="5"
-              data-live-search="true"
-              data-live-search-normalize="true"
-              data-live-search-placeholder="Search...">
-        <option value="theater-1">Cinemo 3 Tháng 2</option>
-        <option value="theater-2">Cinemo Cách Mạng Tháng 8</option>
-        <option value="theater-3">Cinemo Thành Thái</option>
-      </select>
+          <label for="room-select">Room</label>
+          <select asp-for="@Model.CreateDto.RoomId" required
+                asp-items="@Model.rooms" 
+                id="room-select"
+                class="selectpicker d-block col-6 p-0"
+                title="Choose room"
+                data-style="custom-select"
+                data-size="5"
+                data-live-search="true"
+                data-live-search-normalize="true"
+                data-live-search-placeholder="Search...">
+          </select>
     </div>
 
     <div class="form-group required">
-      <label>Movie</label>
-
-      <select required
-              class="selectpicker d-block col-6 p-0"
-              title="Choose movie"
-              data-style="custom-select"
-              data-size="5"
-              data-live-search="true"
-              data-live-search-normalize="true"
-              data-live-search-placeholder="Search...">
-        <option value="movie-1">Movie 1</option>
-        <option value="movie-2">Movie 2</option>
-        <option value="movie-3">Movie 3</option>
-      </select>
+          <label for="movie-select">Movie</label>
+          <select asp-for="@Model.CreateDto.MovieId" required
+                asp-items="@Model.movies" 
+                id="movie-select"
+                class="selectpicker d-block col-6 p-0"
+                title="Choose movie"
+                data-style="custom-select"
+                data-size="5"
+                data-live-search="true"
+                data-live-search-normalize="true"
+                data-live-search-placeholder="Search...">
+          </select>
     </div>
 
     <div class="form-group">
@@ -96,7 +97,8 @@
         <input class="form-control col-3 price-input"
                placeholder="0"
                value="0"
-               type="text">
+               type="number"
+               asp-for="CreateDto.ExtraPrice">
 
         <div class="input-group-append">
           <span class="input-group-text">₫</span>
@@ -104,26 +106,18 @@
       </div>
     </div>
 
-    <div class="form-group required">
-      <label>Type</label>
-
-      <br />
-
-      @foreach (var type in types) {
-        var id = Guid.NewGuid().ToString("N");
-
-        <div class="custom-control custom-radio custom-control-inline">
-          <input required
-                 type="radio"
-                 value="@type.value"
-                 id="@id"
-                 class="custom-control-input"
-                 name="type">
-
-          <label class="custom-control-label" for="@id">@type.label</label>
-        </div>
-      }
+    <div class="form-group mx-0">
+      <label>Show Type</label><br>
+      <select asp-for="CreateDto.Type" class="form-control col-7">
+        @{
+          foreach (var type in Enum.GetValues(typeof(Cinemo.Models.ShowTime.ShowType))) {
+            <option asp-value="type">@type</option>
+          }
+        }
+      </select>
     </div>
+
+  
 
     <div class="form-group required">
       <label>Time & Date</label>
@@ -132,35 +126,25 @@
              id="datetimepicker"
              class="form-control col-3 bg-white"
              placeholder="Choose time & date..."
-             type="text">
+             type="text"
+             asp-for="CreateDto.Time">
     </div>
 
     <div class="form-group required">
       <label>Format</label>
 
       <br />
-
-      @foreach (string name in Enum.GetNames(typeof(Room.Format))) {
-        <div class="custom-control custom-radio custom-control-inline">
-          <input required
-                 type="radio"
-                 value="@name"
-                 id="@name"
-                 class="custom-control-input"
-                 name="format">
-
-          <label class="custom-control-label"
-                 for="@name">
-            @name.Substring(1)
-          </label>
-        </div>
+<select asp-for="CreateDto.Format" class="form-control col-7">
+      @foreach (string format in Enum.GetNames(typeof(ShowTime.FormatEnum))) {
+       <option value="@format">@format</option>
       }
+    </select>
     </div>
-
-    <div class="form-group">
+        <div class="form-group">
       <button class="btn btn-primary" type="submit" name="Submit" id="">
         Create show time
       </button>
     </div>
   </form>
 </div>
+

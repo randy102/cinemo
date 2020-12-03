@@ -62,12 +62,12 @@
   <hr class="my-4">
 
   <form method="post" class="needs-validation" novalidate>
-    <input asp-for="@Model.Category.Id" value="@Model.OldCategory.Id" hidden>
+    <input asp-for="@Model.UpdateDto.Id" value="@Model.OldCategory.Id" hidden>
 
     <div class="form-group">
       <label>New name:</label>
 
-      <input required type="text" asp-for="@Model.Category.Name" value="@Model.OldCategory.Name" class="form-control">
+      <input required type="text" asp-for="@Model.UpdateDto.Name" value="@Model.OldCategory.Name" class="form-control">
 
       <div class="invalid-feedback">
         Please provide a name.

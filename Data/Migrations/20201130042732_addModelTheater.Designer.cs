@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinemo.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201118090253_Edit3")]
-    partial class Edit3
+    [Migration("20201130042732_addModelTheater")]
+    partial class addModelTheater
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,12 +86,34 @@ namespace Cinemo.Data.Migrations
                     b.Property<int>("NumRow")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("TheaterId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Total")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TheaterId");
+
                     b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("Cinemo.Models.Theater", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Theaters");
                 });
 
             modelBuilder.Entity("Cinemo.Models.TicketType", b =>
@@ -129,6 +151,9 @@ namespace Cinemo.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
@@ -324,6 +349,17 @@ namespace Cinemo.Data.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("Cinemo.Models.Room", b =>
+                {
+                    b.HasOne("Cinemo.Models.Theater", "Theater")
+                        .WithMany("Rooms")
+                        .HasForeignKey("TheaterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Theater");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -378,6 +414,11 @@ namespace Cinemo.Data.Migrations
             modelBuilder.Entity("Cinemo.Models.Category", b =>
                 {
                     b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("Cinemo.Models.Theater", b =>
+                {
+                    b.Navigation("Rooms");
                 });
 #pragma warning restore 612, 618
         }

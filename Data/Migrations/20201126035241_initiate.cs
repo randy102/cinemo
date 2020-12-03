@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Cinemo.Data.Migrations
 {
-    public partial class addRoom : Migration
+    public partial class initiate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,6 +26,7 @@ namespace Cinemo.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
+                    FullName = table.Column<string>(type: "TEXT", nullable: true),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -60,20 +61,31 @@ namespace Cinemo.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Rooms",
+                name: "Theaters",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
-                    NumCol = table.Column<int>(type: "INTEGER", nullable: false),
-                    NumRow = table.Column<int>(type: "INTEGER", nullable: false),
-                    Total = table.Column<int>(type: "INTEGER", nullable: false),
-                    Formats = table.Column<string>(type: "TEXT", nullable: true)
+                    Address = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rooms", x => x.Id);
+                    table.PrimaryKey("PK_Theaters", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TicketTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<int>(type: "INTEGER", nullable: false),
+                    Price = table.Column<float>(type: "REAL", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TicketTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,6 +225,30 @@ namespace Cinemo.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Rooms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    TheaterId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    NumCol = table.Column<int>(type: "INTEGER", nullable: false),
+                    NumRow = table.Column<int>(type: "INTEGER", nullable: false),
+                    Total = table.Column<int>(type: "INTEGER", nullable: false),
+                    Formats = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rooms", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rooms_Theaters_TheaterId",
+                        column: x => x.TheaterId,
+                        principalTable: "Theaters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -259,6 +295,11 @@ namespace Cinemo.Data.Migrations
                 name: "IX_Movies_CategoryId",
                 table: "Movies",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rooms_TheaterId",
+                table: "Rooms",
+                column: "TheaterId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -285,6 +326,9 @@ namespace Cinemo.Data.Migrations
                 name: "Rooms");
 
             migrationBuilder.DropTable(
+                name: "TicketTypes");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -292,6 +336,9 @@ namespace Cinemo.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Theaters");
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Cinemo.Data.Migrations
 {
-    public partial class Edit2 : Migration
+    public partial class editShowTime : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
