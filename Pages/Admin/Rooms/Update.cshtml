@@ -87,8 +87,17 @@
               </div>
             }
           }
+          @* @foreach (var format in Enum.GetNames(typeof(Room.Format)))
+          {
+            if(Enum.GetNames(typeof(Room.Format)).Contains(format)){
+              <input type="checkbox" value="@format" checked>@format <br>
+            }
+            else{
+              <input type="checkbox" value="@format" >@format <br>
+            }
+          } *@
       </div>
-
+      <input hidden asp-for="@Model.UpdateDto.TheaterId" value="@Model.OldRoom.TheaterId">
       <div class="form-group">
         <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
       </div>

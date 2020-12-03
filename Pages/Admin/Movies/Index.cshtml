@@ -50,6 +50,9 @@
             <div>Category</div>
           </th>
           <th>
+            <div>Runtime</div>
+          </th>
+          <th>
             <div>CreatedAt</div>
           </th>
           <th>
@@ -69,6 +72,7 @@
             <td><img src="@FileService.GetPath(movie.Img)" width="100" /></td>
             <td>@movie.Title</td>
             <td>@movie.Category.Name</td>
+            <td>@movie.Runtime minutes</td>
             <td>@movie.CreatedAt.ToShortDateString()</td>
             <td>@movie.Author.UserName</td>
             <td>

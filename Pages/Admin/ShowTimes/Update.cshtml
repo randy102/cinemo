@@ -4,6 +4,8 @@
 @using Cinemo.Models;
 
 @{
+  Layout = "_AdminLayout";
+
   var types = new[] {
     new {
       label = "Subtitles",
@@ -24,6 +26,8 @@
 }
 
 @section Scripts {
+  <script src="~/js/Validation.js"></script>
+
   <script>
     $(document).ready(function () {
       $('#datetimepicker').flatpickr({
@@ -36,130 +40,107 @@
         }
       });
     })
+
   </script>
 }
 
-<div class="row no-gutters justify-content-center align-self-center m-auto">
-  <div style="width: 650px">
-    <a href="/Admin/ShowTimes">
-      <i class="fa fa-arrow-left mr-1"></i>Back to Show Times
-    </a>
+<div class="container">
+  <a href="/Admin/ShowTimes">
+    <i class="fas fa-angle-left mr-1"></i>Back to Show Times
+  </a>
 
-    <div class="display-4 text-center">
-      Change show time
-    </div>
-
-    <hr class="my-4">
-
-    <form method="POST" class="needs-validation">
-      @*<partial name="Shared/_ErrorAlert" model="@Model.ErrorMessage" />*@
-
-      <div class="form-group row mx-0">
-        <label class="col-sm-2 col-form-label mr-sm-1 pl-0">Theater</label>
-        <div class="input-group col">
-          <select required
-                  class="selectpicker d-block col p-0"
-                  title="Choose theater"
-                  data-style="custom-select"
-                  data-size="5"
-                  data-live-search="true"
-                  data-live-search-normalize="true"
-                  data-live-search-placeholder="Search...">
-            <option value="theater-1">Cinemo 3 Tháng 2</option>
-            <option value="theater-2">Cinemo Cách Mạng Tháng 8</option>
-            <option value="theater-3">Cinemo Thành Thái</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group row mx-0">
-        <label class="col-sm-2 col-form-label mr-sm-1 pl-0">Movie</label>
-        <div class="input-group col">
-          <select required
-                  class="selectpicker d-block col p-0"
-                  title="Choose movie"
-                  data-style="custom-select"
-                  data-size="5"
-                  data-live-search="true"
-                  data-live-search-normalize="true"
-                  data-live-search-placeholder="Search...">
-            <option value="movie-1">Movie 1</option>
-            <option value="movie-2">Movie 2</option>
-            <option value="movie-3">Movie 3</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group row mx-0">
-        <label class="col-2 col-form-label mr-sm-1 pl-0">Extra price</label>
-        <div class="input-group col">
-          <input 
-                class="form-control col-3 price-input"
-                placeholder="0"
-                value="0"
-                  type="text">
-          <div class="input-group-append">
-            <span class="input-group-text">₫</span>
-          </div>
-       </div>
-      </div>
-
-      <div class="form-group row mx-0">
-        <label class="col-sm-2 mr-sm-1 pl-0">Type</label>
-        <div class="input-group col">
-          @foreach (var type in types) {
-            var id = Guid.NewGuid().ToString("N");
-            <div class="custom-control custom-radio custom-control-inline">
-              <input required
-                    type="radio"
-                    value="@type.value"
-                    id="@id"
-                    class="custom-control-input"
-                    name="type">
-
-              <label class="custom-control-label" for="@id">@type.label</label>
-            </div>
-          }
-        </div>
-      </div>
-
-      <div class="form-group row mx-0">
-        <label class="col-sm-2 col-form-label mr-sm-1 pl-0">Time & Date</label>
-        <div class="input-group col">
-          <input required
-                id="datetimepicker"
-                value="@time.ToString(format)"
-                class="form-control col-4 bg-white"
-                placeholder="Choose time & date..."
-                type="text">
-        </div>
-      </div>
-
-    <div class="form-group row mx-0">
-      <label class="col-sm-2 mr-sm-1 pl-0">Format</label>
-      <div class="input-group col">
-        @foreach (string name in Enum.GetNames(typeof(Room.Format))) {
-          <div class="custom-control custom-radio custom-control-inline">
-            <input required
-                  type="radio"
-                  value="@name"
-                  id="@name"
-                  class="custom-control-input"
-                  name="format">
-
-            <label class="custom-control-label"
-                  for="@name">
-              @name.Substring(1)
-            </label>
-          </div>
-        }
-      </div>
-    </div>
-
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
-      </div>
-
-    </form>
+  <div class="display-4">
+    Change Show Time
   </div>
+
+  <hr class="my-4">
+
+  <form class="needs-validation" method="POST">
+    <partial name="Shared/_ErrorAlert" model="@Model.ErrorMessage" />
+    <input hidden asp-for="@Model.UpdateDto.Id" value="@Model.OldShowTime.Id">
+    <div class="form-group required">
+          <label for="room-select">Room</label> @Model.OldShowTime.Room.Theater.Name / @Model.OldShowTime.Room.Name (@Model.OldShowTime.Room.Formats)
+          <select asp-for="@Model.UpdateDto.RoomId" required
+                asp-items="@Model.rooms" 
+                id="room-select"
+                class="selectpicker d-block col-6 p-0"
+                title="Choose room"
+                data-style="custom-select"
+                data-size="5"
+                data-live-search="true"
+                data-live-search-normalize="true"
+                data-live-search-placeholder="Search...">
+          </select>
+    </div>
+
+    <div class="form-group required">
+          <label for="movie-select">Movie</label> @Model.OldShowTime.Movie.Title
+          <select asp-for="@Model.UpdateDto.MovieId" required
+                value="@Model.OldShowTime.Movie.Title"
+                asp-items="@Model.movies" 
+                id="movie-select"
+                class="selectpicker d-block col-6 p-0"
+                title="Choose movie"
+                data-style="custom-select"
+                data-size="5"
+                data-live-search="true"
+                data-live-search-normalize="true"
+                data-live-search-placeholder="Search...">
+          </select>
+    </div>
+
+    <div class="form-group">
+      <label>Extra price</label>@Model.OldShowTime.ExtraPrice $
+
+      <div class="input-group">
+        <input class="form-control col-3 price-input"
+               placeholder="0"
+               value="0"
+               type="number"
+               asp-for="UpdateDto.ExtraPrice">
+
+        <div class="input-group-append">
+          <span class="input-group-text">₫</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mx-0">
+      <label>Show Type</label> @Model.OldShowTime.Type<br>
+      <select asp-for="UpdateDto.Type" class="form-control col-7">
+        @{
+          foreach (var type in Enum.GetValues(typeof(Cinemo.Models.ShowTime.ShowType))) {
+            <option asp-value="type">@type</option>
+          }
+        }
+      </select>
+    </div>
+    <div class="form-group required">
+      <label>Time & Date</label>@Model.OldShowTime.Time
+
+      <input required
+             value="@time.ToString(format)"
+             id="datetimepicker"
+             class="form-control col-3 bg-white"
+             placeholder="Choose time & date..."
+             type="text"
+             asp-for="UpdateDto.Time">
+    </div>
+
+    <div class="form-group required">
+      <label>Format</label>@Model.OldShowTime.Format
+
+      <br />
+<select asp-for="UpdateDto.Format" class="form-control col-7">
+      @foreach (string format in Enum.GetNames(typeof(ShowTime.FormatEnum))) {
+        <option value="@format">@format</option>
+      }
+    </select>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit" name="Submit" id="">
+        Change show time
+      </button>
+    </div>
+  </form>
 </div>
