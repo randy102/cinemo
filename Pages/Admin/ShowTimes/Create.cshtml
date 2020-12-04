@@ -22,7 +22,6 @@
   };
 
   DateTime time = DateTime.Now;
-  string format = "HH:mm - dd/MM/yyyy";
 }
 
 @section Scripts {
@@ -39,10 +38,7 @@
           firstDayOfWeek: 1
         }
       });
-      @* alert(document.getElementById("datetimepicker").value); *@
     })
-    
-
   </script>
 }
 
@@ -63,7 +59,7 @@
     <div class="form-group required">
           <label for="room-select">Room</label>
           <select asp-for="@Model.CreateDto.RoomId" required
-                asp-items="@Model.rooms" 
+                asp-items="@Model.RoomSelectList" 
                 id="room-select"
                 class="selectpicker d-block col-6 p-0"
                 title="Choose room"
@@ -78,7 +74,7 @@
     <div class="form-group required">
           <label for="movie-select">Movie</label>
           <select asp-for="@Model.CreateDto.MovieId" required
-                asp-items="@Model.movies" 
+                asp-items="@Model.MovieSelectList" 
                 id="movie-select"
                 class="selectpicker d-block col-6 p-0"
                 title="Choose movie"
@@ -135,8 +131,8 @@
 
       <br />
 <select asp-for="CreateDto.Format" class="form-control col-7">
-      @foreach (string format in Enum.GetNames(typeof(ShowTime.FormatEnum))) {
-       <option value="@format">@format</option>
+      @foreach (string showFormat in Enum.GetNames(typeof(ShowTime.FormatEnum))) {
+       <option value="@showFormat">@showFormat</option>
       }
     </select>
     </div>
