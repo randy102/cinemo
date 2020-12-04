@@ -24,6 +24,7 @@ namespace Cinemo.Service
         {
             return repository.FindById(id);
         }
+
         public Room GetDetail(int theaterId,string name) {
             name = FormatString.Trim_MultiSpaces_Title(name);
             return repository.FindAll().Where(c => c.TheaterId==theaterId&&c.Name.Equals(name) ).FirstOrDefault();
