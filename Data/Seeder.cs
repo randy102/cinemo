@@ -1,34 +1,57 @@
 using Cinemo.Models;
 using Microsoft.AspNetCore.Identity;
-using System;
-using Cinemo.Data;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System.Linq;
+using System.Collections.Generic;
 
 public class SeedData
 {
-  public static async void Seed(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+  public static void Seed(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
   {
-    if (!roleManager.RoleExistsAsync("Admin").Result)
+    SeedRoles(roleManager);
+
+    SeedUsers(userManager);
+  }
+
+  public static async void SeedRoles(RoleManager<IdentityRole> roleManager)
+  {
+    var ROLE_LIST = new string[] { "Admin", "Member" };
+
+    foreach (string role in ROLE_LIST)
     {
-      IdentityRole role = new IdentityRole();
-      role.Name = "Admin";
-      role.NormalizedName = "Admin";
-      await roleManager.CreateAsync(role);
+      if (!roleManager.RoleExistsAsync(role).Result)
+      {
+        IdentityRole iRole = new IdentityRole
+        {
+          Name = role,
+          NormalizedName = role
+        };
+        await roleManager.CreateAsync(iRole);
+      }
     }
 
-    if (userManager.FindByEmailAsync("admin@admin.com").Result == null)
-    {
-      var user = new User
-      {
-        UserName = "admin@admin.com",
-        Email = "admin@admin.com"
-      };
-      IdentityResult result = userManager.CreateAsync(user, "Admin@123456").Result;
+  }
 
-      if (result.Succeeded)
+  public static async void SeedUsers(UserManager<User> userManager)
+  {
+    var USER_LIST = new[]{
+      new { UserName = "admin@admin.com", Password = "Admin@123456", Role = "Admin" },
+      new { UserName = "member@member.com", Password = "Member@123456", Role = "Member"}
+    };
+
+    foreach (var user in USER_LIST)
+    {
+      if (userManager.FindByEmailAsync(user.UserName).Result == null)
       {
-        await userManager.AddToRoleAsync(user,"Admin");
+        var iUser = new User
+        {
+          UserName = user.UserName,
+          Email = user.UserName
+        };
+        IdentityResult result = userManager.CreateAsync(iUser, user.Password).Result;
+
+        if (result.Succeeded)
+        {
+          await userManager.AddToRoleAsync(iUser, user.Role);
+        }
       }
     }
 

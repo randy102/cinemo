@@ -37,7 +37,11 @@ namespace Cinemo
 
       services.AddRazorPages(options =>
       {
-        options.Conventions.AuthorizeFolder("/Admin", "OnlyAdmin");
+        options.Conventions
+        .AuthorizeFolder("/Admin", "OnlyStaff")
+        .AuthorizeFolder("/Admin/Users", "OnlyAdmin")
+        .AuthorizeFolder("/Admin/Theaters", "OnlyAdmin")
+        .AuthorizeFolder("/Admin/Rooms", "OnlyAdmin");
       });
 
       services.AddAuthorization(options =>
@@ -45,6 +49,7 @@ namespace Cinemo
         options.FallbackPolicy = new AuthorizationPolicyBuilder()
           .RequireAuthenticatedUser()
           .Build();
+        options.AddPolicy("OnlyStaff", policy => policy.RequireRole("Admin","Member"));
         options.AddPolicy("OnlyAdmin", policy => policy.RequireRole("Admin"));
       });
 

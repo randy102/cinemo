@@ -11,9 +11,6 @@
   <link href="~/css/table.css" rel="stylesheet" type="text/css" />
 }
 
-@section Scripts {
-  <script src="@Url.Content("~/js/ListUser.js")"></script>
-}
 <div class="container">
   <div class="mb-3">
     <div class="d-inline-block display-4 mr-3">Users</div>
@@ -24,7 +21,10 @@
       <thead>
         <tr>
           <th><div>Email</div></th>
+          <th><div>Full Name</div></th>
+          <th><div>Phone</div></th>
           <th><div>Admin</div></th>
+          <th><div>Member</div></th>
         </tr>
       </thead>
 
@@ -32,18 +32,30 @@
         @foreach (var user in Model.Users) {
           <tr>
             <td>@user.Email</td>
-
+            <td>@user.FullName</td>
+            <td>@user.PhoneNumber</td>
             <td>
-              <form method="post" asp-page-handler="ChangeRole">
+              <form method="post" asp-page-handler="ToggleAdmin">
                 <input type="hidden" name="id" value="@user.Id">
 
                 <div class="custom-control custom-switch">
-                  <input hidden checked="@(await UserManager.IsInRoleAsync(user, "Admin"))" onchange="this.form.submit()" type="checkbox" class="custom-control-input" id="toggle-moderator-@user.Id">
-                  <label class="custom-control-label" for="toggle-moderator-@user.Id"></label>
+                  <input hidden checked="@(await UserManager.IsInRoleAsync(user, "Admin"))" onchange="this.form.submit()" type="checkbox" class="custom-control-input" id="toggle-admin-@user.Id">
+                  <label class="custom-control-label" for="toggle-admin-@user.Id"></label>
                 </div>
               </form>
             </td>
 
+            <td>
+              <form method="post" asp-page-handler="ToggleMember">
+                <input type="hidden" name="id" value="@user.Id">
+
+                <div class="custom-control custom-switch">
+                  <input hidden checked="@(await UserManager.IsInRoleAsync(user, "Member"))" onchange="this.form.submit()" type="checkbox" class="custom-control-input" id="toggle-member-@user.Id">
+                  <label class="custom-control-label" for="toggle-member-@user.Id"></label>
+                </div>
+              </form>
+            </td>
+            
           </tr>
         }
       </tbody>
