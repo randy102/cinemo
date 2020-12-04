@@ -58,7 +58,7 @@ namespace Cinemo.Service
         AuthorId = author.Id,
         Img = imageName,
         CategoryId = dto.CategoryId,
-        Runtime = dto.Runtime,
+        Length = dto.Length,
         CreatedAt = System.DateTime.Now
       };
 
@@ -69,7 +69,7 @@ namespace Cinemo.Service
     {
       var entity = this.GetDetail(dto.Id);
       entity.Title = dto.Title;
-      entity.Runtime = dto.Runtime;
+      entity.Length = dto.Length;
       entity.Content = dto.Content;
       entity.Tags = dto.Tags != null ? string.Join(',', dto.Tags) : null;
       entity.CategoryId = dto.CategoryId;

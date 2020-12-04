@@ -7,7 +7,7 @@ namespace Cinemo.Models {
   public class Movie: IEntity {
     public int Id { get; set; }
 
-    public int Runtime { get; set; }
+    public int Length { get; set; }
 
     public string AuthorId {get; set;}
     public virtual User Author {get; set;}
@@ -27,7 +27,7 @@ namespace Cinemo.Models {
 
   public class MovieCreateDto {
     public int CategoryId {get; set;}=1;
-    public int Runtime { get; set; }
+    public int Length { get; set; }
     public string[] Tags { get; set; }
     public string Title {get; set;}
     public IFormFile Upload {get; set;}

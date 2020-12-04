@@ -38,13 +38,9 @@ namespace Cinemo.Models
     }
     public class ShowTimeCreateDto
     {
-        // public int Id { get; set; }
         public int TheaterId { get; set; }
-        // public virtual Theater Theater { get; set; }
         public int RoomId { get; set; }
-        public virtual Room Room { get; set; }
         public int MovieId { get; set; }
-        public virtual Movie Movie { get; set; }
         public ShowTime.ShowState Status { get; set; }
         public float ExtraPrice { get; set; }
         public ShowTime.ShowType Type { get; set; }

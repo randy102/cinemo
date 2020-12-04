@@ -66,11 +66,11 @@ namespace Cinemo.Service
       //Thời gian bắt đầu/ kết thúc của showTime được xét
       var start = DateTimeUtils.Parse(dto.Time);
 
-      var end = start.AddMinutes(movie.Runtime);
+      var end = start.AddMinutes(movie.Length);
       foreach (var st in showTimes)
       {
         var stStart = st.Time;
-        var stEnd = start.AddMinutes(st.Movie.Runtime);
+        var stEnd = start.AddMinutes(st.Movie.Length);
         // if (dto.GetType() == typeof(Cinemo.Models.ShowTimeUpdateDto)){
         if (!type)
         {
