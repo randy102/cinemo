@@ -48,8 +48,7 @@ namespace Cinemo.Models
         public ShowTime.ShowState Status { get; set; }
         public float ExtraPrice { get; set; }
         public ShowTime.ShowType Type { get; set; }
-        [DisplayFormat(DataFormatString = "{HH:mm - dd/MM/yyyy}")]
-        public DateTime Time { get; set; }
+        public string Time { get; set; }
         public ShowTime.FormatEnum Format { get; set; }
     }
 

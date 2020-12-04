@@ -5,23 +5,6 @@
 
 @{
   Layout = "_AdminLayout";
-
-  var types = new[] {
-    new {
-      label = "Subtitles",
-      value = "subtitles"
-    },
-    new {
-      label = "Dubbed",
-      value = "dubbed"
-    },
-    new {
-      label = "Vietnamese",
-      value = "vietnamese"
-    }
-  };
-
-  DateTime time = DateTime.Now;
 }
 
 @section Scripts {
@@ -107,7 +90,7 @@
       <select asp-for="CreateDto.Type" class="form-control col-7">
         @{
           foreach (var type in Enum.GetValues(typeof(Cinemo.Models.ShowTime.ShowType))) {
-            <option asp-value="type">@type</option>
+            <option asp-value="@type">@type</option>
           }
         }
       </select>
@@ -119,11 +102,11 @@
       <label>Time & Date</label>
 
       <input required
-             id="datetimepicker"
-             class="form-control col-3 bg-white"
-             placeholder="Choose time & date..."
-             type="text"
-             asp-for="CreateDto.Time">
+            id="datetimepicker"
+            class="form-control col-3 bg-white"
+            placeholder="Choose time & date..."
+            type="text"
+            asp-for="CreateDto.Time">
     </div>
 
     <div class="form-group required">
