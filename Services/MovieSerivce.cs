@@ -3,6 +3,8 @@ using Cinemo.Models;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Cinemo.Service
 {
@@ -11,6 +13,7 @@ namespace Cinemo.Service
     private MovieRepository repository;
     private UserManager<User> manager;
     private FileService fileService;
+
     public MovieService(MovieRepository MovieRepository, FileService fileService)
     {
       this.repository = MovieRepository;
@@ -26,10 +29,20 @@ namespace Cinemo.Service
     {
       return repository.FindById(id);
     }
+
+    public List<SelectListItem> GetSelectListItems()
+    {
+      return GetAll().Select(c => new SelectListItem
+      {
+        Value = c.Id.ToString(),
+        Text = c.Title
+      }).ToList();
+    }
+
     public Movie Delete(int id)
     {
       var existed = GetDetail(id);
-      if(existed.Img != null)
+      if (existed.Img != null)
         fileService.Remove(existed.Img);
       return repository.Delete(id);
     }
@@ -45,6 +58,7 @@ namespace Cinemo.Service
         AuthorId = author.Id,
         Img = imageName,
         CategoryId = dto.CategoryId,
+        Length = dto.Length,
         CreatedAt = System.DateTime.Now
       };
 
@@ -55,6 +69,7 @@ namespace Cinemo.Service
     {
       var entity = this.GetDetail(dto.Id);
       entity.Title = dto.Title;
+      entity.Length = dto.Length;
       entity.Content = dto.Content;
       entity.Tags = dto.Tags != null ? string.Join(',', dto.Tags) : null;
       entity.CategoryId = dto.CategoryId;

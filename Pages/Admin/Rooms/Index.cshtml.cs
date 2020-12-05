@@ -16,8 +16,6 @@ namespace Cinemo.Pages.Admin.Room
       this.service = service;
     }
 
-    [BindProperty]
-    public int id { get; set; }
 
     public List<Cinemo.Models.Room> Rooms { get; set; }
 
@@ -26,7 +24,7 @@ namespace Cinemo.Pages.Admin.Room
       Rooms = service.GetAll();
     }
 
-    public IActionResult OnPostDelete()
+    public IActionResult OnPostDelete(int id)
     {
       service.Delete(id);
       return Redirect("/Admin/Rooms");

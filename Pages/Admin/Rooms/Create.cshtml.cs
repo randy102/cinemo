@@ -5,53 +5,52 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Cinemo.Service;
-using Cinemo.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Cinemo.Models;
 namespace Cinemo.Pages.Admin.Room
 {
-    public class CreateModel : PageModel
+  public class CreateModel : PageModel
+  {
+    private readonly RoomService service;
+    private readonly TheaterService theaterService;
+    public CreateModel(RoomService service, TheaterService theaterService)
     {
-        private readonly RoomService service;
-        private readonly TheaterService theaterService;
-        public CreateModel(RoomService service, TheaterService theaterService)
-        {
-            this.service = service;
-            this.theaterService = theaterService;
-        }
-        [BindProperty]
-        public RoomCreateDto CreateDto { get; set; }
-        public List<SelectListItem> theaters { get; set; }
-
-        public string ErrorMessage { get; set; }
-
-        public List<SelectListItem> getTheaters()
-        {
-            var theaters = theaterService.GetAll().Select(c => new SelectListItem
-            {
-                Value = c.Id.ToString(),
-                Text = c.Name
-            }).ToList();
-            return theaters;
-        }
-
-        public void OnGet()
-        {
-            theaters = getTheaters();
-        }
-        public IActionResult OnPost()
-        {
-            try
-            {
-                service.Create(CreateDto);
-                return Redirect("./");
-            }
-            catch (Exception error)
-            {
-                ErrorMessage = error.Message;
-                theaters = getTheaters();
-                return Page();
-            }
-        }
+      this.service = service;
+      this.theaterService = theaterService;
     }
-}
+    public List<SelectListItem> theaters { get; set; }
+    [BindProperty]
+    public RoomCreateDto CreateDto { get; set; }
 
+    public string ErrorMessage { get; set; }
+
+    public List<SelectListItem> getTheaters()
+    {
+      var theaters = theaterService.GetAll().Select(c => new SelectListItem
+      {
+        Value = c.Id.ToString(),
+        Text = c.Name
+      }).ToList();
+      return theaters;
+    }
+
+    public void OnGet()
+    {
+      theaters = getTheaters();
+    }
+
+    public IActionResult OnPost()
+    {
+
+      if (service.GetDetail(CreateDto.TheaterId, CreateDto.Name) != null)
+      {
+        ErrorMessage = CreateDto.Name + " existed";
+
+        return Page();
+      }
+      service.Create(CreateDto);
+
+      return Redirect("/Admin/Rooms");
+    }
+  }
+}

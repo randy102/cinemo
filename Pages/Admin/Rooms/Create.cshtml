@@ -7,6 +7,10 @@
   Layout = "_AdminLayout";
 }
 
+@section Scripts{
+  <script src="~/js/checkbox.js"></script>
+}
+
 <div class="container">
   <a href="/Admin/Rooms">
     <i class="fas fa-angle-left mr-1"></i>Back to Rooms
@@ -64,23 +68,24 @@
       <div class="form-group required">
           <label>Format</label>
           <br />
+          <input type="text" asp-for="CreateDto.Formats" id="formats" hidden>
           @foreach (string name in Enum.GetNames(typeof(Room.Format))) {
-            <div class="custom-control custom-radio custom-control-inline">
-                <input asp-for="CreateDto.Formats" required
-                       type="radio"
-                       value="@name"
-                       id="@name"
-                       class="custom-control-input">
-                <label class="custom-control-label"
-                       for="@name">
-                       @name.Substring(1)
-                </label>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" required
+                     class="custom-control-input required_group" 
+                     name="format"
+                     value="@name" 
+                     id="@name">
+              <label class="custom-control-label"
+                    for="@name">
+                    @name.Substring(1)
+              </label>
             </div>
           }
       </div>
 
       <div class="form-group">
-          <button class="btn btn-primary" type="submit" name="Submit">
+          <button class="btn btn-primary" type="submit">
               Create Room
           </button>
       </div>

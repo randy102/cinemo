@@ -13,9 +13,6 @@ namespace Cinemo.Pages.Admin.TicketType
         {
             this.service = service;
         }
-
-        [BindProperty]
-        public int id { get; set; } 
         public List<Cinemo.Models.TicketType> TicketTypes { get; set; }
 
         public void OnGet()
@@ -23,7 +20,7 @@ namespace Cinemo.Pages.Admin.TicketType
             TicketTypes = service.GetAll();
         }
 
-        public IActionResult OnPostDelete()
+        public IActionResult OnPostDelete(int id)
         {
             service.Delete(id);
             return Redirect("/Admin/TicketTypes");

@@ -25,12 +25,10 @@
       Create Room
     </a>
   </div>
-
   <div class="cinemo-datatable">
     <table class="table">
       <thead>
         <tr>
-          <th><div>Theater</div></th>
           <th><div>Name</div></th>
           <th><div>Formats</div></th>
           <th><div>NumCol</div></th>
@@ -43,13 +41,11 @@
       <tbody>
         @foreach (var r in Model.Rooms) {
           <tr>
-            <td>@r.Theater.Name</td>
             <td>@r.Name</td>
-            <td>@r.Formats.Substring(1)</td>
+            <td>@r.Formats</td>
             <td>@r.NumCol</td>
             <td>@r.NumRow</td>
             <td>@r.Total</td>
-            
             <td>
               <a class="btn btn-round btn-primary btn-sm" href="/Admin/Rooms/Update?id=@r.Id">
                 <i class="fas fa-pen"></i>
@@ -59,6 +55,7 @@
             <td>
               <form id="delete-room" method="POST" asp-page-handler="Delete">
                 <input type="hidden" name="id" value="@r.Id">
+
                 <button type="button" class="btn btn-round btn-danger btn-sm"
                         onclick="handleDelete(this.form)">
                   <i class="fas fa-trash"></i>
@@ -71,3 +68,4 @@
     </table>
   </div>
 </div>
+

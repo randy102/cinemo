@@ -20,8 +20,8 @@
           <i class="fa fa-user fa-fw mr-2"></i> Profile
         </a>
 
-        @if (User.IsInRole("Admin")) {
-          <a class="dropdown-item @(pageUrl == "/Admin/Users" ? "active" : "")" href="/Admin/Users">
+        @if (User.IsInRole("Admin") || User.IsInRole("Member")) {
+          <a class="dropdown-item" href="/Admin">
             <i class="fa fa-cog fa-fw mr-2"></i> Management
           </a>
         }

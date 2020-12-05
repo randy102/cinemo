@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System;
 using Cinemo.Interface;
+using System.Collections.Generic;
 namespace Cinemo.Models
 {
     public class Room : IEntity{

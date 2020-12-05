@@ -8,49 +8,57 @@
   ViewData["Title"] = "Admin";
 
   string pageUrl = Context.Request.Path;
+  bool isAdmin = User.IsInRole("Admin");
 
   var links = new[] {
     new {
       Url = "/Admin/Users",
       Icon = "users",
       Label = "Users",
+      IsAccessible = isAdmin
     },
     new {
       Url = "/Admin/Categories",
       Icon = "tags",
       Label = "Categories",
+      IsAccessible = true
     },
     new {
       Url = "/Admin/Movies",
       Icon = "film",
       Label = "Movies",
+      IsAccessible = true
     },
     new {
       Url = "/Admin/Theaters",
       Icon = "video",
       Label = "Theaters",
+      IsAccessible = isAdmin
     },
     new {
       Url = "/Admin/Rooms",
       Icon = "person-booth",
       Label = "Rooms",
+      IsAccessible = isAdmin
     },
     new {
       Url = "/Admin/ShowTimes",
       Icon = "clock",
       Label = "Show Times",
+      IsAccessible = true
     },
     new {
       Url = "/Admin/TicketTypes",
-      Icon = "ticket-alt",
+      Icon = "far fa-newspaper",
       Label = "Ticket Types",
+      IsAccessible = true
     },
     new {
       Url = "/Admin/Tickets",
       Icon = "ticket-alt",
       Label = "Tickets",
+      IsAccessible = isAdmin
     },
-
   };
 }
 
@@ -59,11 +67,13 @@
   <nav class="h-100 border-right bg-light py-3" style="width: 200px">
     <ul class="list-unstyled">
       @foreach (var link in links) {
-        var activeLabelClass = pageUrl.StartsWith(link.Url) ? "active" : "";
+        if(link.IsAccessible){
+          var activeLabelClass = pageUrl.StartsWith(link.Url) ? "active" : "";
 
-        <a href="@link.Url" class="sidebar-link d-block h5 px-3 py-2 @activeLabelClass">
-          <i class="fas fa-@(link.Icon) fa-fw mr-2"></i>@(link.Label)
-        </a>
+          <a href="@link.Url" class="sidebar-link d-block h5 px-3 py-2 @activeLabelClass">
+            <i class="fas fa-@(link.Icon) fa-fw mr-2"></i>@(link.Label)
+          </a>
+        }
       }
     </ul>
   </nav>

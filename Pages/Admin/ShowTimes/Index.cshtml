@@ -29,6 +29,7 @@
       <thead>
         <tr>
           <th><div>Theater</div></th>
+          <th><div>Room</div></th>
           <th><div>Movie</div></th>
           <th><div>Extra Price</div></th>
           <th><div>Type</div></th>
@@ -41,39 +42,67 @@
         </tr>
       </thead>
       <tbody>
-        @* @foreach (var r in Model.showTimes)
-          {*@
+        @foreach (var st in Model.showTimes)
+          {
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>@st.Theater.Name</td>
+          <td>@st.Room.Name</td>
+          <td>@st.Movie.Title</td>
+          <td>@st.ExtraPrice $</td>
+          <td>@st.Type</td>
+          <td>@st.Format</td>
+          <td>@st.Time</td>
+          <td>@st.Status</td>
           <td>
-            <button class="btn btn-primary btn-sm">
-              Publish
+
+            <form id="delete-room" method="POST" asp-page-handler="ChangeStatus">
+              <input type="hidden" name="id" value="@st.Id">
+              <button class="btn btn-primary btn-sm" type="submit">
+              @if (st.Status == Cinemo.Models.ShowTime.ShowState.DRAFT || st.Status == Cinemo.Models.ShowTime.ShowState.PUBLISH){
+               
+                @((Cinemo.Models.ShowTime.ShowState)(st.Status+1))
+              }
+              else{
+                @((Cinemo.Models.ShowTime.ShowState)(st.Status-1))
+              }
+              </button>
+            </form>
+
+          </td>
+          @if (st.Status == Cinemo.Models.ShowTime.ShowState.DRAFT){
+            <td>
+              <a class="btn btn-round btn-primary btn-sm" href="/Admin/ShowTimes/Update?id=@st.Id">
+                <i class="fas fa-pen"></i>
+              </a>
+            </td>
+          }
+          else{
+            <td>
+            <button class="btn btn-round btn-primary btn-sm" disabled>
+              <i class="fas fa-pen"></i>
             </button>
           </td>
-          <td>
-            <a class="btn btn-round btn-primary btn-sm" href="/Admin/ShowTimes/Update" @*?id=@r.Id"*@>
-              <i class="fas fa-pen"></i>
-            </a>
-          </td>
+
+          }
 
           <td>
             <form id="delete-room" method="POST" asp-page-handler="Delete">
-              <input type="hidden" name="id" @*value="@r.Id"*@>
-
-              <button type="button" class="btn btn-round btn-danger btn-sm"
+              <input type="hidden" name="id" value="@st.Id">
+              @if (st.Status == Cinemo.Models.ShowTime.ShowState.DRAFT){
+                  <button type="button" class="btn btn-round btn-danger btn-sm"
                       onclick="handleDelete(this.form)">
                 <i class="fas fa-trash"></i>
               </button>
+              }
+              else{
+                <button type="button" class="btn btn-round btn-danger btn-sm" disabled>
+                <i class="fas fa-trash"></i>
+              </button>
+              }
             </form>
           </td>
         </tr>
-        @*}*@
+        }
       </tbody>
     </table>
   </div>

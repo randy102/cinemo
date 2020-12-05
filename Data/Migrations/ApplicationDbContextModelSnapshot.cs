@@ -51,6 +51,9 @@ namespace Cinemo.Data.Migrations
                     b.Property<string>("Img")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Length")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Tags")
                         .HasColumnType("TEXT");
 
@@ -95,6 +98,47 @@ namespace Cinemo.Data.Migrations
                     b.HasIndex("TheaterId");
 
                     b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("Cinemo.Models.ShowTime", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("ExtraPrice")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("Format")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TheaterId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("RoomId");
+
+                    b.HasIndex("TheaterId");
+
+                    b.ToTable("ShowTimes");
                 });
 
             modelBuilder.Entity("Cinemo.Models.Theater", b =>
@@ -354,6 +398,33 @@ namespace Cinemo.Data.Migrations
                         .HasForeignKey("TheaterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Theater");
+                });
+
+            modelBuilder.Entity("Cinemo.Models.ShowTime", b =>
+                {
+                    b.HasOne("Cinemo.Models.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Cinemo.Models.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Cinemo.Models.Theater", "Theater")
+                        .WithMany()
+                        .HasForeignKey("TheaterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("Room");
 
                     b.Navigation("Theater");
                 });

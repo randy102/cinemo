@@ -24,6 +24,7 @@ namespace Cinemo.Service
       name = FormatString.Trim_MultiSpaces_Title(name);
       return repository.FindAll().Where(c => c.Name.Equals(name)).FirstOrDefault();
     }
+    
 
     public Theater Delete(int id) {
       return repository.Delete(id);

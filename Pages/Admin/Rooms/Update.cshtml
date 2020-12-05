@@ -5,6 +5,7 @@
 
 @section Scripts{
   <script src="~/js/Validation.js"></script>
+  <script src="~/js/checkbox.js"></script>
 }
 
 <div class="row no-gutters justify-content-center align-self-center m-auto">
@@ -57,38 +58,37 @@
           <label class="col-3 pl-0">
             Format:
           </label>
+
+          <input type="text" asp-for="UpdateDto.Formats" id="formats" hidden>
           @foreach (string name in Enum.GetNames(typeof(Room.Format))) {
-            if(@Model.OldRoom.Formats.Equals(name)){
-              <div class="custom-control custom-radio custom-control-inline">
-                  <input asp-for="UpdateDto.Formats" required
-                        type="radio"
-                        value="@name"
-                        id="@name"
-                        class="custom-control-input" 
-                        checked>
-
-                  <label class="custom-control-label"
-                        for="@name">
-                      @name.Substring(1)
-                  </label>
-              </div>
-            }else{
-              <div class="custom-control custom-radio custom-control-inline">
-                <input asp-for="UpdateDto.Formats" required
-                      type="radio"
-                      value="@name"
-                      id="@name"
-                      class="custom-control-input">
-
+            if(@Model.OldRoom.Formats.Contains(name)){
+              <div class="custom-control custom-checkbox mr-1">
+                <input type="checkbox" required
+                       class="custom-control-input required_group" 
+                       name="format"
+                       value="@name" 
+                       id="@name" checked>
                 <label class="custom-control-label"
-                      for="@name">
-                    @name.Substring(1)
+                       for="@name">
+                       @name.Substring(1)
+                </label>
+              </div>
+            } else {
+              <div class="custom-control custom-checkbox mr-1">
+                <input type="checkbox" required
+                       class="custom-control-input required_group" 
+                       name="format"
+                       value="@name" 
+                       id="@name">
+                <label class="custom-control-label"
+                       for="@name">
+                       @name.Substring(1)
                 </label>
               </div>
             }
           }
       </div>
-
+      <input hidden asp-for="@Model.UpdateDto.TheaterId" value="@Model.OldRoom.TheaterId">
       <div class="form-group">
         <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
       </div>

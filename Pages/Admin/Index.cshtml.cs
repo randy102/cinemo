@@ -8,8 +8,11 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Cinemo.Pages.Admin {
   public class IndexModel : PageModel {
-    public void OnGet() {
-      RedirectToPage("/Admin/Users");
+    public IActionResult OnGet() {
+      if(User.IsInRole("Admin"))
+        return Redirect("Admin/Users");
+      else
+        return Redirect("Admin/Movies");
     }
   }
 }
