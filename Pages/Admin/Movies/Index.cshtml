@@ -56,9 +56,6 @@
             <div>CreatedAt</div>
           </th>
           <th>
-            <div>CreatedBy</div>
-          </th>
-          <th>
             <div>Edit</div>
           </th>
           <th>
@@ -74,7 +71,6 @@
             <td>@movie.Category.Name</td>
             <td>@movie.Length minutes</td>
             <td>@movie.CreatedAt.ToShortDateString()</td>
-            <td>@movie.Author.UserName</td>
             <td>
               <a class="btn btn-round btn-primary btn-sm" href="/Admin/Movies/Update?id=@movie.Id">
                 <i class="fas fa-pen"></i>

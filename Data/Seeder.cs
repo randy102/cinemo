@@ -33,8 +33,8 @@ public class SeedData
   public static async void SeedUsers(UserManager<User> userManager)
   {
     var USER_LIST = new[]{
-      new { UserName = "admin@admin.com", Password = "Admin@123456", Role = "Admin" },
-      new { UserName = "member@member.com", Password = "Member@123456", Role = "Member"}
+      new { UserName = "admin@admin.com", Password = "Admin@123456", Role = "Admin", Id = "1"},
+      new { UserName = "member@member.com", Password = "Member@123456", Role = "Member", Id = "2"}
     };
 
     foreach (var user in USER_LIST)
@@ -44,7 +44,8 @@ public class SeedData
         var iUser = new User
         {
           UserName = user.UserName,
-          Email = user.UserName
+          Email = user.UserName,
+          Id = user.Id
         };
         IdentityResult result = userManager.CreateAsync(iUser, user.Password).Result;
 

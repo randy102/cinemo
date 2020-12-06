@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Cinemo.Data.Migrations
 {
-    public partial class initiate : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -200,7 +200,7 @@ namespace Cinemo.Data.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    AuthorId = table.Column<string>(type: "TEXT", nullable: true),
+                    Length = table.Column<int>(type: "INTEGER", nullable: false),
                     CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
                     Tags = table.Column<string>(type: "TEXT", nullable: true),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
@@ -211,12 +211,6 @@ namespace Cinemo.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Movies", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Movies_AspNetUsers_AuthorId",
-                        column: x => x.AuthorId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Movies_Categories_CategoryId",
                         column: x => x.CategoryId,
@@ -248,6 +242,149 @@ namespace Cinemo.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "ShowTimes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    TheaterId = table.Column<int>(type: "INTEGER", nullable: false),
+                    RoomId = table.Column<int>(type: "INTEGER", nullable: false),
+                    MovieId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ExtraPrice = table.Column<float>(type: "REAL", nullable: false),
+                    Status = table.Column<int>(type: "INTEGER", nullable: false),
+                    Type = table.Column<int>(type: "INTEGER", nullable: false),
+                    Format = table.Column<int>(type: "INTEGER", nullable: false),
+                    Time = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShowTimes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShowTimes_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ShowTimes_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ShowTimes_Theaters_TheaterId",
+                        column: x => x.TheaterId,
+                        principalTable: "Theaters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tickets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ShowTimeId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserId1 = table.Column<string>(type: "TEXT", nullable: true),
+                    TicketTypeId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Seat = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tickets_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Tickets_ShowTimes_ShowTimeId",
+                        column: x => x.ShowTimeId,
+                        principalTable: "ShowTimes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tickets_TicketTypes_TicketTypeId",
+                        column: x => x.TicketTypeId,
+                        principalTable: "TicketTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1, "Hành động" });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 2, "Tình cảm" });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 3, "Trinh Thám" });
+
+            migrationBuilder.InsertData(
+                table: "Theaters",
+                columns: new[] { "Id", "Address", "Name" },
+                values: new object[] { 1, "43/5 NTMK, P.Đa Kao, Q1", "Cinemo Q1" });
+
+            migrationBuilder.InsertData(
+                table: "Theaters",
+                columns: new[] { "Id", "Address", "Name" },
+                values: new object[] { 2, "54B CMT8, Q.Bình Thạnh", "Cinemo Bình Thạnh" });
+
+            migrationBuilder.InsertData(
+                table: "TicketTypes",
+                columns: new[] { "Id", "Name", "Price" },
+                values: new object[] { 1, 1, 40000f });
+
+            migrationBuilder.InsertData(
+                table: "TicketTypes",
+                columns: new[] { "Id", "Name", "Price" },
+                values: new object[] { 2, 0, 90000f });
+
+            migrationBuilder.InsertData(
+                table: "TicketTypes",
+                columns: new[] { "Id", "Name", "Price" },
+                values: new object[] { 3, 2, 50000f });
+
+            migrationBuilder.InsertData(
+                table: "TicketTypes",
+                columns: new[] { "Id", "Name", "Price" },
+                values: new object[] { 4, 3, 120000f });
+
+            migrationBuilder.InsertData(
+                table: "Movies",
+                columns: new[] { "Id", "CategoryId", "Content", "CreatedAt", "Img", "Length", "Tags", "Title" },
+                values: new object[] { 1, 1, "Introducing...", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "9e2b848c-cbb4-4287-b813-afb853ce4754.png", 125, null, "Tom & Jerry" });
+
+            migrationBuilder.InsertData(
+                table: "Rooms",
+                columns: new[] { "Id", "Formats", "Name", "NumCol", "NumRow", "TheaterId", "Total" },
+                values: new object[] { 1, "_2D", "Phòng 1", 10, 8, 1, 80 });
+
+            migrationBuilder.InsertData(
+                table: "Rooms",
+                columns: new[] { "Id", "Formats", "Name", "NumCol", "NumRow", "TheaterId", "Total" },
+                values: new object[] { 2, "_3D", "Phòng 2", 10, 8, 1, 80 });
+
+            migrationBuilder.InsertData(
+                table: "Rooms",
+                columns: new[] { "Id", "Formats", "Name", "NumCol", "NumRow", "TheaterId", "Total" },
+                values: new object[] { 3, "_IMAX", "Phòng 3", 10, 8, 1, 80 });
+
+            migrationBuilder.InsertData(
+                table: "Rooms",
+                columns: new[] { "Id", "Formats", "Name", "NumCol", "NumRow", "TheaterId", "Total" },
+                values: new object[] { 4, "_IMAX, _2D, _3D", "Phòng 1", 10, 8, 2, 80 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -287,11 +424,6 @@ namespace Cinemo.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Movies_AuthorId",
-                table: "Movies",
-                column: "AuthorId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Movies_CategoryId",
                 table: "Movies",
                 column: "CategoryId");
@@ -300,6 +432,36 @@ namespace Cinemo.Data.Migrations
                 name: "IX_Rooms_TheaterId",
                 table: "Rooms",
                 column: "TheaterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShowTimes_MovieId",
+                table: "ShowTimes",
+                column: "MovieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShowTimes_RoomId",
+                table: "ShowTimes",
+                column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShowTimes_TheaterId",
+                table: "ShowTimes",
+                column: "TheaterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_ShowTimeId",
+                table: "Tickets",
+                column: "ShowTimeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_TicketTypeId",
+                table: "Tickets",
+                column: "TicketTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_UserId1",
+                table: "Tickets",
+                column: "UserId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -320,19 +482,25 @@ namespace Cinemo.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Movies");
-
-            migrationBuilder.DropTable(
-                name: "Rooms");
-
-            migrationBuilder.DropTable(
-                name: "TicketTypes");
+                name: "Tickets");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "ShowTimes");
+
+            migrationBuilder.DropTable(
+                name: "TicketTypes");
+
+            migrationBuilder.DropTable(
+                name: "Movies");
+
+            migrationBuilder.DropTable(
+                name: "Rooms");
 
             migrationBuilder.DropTable(
                 name: "Categories");
