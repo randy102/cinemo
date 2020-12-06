@@ -9,55 +9,52 @@ using Cinemo.Service;
 using Microsoft.AspNetCore.Mvc.Rendering;
 namespace Cinemo.Pages.Admin.Room
 {
-    public class UpdateModel : PageModel
-    {
-        private readonly RoomService service;
+  public class UpdateModel : PageModel
+  {
+    private readonly RoomService service;
     private readonly TheaterService theaterService;
-        public UpdateModel(RoomService service,TheaterService theaterService)
-        {
-        this.service = service;
-        this.theaterService = theaterService;
-        }
-    [BindProperty]
-    public Cinemo.Models.Room OldRoom { get; set; }
 
     [BindProperty(SupportsGet = true)]
     public int id { get; set; }
-
+    
     [BindProperty]
-    public RoomUpdateDto UpdateDto {get; set;}
+    public Cinemo.Models.Room OldRoom { get; set; }
+    [BindProperty]
+    public RoomUpdateDto UpdateDto { get; set; }
+
     public List<SelectListItem> theaters { get; set; }
-    public string ErrorMessage {get; set;}
-    public List<SelectListItem> getTheaters()
-        {
-            var theaters = theaterService.GetAll().Select(c => new SelectListItem
-            {
-                Value = c.Id.ToString(),
-                Text = c.Name
-            }).ToList();
-            return theaters;
-        }
+    public string ErrorMessage { get; set; }
+
+    public UpdateModel(RoomService service, TheaterService theaterService)
+    {
+      this.service = service;
+      this.theaterService = theaterService;
+    }
+
     public IActionResult OnGet()
     {
-      theaters = getTheaters();
+      theaters = theaterService.GetSelectListItems();
       OldRoom = service.GetDetail(id);
-      if (OldRoom == null) {
+      if (OldRoom == null)
         return Redirect("./");
-      } else {
-        return Page();
-      }
+
+      return Page();
+
     }
     public IActionResult OnPost()
     {
-      try{
+      try
+      {
         service.Update(UpdateDto);
         return Redirect("./");
-      } catch(Exception error){
+      }
+      catch (Exception error)
+      {
         ErrorMessage = error.Message;
-        theaters = getTheaters();
+        theaters = theaterService.GetSelectListItems();
         OldRoom = service.GetDetail(id);
         return Page();
       }
     }
-    }
+  }
 }

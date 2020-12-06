@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Cinemo.Utils;
 using System.Linq;
 using System;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace Cinemo.Service
 {
   public class TheaterService{
@@ -25,6 +27,14 @@ namespace Cinemo.Service
       return repository.FindAll().Where(c => c.Name.Equals(name)).FirstOrDefault();
     }
     
+    public List<SelectListItem> GetSelectListItems()
+    {
+      return GetAll().Select(c => new SelectListItem
+      {
+        Value = c.Id.ToString(),
+        Text = c.Name
+      }).ToList();
+    }
 
     public Theater Delete(int id) {
       return repository.Delete(id);

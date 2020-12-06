@@ -13,30 +13,23 @@ namespace Cinemo.Pages.Admin.Room
   {
     private readonly RoomService service;
     private readonly TheaterService theaterService;
+
+    [BindProperty]
+    public RoomCreateDto CreateDto { get; set; }
+    public List<SelectListItem> theaters { get; set; }
+
+    public string ErrorMessage { get; set; }
+
     public CreateModel(RoomService service, TheaterService theaterService)
     {
       this.service = service;
       this.theaterService = theaterService;
     }
-    public List<SelectListItem> theaters { get; set; }
-    [BindProperty]
-    public RoomCreateDto CreateDto { get; set; }
-
-    public string ErrorMessage { get; set; }
-
-    public List<SelectListItem> getTheaters()
-    {
-      var theaters = theaterService.GetAll().Select(c => new SelectListItem
-      {
-        Value = c.Id.ToString(),
-        Text = c.Name
-      }).ToList();
-      return theaters;
-    }
+    
 
     public void OnGet()
     {
-      theaters = getTheaters();
+      theaters = theaterService.GetSelectListItems();
     }
 
     public IActionResult OnPost()
