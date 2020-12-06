@@ -35,8 +35,7 @@ namespace Cinemo.Pages.Movie
 
     public IActionResult OnPost()
     {
-      var currentUser = userService.GetCurrentUser(HttpContext);
-      service.Create(CreateDto, currentUser);
+      service.Create(CreateDto);
       return Redirect("./Index");
     }
   }

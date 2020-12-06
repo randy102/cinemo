@@ -28,6 +28,23 @@ namespace Cinemo.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Hành động"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Tình cảm"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Trinh Thám"
+                        });
                 });
 
             modelBuilder.Entity("Cinemo.Models.Movie", b =>
@@ -35,9 +52,6 @@ namespace Cinemo.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("AuthorId")
-                        .HasColumnType("TEXT");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
@@ -62,11 +76,21 @@ namespace Cinemo.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
-
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Movies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Content = "Introducing...",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Img = "9e2b848c-cbb4-4287-b813-afb853ce4754.png",
+                            Length = 125,
+                            Title = "Tom & Jerry"
+                        });
                 });
 
             modelBuilder.Entity("Cinemo.Models.Room", b =>
@@ -98,6 +122,48 @@ namespace Cinemo.Data.Migrations
                     b.HasIndex("TheaterId");
 
                     b.ToTable("Rooms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Formats = "_2D",
+                            Name = "Phòng 1",
+                            NumCol = 10,
+                            NumRow = 8,
+                            TheaterId = 1,
+                            Total = 80
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Formats = "_3D",
+                            Name = "Phòng 2",
+                            NumCol = 10,
+                            NumRow = 8,
+                            TheaterId = 1,
+                            Total = 80
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Formats = "_IMAX",
+                            Name = "Phòng 3",
+                            NumCol = 10,
+                            NumRow = 8,
+                            TheaterId = 1,
+                            Total = 80
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Formats = "_IMAX, _2D, _3D",
+                            Name = "Phòng 1",
+                            NumCol = 10,
+                            NumRow = 8,
+                            TheaterId = 2,
+                            Total = 80
+                        });
                 });
 
             modelBuilder.Entity("Cinemo.Models.ShowTime", b =>
@@ -156,6 +222,20 @@ namespace Cinemo.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Theaters");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "43/5 NTMK, P.Đa Kao, Q1",
+                            Name = "Cinemo Q1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "54B CMT8, Q.Bình Thạnh",
+                            Name = "Cinemo Bình Thạnh"
+                        });
                 });
 
             modelBuilder.Entity("Cinemo.Models.Ticket", b =>
@@ -205,6 +285,32 @@ namespace Cinemo.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TicketTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = 1,
+                            Price = 40000f
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = 0,
+                            Price = 90000f
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = 2,
+                            Price = 50000f
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = 3,
+                            Price = 120000f
+                        });
                 });
 
             modelBuilder.Entity("Cinemo.Models.User", b =>
@@ -408,17 +514,11 @@ namespace Cinemo.Data.Migrations
 
             modelBuilder.Entity("Cinemo.Models.Movie", b =>
                 {
-                    b.HasOne("Cinemo.Models.User", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId");
-
                     b.HasOne("Cinemo.Models.Category", "Category")
                         .WithMany("Movies")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Author");
 
                     b.Navigation("Category");
                 });

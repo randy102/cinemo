@@ -48,7 +48,7 @@ namespace Cinemo.Service
       return repository.Delete(id);
     }
 
-    public Movie Create(MovieCreateDto dto, User author)
+    public Movie Create(MovieCreateDto dto)
     {
       string imageName = fileService.Save(dto.Upload);
       var entity = new Movie
@@ -56,7 +56,6 @@ namespace Cinemo.Service
         Title = dto.Title,
         Content = dto.Content,
         Tags = dto.Tags != null ? string.Join(',', dto.Tags) : null,
-        AuthorId = author.Id,
         Img = imageName,
         CategoryId = dto.CategoryId,
         Length = dto.Length,

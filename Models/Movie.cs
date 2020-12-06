@@ -9,9 +9,6 @@ namespace Cinemo.Models {
 
     public int Length { get; set; }
 
-    public string AuthorId {get; set;}
-    public virtual User Author {get; set;}
-
     public int CategoryId {get; set;}=1;
     public virtual Category Category {get; set;}
 

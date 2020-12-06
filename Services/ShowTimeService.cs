@@ -15,13 +15,15 @@ namespace Cinemo.Service
     private ShowTimeRepository repository;
     private RoomService roomService;
     private MovieService movieService;
+    private DateTimeUtils dateTimeUtils;
     private readonly ILogger<ShowTimeService> _logger;
 
-    public ShowTimeService(ShowTimeRepository showTimeRepository, RoomService roomService, MovieService movieService, ILogger<ShowTimeService> logger)
+    public ShowTimeService(ShowTimeRepository showTimeRepository, DateTimeUtils dateTimeUtils, RoomService roomService, MovieService movieService, ILogger<ShowTimeService> logger)
     {
       this.repository = showTimeRepository;
       this.roomService = roomService;
       this.movieService = movieService;
+      this.dateTimeUtils = dateTimeUtils;
       this._logger = logger;
     }
 
@@ -40,12 +42,12 @@ namespace Cinemo.Service
       return repository.FindWhere(r => r.RoomId == roomId).ToList();
     }
 
-    public List<SelectListItem> GetSelectListItems(int defaultId = 0)
+    public List<SelectListItem> GetShowingSelectListItems(int defaultId = 0)
     {
-      return GetAll().Select(c => new SelectListItem
+      return GetShowingTime().Select(c => new SelectListItem
       {
         Value = c.Id.ToString(),
-        Text = c.Time.ToString(),
+        Text = c.Time.ToString(dateTimeUtils.FORMAT) + " - " + c.Movie.Title + " - " + c.Room.Name + " - " + c.Theater.Name,
         Selected = defaultId == c.Id
       }).ToList();
     }
@@ -84,48 +86,24 @@ namespace Cinemo.Service
     }
 
 
-    private bool isExist(ShowTimeCreateDto dto, bool type = true)
+    private void checkDuplicated(ShowTimeCreateDto dto, int exceptId = 0)
     {
-      //Phòng showTime được xét cần sử dụng
-      var room = roomService.GetDetail(dto.RoomId);
       var movie = movieService.GetDetail(dto.MovieId);
-
-      //Kiểm thời gian bắt đầu/ kết thúc showTime
-      //Những showTime sử dụng phòng đang xét
       var showTimes = GetAll(dto.RoomId);
-      //Thời gian bắt đầu/ kết thúc của showTime được xét
-      var start = DateTimeUtils.Parse(dto.Time);
 
-      var end = start.AddMinutes(movie.Length);
-      foreach (var st in showTimes)
-      {
-        var stStart = st.Time;
-        var stEnd = start.AddMinutes(st.Movie.Length);
-        // if (dto.GetType() == typeof(Cinemo.Models.ShowTimeUpdateDto)){
-        if (!type)
-        {
-          //Thời gian bắt đầu nằm trong thời gian của st
-          //Thời gian kết thúc nằm trong thời gian của st
-          var obj = (Cinemo.Models.ShowTimeUpdateDto)dto;
-          if (obj.Id != st.Id)
-          {
-            if ((start >= stEnd && start <= stStart) || (end <= stStart && end >= stEnd))
-            {
-              throw new Exception("This room is not available until " + stEnd + ".");
-            }
-          }
-        }
-        else
-        {
-          //Thời gian bắt đầu nằm trong thời gian của st
-          //Thời gian kết thúc nằm trong thời gian của st
-          if ((start >= stEnd && start <= stStart) || (end <= stStart && end >= stEnd))
-          {
-            throw new Exception("This room is not available until " + stEnd + ".");
-          }
-        }
+      var time = dateTimeUtils.Parse(dto.Time);
+
+      var dupplicated = showTimes.Where(s => {
+        var start = s.Time;
+        var end = start.AddMinutes(s.Movie.Length);
+        bool isBetween = start <= time && time <= end;
+        return s.Id != exceptId && isBetween;
+      }).FirstOrDefault();
+
+      if(dupplicated != null) {
+        var dupEnd =  dupplicated.Time.AddMinutes(dupplicated.Movie.Length);
+        throw new Exception("Room is not available until " + dupEnd.ToString(dateTimeUtils.FORMAT));
       }
-      return false;
     }
 
     public ShowTime Delete(int id)
@@ -136,7 +114,7 @@ namespace Cinemo.Service
     public ShowTime Create(ShowTimeCreateDto dto)
     {
       checkSupportedFormat(dto);
-      isExist(dto);
+      checkDuplicated(dto);
 
       var entity = new ShowTime
       {
@@ -147,7 +125,7 @@ namespace Cinemo.Service
         Status = dto.Status,
         Type = dto.Type,
         Format = dto.Format,
-        Time = DateTimeUtils.Parse(dto.Time)
+        Time = dateTimeUtils.Parse(dto.Time)
       };
 
       return repository.Add(entity);
@@ -156,7 +134,7 @@ namespace Cinemo.Service
     public ShowTime Update(ShowTimeUpdateDto dto)
     {
       checkSupportedFormat(dto);
-      isExist(dto, false);
+      checkDuplicated(dto, dto.Id);
       var entity = new ShowTime
       {
         Id = dto.Id,
@@ -167,7 +145,7 @@ namespace Cinemo.Service
         Status = dto.Status,
         Type = dto.Type,
         Format = dto.Format,
-        Time = DateTimeUtils.Parse(dto.Time)
+        Time = dateTimeUtils.Parse(dto.Time)
       };
       return repository.Update(entity);
     }
