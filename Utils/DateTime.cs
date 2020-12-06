@@ -8,5 +8,9 @@ namespace Cinemo.Utils {
       return DateTime.ParseExact(str, FORMAT, null);
     }
 
+    public string ToString(DateTime date){
+      return date.ToString(FORMAT);
+    }
+
   }
 }

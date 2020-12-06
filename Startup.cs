@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Cinemo.Models;
 using Cinemo.Repository;
 using Cinemo.Service;
-
+using Cinemo.Utils;
 namespace Cinemo
 {
   public class Startup
@@ -56,6 +56,8 @@ namespace Cinemo
 
 
       services
+        .AddSingleton<DateTimeUtils>()
+        
         .AddScoped<UserService>()
 
         .AddScoped<FileService>()

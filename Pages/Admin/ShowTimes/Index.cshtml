@@ -1,5 +1,7 @@
 ﻿@page
 @model Cinemo.Pages.Admin.ShowTime.IndexModel
+@inject Cinemo.Utils.DateTimeUtils DateTimeUtils
+@inject Cinemo.Service.ShowTimeService ShowTimeService
 @{
   Layout = "_AdminLayout";
 }
@@ -35,6 +37,7 @@
           <th><div>Type</div></th>
           <th><div>Format</div></th>
           <th><div>Time</div></th>
+          <th><div>Film Statuse</div></th>
           <th><div>Status</div></th>
           <th><div>Change Status</div></th>
           <th><div>Edit</div></th>
@@ -51,20 +54,15 @@
           <td>@st.ExtraPrice ₫</td>
           <td>@st.Type</td>
           <td>@st.Format</td>
-          <td>@st.Time</td>
+          <td>@DateTimeUtils.ToString(st.Time)</td>
+          <td>@ShowTimeService.GetFilmStatus(st)</td>
           <td>@st.Status</td>
           <td>
 
             <form id="delete-room" method="POST" asp-page-handler="ChangeStatus">
               <input type="hidden" name="id" value="@st.Id">
               <button class="btn btn-primary btn-sm" type="submit">
-              @if (st.Status == Cinemo.Models.ShowTime.ShowState.DRAFT || st.Status == Cinemo.Models.ShowTime.ShowState.PUBLISH){
-               
-                @((Cinemo.Models.ShowTime.ShowState)(st.Status+1))
-              }
-              else{
-                @((Cinemo.Models.ShowTime.ShowState)(st.Status-1))
-              }
+                @(st.Status == Models.ShowTime.ShowState.DRAFT ? "Publish" : "Unpublish")
               </button>
             </form>
 
