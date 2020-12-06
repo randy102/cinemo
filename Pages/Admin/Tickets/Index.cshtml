@@ -1,5 +1,5 @@
 @page
-
+@model Cinemo.Pages.Admin.Ticket.IndexModel
 @{
   Layout = "_AdminLayout";
 }
@@ -38,16 +38,18 @@
       </thead>
 
       <tbody>
+        @foreach (var ticket in Model.Tickets)
+        {
           <tr>
-            <td>12/30/2020 12:00:00 PM</td>
-            <td>SpiderMan</td>
-            <td>A01</td>
-            <td>Nguyễn Du</td>
-            <td>Normal</td>
+            <td>@ticket.ShowTime.Time</td>
+            <td>@ticket.ShowTime.Movie.Title</td>
+            <td>@ticket.ShowTime.Room.Name</td>
+            <td>@ticket.ShowTime.Room.Theater.Name</td>
+            <td>@ticket.TicketType.Name</td>
   
             <td>
               <form id="cancel-ticket" method="POST" asp-page-handler="Delete">
-                <input type="hidden" name="id" value="ticket.Id">
+                <input type="hidden" name="id" value="@ticket.Id">
 
                 <button type="button" class="btn btn-round btn-danger btn-sm"
                   onclick="handleDelete(this.form)"
@@ -57,7 +59,7 @@
               </form>
             </td>
           </tr>
-
+        }
       </tbody>
     </table>
   </div>

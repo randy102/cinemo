@@ -76,7 +76,10 @@ namespace Cinemo
         .AddScoped<CategoryService>()
 
         .AddScoped<ShowTimeRepository>()
-        .AddScoped<ShowTimeService>();
+        .AddScoped<ShowTimeService>()
+        
+        .AddScoped<TicketRepository>()
+        .AddScoped<TicketService>();
 
     }
 
