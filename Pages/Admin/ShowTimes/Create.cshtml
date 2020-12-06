@@ -5,6 +5,12 @@
 
 @{
   Layout = "_AdminLayout";
+
+  var typeDictionary = new Dictionary<string, string>() {
+    ["SUB"] = "Subtitles",
+    ["DUB"] = "Dubbed",
+    ["VN"] = "Vietnamese"
+  };
 }
 
 @section Scripts {
@@ -40,41 +46,42 @@
     <partial name="Shared/_ErrorAlert" model="@Model.ErrorMessage" />
 
     <div class="form-group required">
-          <label for="room-select">Room</label>
-          <select asp-for="@Model.CreateDto.RoomId" required
-                 asp-items="@Model.RoomSelectList" 
-                 id="room-select"
-                 class="selectpicker d-block col-6 p-0"
-                 title="Choose room"
-                 data-style="custom-select"
-                 data-size="5"
-                 data-live-search="true"
-                 data-live-search-normalize="true"
-                 data-live-search-placeholder="Search...">
-          </select>
+      <label for="room-select">Room</label>
+      <select asp-for="@Model.CreateDto.RoomId" required
+              asp-items="@Model.RoomSelectList"
+              id="room-select"
+              class="selectpicker d-block col-6 p-0"
+              title="Choose room"
+              data-style="custom-select"
+              data-size="5"
+              data-live-search="true"
+              data-live-search-normalize="true"
+              data-live-search-placeholder="Search...">
+      </select>
     </div>
 
     <div class="form-group required">
-          <label for="movie-select">Movie</label>
-          <select asp-for="@Model.CreateDto.MovieId" required
-                 asp-items="@Model.MovieSelectList" 
-                 id="movie-select"
-                 class="selectpicker d-block col-6 p-0"
-                 title="Choose movie"
-                 data-style="custom-select"
-                 data-size="5"
-                 data-live-search="true"
-                 data-live-search-normalize="true"
-                 data-live-search-placeholder="Search...">
-          </select>
+      <label for="movie-select">Movie</label>
+      <select asp-for="@Model.CreateDto.MovieId" required
+              asp-items="@Model.MovieSelectList"
+              id="movie-select"
+              class="selectpicker d-block col-6 p-0"
+              title="Choose movie"
+              data-style="custom-select"
+              data-size="5"
+              data-live-search="true"
+              data-live-search-normalize="true"
+              data-live-search-placeholder="Search...">
+      </select>
     </div>
 
     <div class="form-group">
       <label>Extra price</label>
       <div class="input-group">
-        <input class="form-control col-3 price-input"
-               placeholder="0"
-               value="0"
+        <input class="form-control col-3 price-input-label" type="text"
+               value="0" />
+
+        <input class="price-input-value" hidden
                type="number"
                asp-for="CreateDto.ExtraPrice">
 
@@ -84,35 +91,47 @@
       </div>
     </div>
 
-    <div class="form-group mx-0">
-      <label>Show Type</label><br>
-      <select asp-for="CreateDto.Type" class="form-control col-7">
-        @{
-          foreach (var type in Enum.GetValues(typeof(Cinemo.Models.ShowTime.ShowType))) {
-            <option asp-value="@type">@type</option>
-          }
-        }
-      </select>
+    <div class="form-group required">
+      <label>Time & Date</label>
+
+      <input required
+             id="datetimepicker"
+             class="form-control col-3 bg-white"
+             placeholder="Choose time & date..."
+             type="text"
+             asp-for="CreateDto.Time">
     </div>
 
     <div class="form-group required">
-      <label>Time & Date</label>
-      <input required
-            id="datetimepicker"
-            class="form-control col-3 bg-white"
-            placeholder="Choose time & date..."
-            type="text"
-            asp-for="CreateDto.Time">
+      <label>Type</label>
+
+      @foreach (var type in Enum.GetValues(typeof(Cinemo.Models.ShowTime.ShowType))) {
+        var id = Guid.NewGuid().ToString("N");
+
+        <br />
+
+        <div class="custom-control custom-radio custom-control-inline">
+          <input required type="radio" value="@type" id="@id" class="custom-control-input" asp-for="CreateDto.Type">
+          <label class="custom-control-label" for="@id">
+            @typeDictionary[type.ToString()]
+          </label>
+        </div>
+      }
     </div>
 
     <div class="form-group required">
       <label>Format</label>
-      <br/>
-      <select asp-for="CreateDto.Format" class="form-control col-7">
-              @foreach (string showFormat in Enum.GetNames(typeof(ShowTime.FormatEnum))) {
-              <option value="@showFormat">@showFormat</option>
-              }
-      </select>
+
+      @foreach (string format in Enum.GetNames(typeof(ShowTime.FormatEnum))) {
+        var id = Guid.NewGuid().ToString("N");
+
+        <br />
+
+        <div class="custom-control custom-radio custom-control-inline">
+          <input required type="radio" value="@format" id="@id" class="custom-control-input" asp-for="CreateDto.Format">
+          <label class="custom-control-label" for="@id">@format.Substring(1)</label>
+        </div>
+      }
     </div>
 
     <div class="form-group">
