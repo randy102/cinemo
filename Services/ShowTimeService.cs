@@ -34,7 +34,7 @@ namespace Cinemo.Service
     {
       return repository.FindById(id);
     }
-    
+
     public List<ShowTime> GetAll(int roomId)
     {
       return repository.FindAll().Where(r => r.RoomId == roomId).ToList();
@@ -50,9 +50,11 @@ namespace Cinemo.Service
       }).ToList();
     }
 
-    private void checkSupportedFormat(ShowTimeCreateDto dto){
+    private void checkSupportedFormat(ShowTimeCreateDto dto)
+    {
       Room room = roomService.GetDetail(dto.RoomId);
-      if(!room.Formats.Contains(dto.Format.ToString())){
+      if (!room.Formats.Contains(dto.Format.ToString()))
+      {
         throw new Exception("Not support the format " + dto.Format + ". Only " + room.Formats + ".");
       }
     }

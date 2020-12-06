@@ -38,7 +38,7 @@ namespace Cinemo.Service
       return GetAll().Select(c => new SelectListItem
       {
         Value = c.Id.ToString(),
-        Text = c.Theater.Name + "/ " + c.Name + "(" + c.Formats + ")",
+        Text = c.Theater.Name + " - " + c.Name + " (" + c.Formats + ")",
         Selected = c.Id == defaultId
       }).ToList();
     }

@@ -31,12 +31,14 @@ namespace Cinemo.Pages.Admin.Room
       this.theaterService = theaterService;
     }
 
+    private void GetInitData(){
+      OldRoom = service.GetDetail(id);
+      theaters = theaterService.GetSelectListItems(OldRoom.TheaterId);
+    }
+
     public IActionResult OnGet()
     {
-      OldRoom = service.GetDetail(id);
-      if (OldRoom == null) return Redirect("./");
-
-      theaters = theaterService.GetSelectListItems(OldRoom.TheaterId);
+      GetInitData();
       return Page();
 
     }
@@ -50,8 +52,7 @@ namespace Cinemo.Pages.Admin.Room
       catch (Exception error)
       {
         ErrorMessage = error.Message;
-        theaters = theaterService.GetSelectListItems();
-        OldRoom = service.GetDetail(id);
+        GetInitData();
         return Page();
       }
     }
