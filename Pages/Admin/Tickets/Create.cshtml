@@ -19,7 +19,7 @@
   <form method="post">
     <div class="form-group required">
       <label for="theater-select">Show Time</label>
-      <select asp-for="@Model.CreateDto.ShowTimeId" required id="theater-select"
+      <select asp-for="@Model.CreateDto.ShowTimeId" asp-items="@Model.ShowTimeSelectList" required id="theater-select"
         class="selectpicker d-block col-6 p-0" title="Choose theater" data-style="custom-select" data-size="5"
         data-live-search="true" data-live-search-normalize="true" data-live-search-placeholder="Search...">
       </select>

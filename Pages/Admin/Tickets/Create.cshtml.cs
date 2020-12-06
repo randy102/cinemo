@@ -37,7 +37,7 @@ namespace Cinemo.Pages.Admin.Ticket
     }
 
     private void GetInitData(){
-
+      ShowTimeSelectList = showTimeService.GetShowingSelectListItems();
     }
 
     public void OnGet()
