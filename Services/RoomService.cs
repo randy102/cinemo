@@ -33,12 +33,13 @@ namespace Cinemo.Service
       return repository.FindAll().Where(c => c.TheaterId == theaterId && c.Name.Equals(name)).FirstOrDefault();
     }
 
-    public List<SelectListItem> GetSelectListItems()
+    public List<SelectListItem> GetSelectListItems(int defaultId = 0)
     {
       return GetAll().Select(c => new SelectListItem
       {
         Value = c.Id.ToString(),
-        Text = c.Theater.Name+"/ "+c.Name+"("+c.Formats+")"
+        Text = c.Theater.Name + "/ " + c.Name + "(" + c.Formats + ")",
+        Selected = c.Id == defaultId
       }).ToList();
     }
 
@@ -69,10 +70,10 @@ namespace Cinemo.Service
 
     public Room Update(RoomUpdateDto dto)
     {
-      var isExist = GetDetail(dto.TheaterId, dto.Name);
-      if (isExist != null && dto.Id != isExist.Id && dto.TheaterId == isExist.TheaterId)
+      var isExist = repository.FindWhere(r => r.Id != dto.Id && r.TheaterId == dto.TheaterId && r.Name == dto.Name).Any();
+      if (isExist)
       {
-        throw new Exception(dto.Name + " existed");
+        throw new Exception(dto.Name + " existed within Theater");
       }
       var entity = new Room
       {

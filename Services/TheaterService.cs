@@ -27,12 +27,13 @@ namespace Cinemo.Service
       return repository.FindAll().Where(c => c.Name.Equals(name)).FirstOrDefault();
     }
     
-    public List<SelectListItem> GetSelectListItems()
+    public List<SelectListItem> GetSelectListItems(int defaultId = 0)
     {
       return GetAll().Select(c => new SelectListItem
       {
         Value = c.Id.ToString(),
-        Text = c.Name
+        Text = c.Name,
+        Selected = c.Id == defaultId
       }).ToList();
     }
 

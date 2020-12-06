@@ -3,96 +3,95 @@
 
 @using Cinemo.Models;
 
+@{
+  Layout = "_AdminLayout";
+}
+
 @section Scripts{
-  <script src="~/js/Validation.js"></script>
   <script src="~/js/checkbox.js"></script>
 }
 
-<div class="row no-gutters justify-content-center align-self-center m-auto">
-  <div style="width: 550px">
-    <a href="/Admin/Rooms">
-      <i class="fa fa-arrow-left mr-1"></i>Back to Rooms
-    </a>
+<div class="container">
+  <a href="/Admin/Rooms">
+    <i class="fas fa-angle-left mr-1"></i>Back to Rooms
+  </a>
 
-    <div class="display-4 text-center">
-      Change room
-    </div>
+  <div class="display-4">
+    Edit Room
+  </div>
 
-    <hr class="my-4">
-    <form method="POST" class="needs-validation" novalidate>
+  <hr class="my-4">
+
+  <form class="needs-validation" method="POST">
       <partial name="Shared/_ErrorAlert" model="@Model.ErrorMessage" />
+      <input asp-for="@Model.UpdateDto.Id" value="@Model.OldRoom.Id" hidden />
 
-      <input value="@Model.OldRoom.Id" asp-for="@Model.UpdateDto.Id" hidden> 
-      <div class="form-group row mx-0">
-        <label class="col-sm-3 col-form-label mr-sm-1 pl-0">
-          New name:  
-        </label>
-        <input class="form-control col" value="@Model.OldRoom.Name" asp-for="@Model.UpdateDto.Name" placeholder="Enter new name" required>
-        <div class="invalid-feedback text-center">
-          Room name is required.
-        </div>
-      </div>
-  
-      <div class="form-group row mx-0">
-        <label for="new-name" class="col-sm-3 col-form-label mr-sm-1 pl-0">
-          Column number:
-        </label>
-        <input class="form-control col" min="0" value="@Model.OldRoom.NumCol" asp-for="@Model.UpdateDto.NumCol" placeholder="Enter number"required>
-        <div class="invalid-feedback text-center">
-            Column number is required.
-        </div>
+      <div class="form-group col-9 p-0 required">
+          <label>Name</label>
+          <input class="form-control" 
+                 type="text"
+                 asp-for="UpdateDto.Name"
+                 value="@Model.OldRoom.Name"
+                 placeholder="Enter name" 
+                 required>
       </div>
 
-      <div class="form-group row mx-0">
-        <label for="new-name" class="col-sm-3 col-form-label mr-sm-1 pl-0">
-          Row number:
-        </label>
-        <input class="form-control col" min="0" value="@Model.OldRoom.NumRow" asp-for="@Model.UpdateDto.NumRow" placeholder="Enter number"required>
-        <br>
-        <div class="invalid-feedback text-center">
-          Row number is required.
-        </div>
+      <div class="form-group required">
+          <label for="theater-select">Theater</label>
+          <select asp-for="@Model.UpdateDto.TheaterId" required
+                asp-items="@Model.theaters" 
+                id="theater-select"
+                class="selectpicker d-block col-6 p-0"
+                title="Choose theater"
+                data-style="custom-select"
+                data-size="5"
+                data-live-search="true"
+                data-live-search-normalize="true"
+                data-live-search-placeholder="Search...">
+          </select>
       </div>
 
-      <div class="form-group row mx-0">
-          <label class="col-3 pl-0">
-            Format:
-          </label>
+      <div class="form-group required">
+          <label>Column number</label>
+          <input asp-for="UpdateDto.NumCol" required
+                 type="number" min="0"
+                 value="@Model.OldRoom.NumCol"
+                 placeholder="Enter number" 
+                 class="form-control col-3">
+      </div>
 
+      <div class="form-group required">
+          <label>Row number</label>
+          <input asp-for="UpdateDto.NumRow" required
+                 type="number" min="0"
+                 value="@Model.OldRoom.NumRow"
+                 placeholder="Enter number" 
+                 class="form-control col-3">
+      </div>
+
+      <div class="form-group required">
+          <label>Format</label>
+          <br />
           <input type="text" asp-for="UpdateDto.Formats" id="formats" hidden>
           @foreach (string name in Enum.GetNames(typeof(Room.Format))) {
-            if(@Model.OldRoom.Formats.Contains(name)){
-              <div class="custom-control custom-checkbox mr-1">
-                <input type="checkbox" required
-                       class="custom-control-input required_group" 
-                       name="format"
-                       value="@name" 
-                       id="@name" checked>
-                <label class="custom-control-label"
-                       for="@name">
-                       @name.Substring(1)
-                </label>
-              </div>
-            } else {
-              <div class="custom-control custom-checkbox mr-1">
-                <input type="checkbox" required
-                       class="custom-control-input required_group" 
-                       name="format"
-                       value="@name" 
-                       id="@name">
-                <label class="custom-control-label"
-                       for="@name">
-                       @name.Substring(1)
-                </label>
-              </div>
-            }
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox"
+                     class="custom-control-input required_group" 
+                     name="format"
+                     value="@name" 
+                     id="@name"
+                     checked="@Model.OldRoom.Formats.Contains(name)">
+              <label class="custom-control-label" for="@name">
+                    @name.Substring(1)
+              </label>
+            </div>
           }
       </div>
-      <input hidden asp-for="@Model.UpdateDto.TheaterId" value="@Model.OldRoom.TheaterId">
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
-      </div>
 
-    </form>
-  </div>
+      <div class="form-group">
+          <button class="btn btn-primary" type="submit">
+              Edit Room
+          </button>
+      </div>
+  </form>
 </div>

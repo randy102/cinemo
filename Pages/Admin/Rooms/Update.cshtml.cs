@@ -33,11 +33,10 @@ namespace Cinemo.Pages.Admin.Room
 
     public IActionResult OnGet()
     {
-      theaters = theaterService.GetSelectListItems();
       OldRoom = service.GetDetail(id);
-      if (OldRoom == null)
-        return Redirect("./");
+      if (OldRoom == null) return Redirect("./");
 
+      theaters = theaterService.GetSelectListItems(OldRoom.TheaterId);
       return Page();
 
     }
