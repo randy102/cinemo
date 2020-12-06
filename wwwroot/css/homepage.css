@@ -18,11 +18,16 @@
     transition-property: all;
     transition-duration: 250ms;
     transition-timing-function: ease;
-    transition-delay: 0s;
+    transition-delay: 0.18s;
 }
 
 .card{
     width: 15em;
+}
+
+.nav__link.active{
+    color: #f26b38;
+    border-bottom-color: #f26b38;
 }
 
 .card-body{
@@ -62,3 +67,5 @@
       background-color: rgba(0, 0, 0, 0.7) !important;
      
   }
+
+  

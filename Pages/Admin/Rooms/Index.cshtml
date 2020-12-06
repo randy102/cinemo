@@ -6,6 +6,7 @@
 }
 
 @section Scripts {
+  <script src="~/js/filter.js"></script>
   <script>
     function handleDelete(form) {
       confirmDelete({
@@ -16,15 +17,44 @@
     }
   </script>
 }
+<style>
+  .form-control:focus[type=text] {
+    border-bottom: 1px solid #4dd0e1;
+    border-top: none ;
+    border-right: none;
+    border-left: none; 
+    border-radius: 0px !important;
+    box-shadow: 0 1px 0 0 #4dd0e1;
+  }
+ .form-control[type=text]{
+    border-bottom: 1;
+    border-top: none ;
+    border-right: none;
+    border-left: none; 
+    border-radius: 0px !important;
+  }
+}
+</style>
+
+ 
 
 <div class="container">
-  <div class="mb-3">
-    <div class="d-inline-block display-4 mr-3">Rooms</div>
-    <a class="btn btn-success btn-sm align-text-bottom ml-auto" href="/Admin/Rooms/Create">
-      <i class="fas fa-plus"></i>
-      Create Room
-    </a>
+  <div class="mb-3 d-flex">
+    <div class="mr-auto p-2">
+      <div class="d-inline-block display-4 mr-3">Rooms</div>
+      <a class="btn btn-success btn-sm align-text-bottom ml-auto" href="/Admin/Rooms/Create">
+        <i class="fas fa-plus"></i>
+        Create Room
+      </a> 
+    </div>
+    <div class="p-2">
+      <input class="form-control mt-3" 
+            id="myInput" 
+            type="text" placeholder="Search"
+            aria-label="Search">
+    </div>
   </div>
+
   <div class="cinemo-datatable">
     <table class="table">
       <thead>
@@ -38,7 +68,7 @@
           <th><div>Delete</div></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="myTable">
         @foreach (var r in Model.Rooms) {
           <tr>
             <td>@r.Name</td>
