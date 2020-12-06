@@ -6,6 +6,7 @@ using Cinemo.Utils;
 using System.Linq;
 using System;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Cinemo.Service
 {
@@ -33,32 +34,36 @@ namespace Cinemo.Service
     {
       return repository.FindById(id);
     }
-    // public Room GetDetail(int theaterId, string name)
-    // {
-    //     name = FormatString.Trim_MultiSpaces_Title(name);
-    //     return repository.FindAll().Where(c => c.TheaterId == theaterId && c.Name.Equals(name)).FirstOrDefault();
-    // }
+
     public List<ShowTime> GetAll(int roomId)
     {
       return repository.FindAll().Where(r => r.RoomId == roomId).ToList();
     }
 
-    //true = create
-    //fase=update
-    public bool isExist(ShowTimeCreateDto dto, bool type = true)
+    public List<SelectListItem> GetSelectListItems(int defaultId = 0)
+    {
+      return GetAll().Select(c => new SelectListItem
+      {
+        Value = c.Id.ToString(),
+        Text = c.Time.ToString(),
+        Selected = defaultId == c.Id
+      }).ToList();
+    }
+
+    private void checkSupportedFormat(ShowTimeCreateDto dto)
+    {
+      Room room = roomService.GetDetail(dto.RoomId);
+      if (!room.Formats.Contains(dto.Format.ToString()))
+      {
+        throw new Exception("Not support the format " + dto.Format + ". Only " + room.Formats + ".");
+      }
+    }
+
+    private bool isExist(ShowTimeCreateDto dto, bool type = true)
     {
       //Phòng showTime được xét cần sử dụng
       var room = roomService.GetDetail(dto.RoomId);
       var movie = movieService.GetDetail(dto.MovieId);
-
-      //Kiểm tra format 
-      string dtoFormat = Enum.GetName(typeof(Cinemo.Models.ShowTime.FormatEnum), (int)dto.Format);
-
-
-      if (!room.Formats.Contains(dtoFormat))
-      {
-        throw new Exception("Not support the format " + dto.Format + ". Only " + room.Formats + ".");
-      }
 
       //Kiểm thời gian bắt đầu/ kết thúc showTime
       //Những showTime sử dụng phòng đang xét
@@ -105,8 +110,7 @@ namespace Cinemo.Service
 
     public ShowTime Create(ShowTimeCreateDto dto)
     {
-      _logger.LogInformation(dto.Time.ToString());
-    
+      checkSupportedFormat(dto);
       isExist(dto);
 
       var entity = new ShowTime
@@ -126,6 +130,7 @@ namespace Cinemo.Service
 
     public ShowTime Update(ShowTimeUpdateDto dto)
     {
+      checkSupportedFormat(dto);
       isExist(dto, false);
       var entity = new ShowTime
       {

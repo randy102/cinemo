@@ -13,13 +13,13 @@ namespace Cinemo.Pages.Movie
 {
   public class UpdateModel : PageModel
   {
-    private ApplicationDbContext db;
     private readonly MovieService service;
+    private readonly CategoryService categoryService;
 
-    public UpdateModel(ApplicationDbContext db, MovieService service)
+    public UpdateModel( MovieService service, CategoryService categoryService)
     {
-      this.db = db;
       this.service = service;
+      this.categoryService = categoryService;
     }
 
     [BindProperty]
@@ -34,26 +34,13 @@ namespace Cinemo.Pages.Movie
 
     public List<SelectListItem> Categories { get; set; }
 
-    public User getUser()
-    {
-      var email = HttpContext.User.FindFirst(ClaimTypes.Email).Value;
-      return db.Users.Where(u => u.Email.Equals(email)).FirstOrDefault();
-    }
-
     public IActionResult OnGet()
     {
       OldMovie = service.GetDetail(id);
       if (OldMovie == null)
         return Redirect("./");
 
-      Categories = db.Categories.Select(c => new SelectListItem
-      {
-        Value = c.Id.ToString(),
-        Text = c.Name,
-        Selected = OldMovie.CategoryId.Equals(c.Id)
-      }).ToList();
-
-      
+      Categories = categoryService.GetSelectListItems(OldMovie.CategoryId);
       return Page();
     }
 
