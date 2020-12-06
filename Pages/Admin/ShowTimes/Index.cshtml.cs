@@ -8,18 +8,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Cinemo.Pages.Admin.ShowTime
 {
-    public class IndexModel : PageModel
-    {
-        private readonly ShowTimeService service;
+  public class IndexModel : PageModel
+  {
+    private readonly ShowTimeService service;
+
+    [BindProperty(Name = "error", SupportsGet = true)]
+    public string ErrorMessage { get; set; }
+
+    public List<Cinemo.Models.ShowTime> showTimes { get; set; }
+
     public IndexModel(ShowTimeService service)
     {
       this.service = service;
     }
 
-    public List<Cinemo.Models.ShowTime> showTimes { get; set; }
-
-    [BindProperty(Name = "error", SupportsGet = true)]
-    public string ErrorMessage { get; set; }
     public void OnGet()
     {
       showTimes = service.GetAll();
@@ -33,8 +35,8 @@ namespace Cinemo.Pages.Admin.ShowTime
 
     public IActionResult OnPostChangeStatus(int id)
     {
-      service.ChangeStatus(service.GetDetail(id));
+      service.ChangeStatus(id);
       return Redirect("/Admin/ShowTimes");
     }
-    }
+  }
 }

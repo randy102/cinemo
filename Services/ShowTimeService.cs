@@ -37,7 +37,7 @@ namespace Cinemo.Service
 
     public List<ShowTime> GetAll(int roomId)
     {
-      return repository.FindAll().Where(r => r.RoomId == roomId).ToList();
+      return repository.FindWhere(r => r.RoomId == roomId).ToList();
     }
 
     public List<SelectListItem> GetSelectListItems(int defaultId = 0)
@@ -50,6 +50,30 @@ namespace Cinemo.Service
       }).ToList();
     }
 
+    public FilmStateEnum GetFilmStatus(ShowTime showTime)
+    {
+      DateTime start = showTime.Time;
+      DateTime end = showTime.Time.AddMinutes(showTime.Movie.Length);
+      DateTime now = DateTime.Now;
+
+      if (now < start) return FilmStateEnum.READY;
+      if (end < now) return FilmStateEnum.END;
+      return FilmStateEnum.PLAYING;
+    }
+
+    public bool isNotEnd(ShowTime showTime)
+    {
+      DateTime start = showTime.Time;
+      DateTime end = start.AddMinutes(showTime.Movie.Length);
+      DateTime now = DateTime.Now;
+      return now <= end;
+    }
+
+    public List<ShowTime> GetShowingTime()
+    {
+      return repository.FindWhere(t => isNotEnd(t));
+    }
+
     private void checkSupportedFormat(ShowTimeCreateDto dto)
     {
       Room room = roomService.GetDetail(dto.RoomId);
@@ -58,6 +82,7 @@ namespace Cinemo.Service
         throw new Exception("Not support the format " + dto.Format + ". Only " + room.Formats + ".");
       }
     }
+
 
     private bool isExist(ShowTimeCreateDto dto, bool type = true)
     {
@@ -147,31 +172,15 @@ namespace Cinemo.Service
       return repository.Update(entity);
     }
 
-    public ShowTime ChangeStatus(ShowTime dto)
+    public ShowTime ChangeStatus(int id)
     {
-      if (dto.Status == Cinemo.Models.ShowTime.ShowState.DRAFT || dto.Status == Cinemo.Models.ShowTime.ShowState.PUBLISH)
-      {
+      ShowTime showTime = GetDetail(id);
+      if (showTime.Status == ShowTime.ShowState.DRAFT)
+        showTime.Status = ShowTime.ShowState.PUBLISHED;
+      else //TODO: Check if ticket is booked
+        showTime.Status = ShowTime.ShowState.DRAFT;
 
-        dto.Status = ((Cinemo.Models.ShowTime.ShowState)(dto.Status + 1));
-      }
-      else
-      {
-        dto.Status = ((Cinemo.Models.ShowTime.ShowState)(dto.Status - 1));
-      }
-      // var entity = new ShowTime
-      // {
-      //     Id = dto.Id,
-      //     RoomId =dto.RoomId,//dto.Room.TheaterId,
-      //     TheaterId =roomService.GetDetail(dto.RoomId).TheaterId,
-      //     // TheaterId =1,
-      //     MovieId=dto.MovieId,
-      //     ExtraPrice=dto.ExtraPrice,
-      //     Status=dto.Status,
-      //     Type=dto.Type,
-      //     Format=dto.Format,
-      //     Time=dto.Time
-      // };
-      return repository.Update(dto);
+      return repository.Update(showTime);
     }
   }
 }
