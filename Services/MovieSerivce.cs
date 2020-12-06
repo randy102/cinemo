@@ -30,12 +30,13 @@ namespace Cinemo.Service
       return repository.FindById(id);
     }
 
-    public List<SelectListItem> GetSelectListItems()
+    public List<SelectListItem> GetSelectListItems(int defaultId = 0)
     {
       return GetAll().Select(c => new SelectListItem
       {
         Value = c.Id.ToString(),
-        Text = c.Title
+        Text = c.Title,
+        Selected = c.Id == defaultId
       }).ToList();
     }
 

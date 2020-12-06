@@ -45,9 +45,13 @@
     </div>
 
     <div class="form-group">
-      <label class="h5" for="runtime-select">Length</label> <br>
+      <label class="h5" for="runtime-select">Duration</label> <br>
 
       <input asp-for="@Model.CreateDto.Length" type="number" required class="form-control"></input> minutes
+
+      <div class="invalid-feedback">
+        Please provide the movie's duration.
+      </div>
     </div>
 
     <div class="form-group">
@@ -58,13 +62,14 @@
 
     <div class="form-group">
       <label class="h5">Image</label>
-      <input type="file" asp-for="@Model.CreateDto.Upload" />
+
+      <input type="file" class="form-control-file" asp-for="@Model.CreateDto.Upload" />
     </div>
 
     <div class="form-group">
       <label class="h5">Tags</label>
 
-      <input asp-for="@Model.CreateDto.Tags" id="tags" type="text"  hidden>
+      <input asp-for="@Model.CreateDto.Tags" id="tags" type="text" hidden>
 
       <ul id="my-tags" class="tag-cloud list-inline row"></ul>
     </div>
@@ -74,8 +79,8 @@
   </form>
 </div>
 <script>
-  $(function(){
-    
+  $(function () {
+
     /*Script tags*/
     $('#my-tags').taxonomy_jquery({
       hiddenFieldName: 'CreateDto.Tags'
@@ -89,9 +94,9 @@
         console.error(error);
       });
   });
-  
 
 
-  
+
+
 
 </script>

@@ -36,9 +36,13 @@ namespace Cinemo.Pages.Admin.Ticket
       this.ticketTypeService = ticketTypeService;
     }
 
+    private void GetInitData(){
+
+    }
+
     public void OnGet()
     {
-      
+      GetInitData();
     }
   }
 }
