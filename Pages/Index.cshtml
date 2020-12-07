@@ -1,4 +1,4 @@
-﻿@page
+﻿@* @page
 @model IndexModel
 @{
   ViewData["Title"] = "Home page";
@@ -74,4 +74,95 @@
       </div>
     }
   }
+</div> *@
+@page
+@model IndexModel
+@inject Cinemo.Service.FileService FileService
+@{
+  ViewData["Title"] = "Home page";
+}
+
+@section Styles{
+  <link rel="stylesheet" href="~/css/homepage.css">
+}
+@{
+  var cards = new[]{
+    new{
+      Poster = "https://galaxycine.vn/media/2020/11/25/josee300x450_1606279044468.jpg",
+      Name = "JOSEE",
+    },
+    new{
+      Poster = "https://galaxycine.vn/media/2020/12/3/1200wx1800h_1606989649212.jpg",
+      Name = "EXTREME JOD",
+    },
+    new{
+      Poster = "https://galaxycine.vn/media/2020/11/26/toiacthinhlang300x450_1606379842008.png",
+      Name = "STONE SKIPPING",
+    },
+    new{
+      Poster = "https://galaxycine.vn/media/2020/11/24/300-mon_1606210223608.jpg",
+      Name = "DORAEMON: NOBITA'S NEW DINOSOUR",
+    },
+    new{
+      Poster = "https://galaxycine.vn/media/2020/10/28/poster--nkc-18122020_1603852311426.jpg",
+      Name = "CHỊ MƯỜI BA: 3 NGÀY SINH TỬ",
+    },
+  };
+}
+<div class="container">
+  ShowingTime
+  <div class="row row-cols-md-4">
+    @foreach (var st in @Model.showingTimes)
+    {
+        <div class="col mb-3">
+          <div class="card border-0">
+            <a href="#">
+              <div class="bg-transparent">
+                <span class="position-absolute badge badge-success">children</span>
+                <img class="card-img-top"
+                    src=@FileService.GetPath(st.Movie.Img)
+                    onerror="this.onerror=null; this.src='www.cgv.vn/media/catalog/product/cache/1/small_image/240x388/dd828b13b1cb77667d034d5f59a82eb6/r/s/rsz_cr2_digtal1sheet_action_vie_1.jpg'">
+                <button class="btn middle">
+                  <a class="border border-light text-white px-2 py-1 text-decoration-none"
+                    href="#">Mua vé</a>
+                </button>
+              </div>
+              <div class="card-body p-0">
+                <h6 class="card-title text-uppercase text-truncate pt-2 mb-0 small font-weight-bold">@st.Movie.Title</h6>
+                @* <p class="card-text text-uppercase text-truncate small">Gia Đình Croods: Kỷ Nguyên Mới</p> *@
+              </div>
+            </a>
+          </div>
+        </div>
+    }
+  </div>
+</div>
+
+<div class="container">
+  Not ShowingTime
+  <div class="row row-cols-md-4">
+    @foreach (var m in @Model.notShowingTimes)
+    {
+        <div class="col mb-3">
+          <div class="card border-0">
+            <a href="#">
+              <div class="bg-transparent">
+                <span class="position-absolute badge badge-success">children</span>
+                <img class="card-img-top"
+                    src=@FileService.GetPath(m.Img)
+                    onerror="this.onerror=null; this.src='www.cgv.vn/media/catalog/product/cache/1/small_image/240x388/dd828b13b1cb77667d034d5f59a82eb6/r/s/rsz_cr2_digtal1sheet_action_vie_1.jpg'">
+                <button class="btn middle">
+                  <a class="border border-light text-white px-2 py-1 text-decoration-none"
+                    href="#">Mua vé</a>
+                </button>
+              </div>
+              <div class="card-body p-0">
+                <h6 class="card-title text-uppercase text-truncate pt-2 mb-0 small font-weight-bold">@m.Title</h6>
+                @* <p class="card-text text-uppercase text-truncate small">Gia Đình Croods: Kỷ Nguyên Mới</p> *@
+              </div>
+            </a>
+          </div>
+        </div>
+    }
+  </div>
 </div>

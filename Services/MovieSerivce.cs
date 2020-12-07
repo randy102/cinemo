@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Cinemo.Utils;
 
 namespace Cinemo.Service
 {
@@ -13,6 +14,7 @@ namespace Cinemo.Service
     private MovieRepository repository;
     private UserManager<User> manager;
     private FileService fileService;
+    private DateTimeUtils dateTimeUtils=new DateTimeUtils();
 
     public MovieService(MovieRepository MovieRepository, FileService fileService)
     {
@@ -59,7 +61,8 @@ namespace Cinemo.Service
         Img = imageName,
         CategoryId = dto.CategoryId,
         Length = dto.Length,
-        CreatedAt = System.DateTime.Now
+        CreatedAt = System.DateTime.Now,
+        Released = dateTimeUtils.Parse(dto.Released)
       };
 
       return repository.Add(entity);
@@ -73,6 +76,7 @@ namespace Cinemo.Service
       entity.Content = dto.Content;
       entity.Tags = dto.Tags != null ? string.Join(',', dto.Tags) : null;
       entity.CategoryId = dto.CategoryId;
+      entity.Released = dateTimeUtils.Parse(dto.Released);
 
       if (dto.Upload != null)
       {

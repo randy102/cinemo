@@ -20,6 +20,9 @@ namespace Cinemo.Models {
     
     [DataType(DataType.DateTime)]
     public DateTime CreatedAt {get; set;}
+
+    [DisplayFormat(DataFormatString = "{HH:mm - dd/MM/yyyy}")]
+    public DateTime Released {get; set;}
   }
 
   public class MovieCreateDto {
@@ -29,6 +32,7 @@ namespace Cinemo.Models {
     public string Title {get; set;}
     public IFormFile Upload {get; set;}
     public string Content {get; set;}
+    public string Released { get; set; }
   }
 
   public class MovieUpdateDto: MovieCreateDto {

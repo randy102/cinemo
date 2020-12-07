@@ -42,6 +42,11 @@ namespace Cinemo.Service
       return repository.FindWhere(r => r.RoomId == roomId).ToList();
     }
 
+    public List<ShowTime> GetAll(Movie movie)
+    {
+      return repository.FindWhere(r => r.MovieId == movie.Id).ToList();
+    }
+
     public List<SelectListItem> GetShowingSelectListItems(int defaultId = 0)
     {
       return GetShowingTime().Select(c => new SelectListItem
@@ -71,9 +76,31 @@ namespace Cinemo.Service
       return now <= end;
     }
 
+    // public List<ShowTime> GetShowingTime()
+    // {
+    //   return repository.FindWhere(t => isNotEnd(t));
+    // }
+
     public List<ShowTime> GetShowingTime()
     {
-      return repository.FindWhere(t => isNotEnd(t));
+      return repository.FindWhere(t => isNotEnd(t) && t.Status== ShowTime.ShowState.PUBLISHED).GroupBy(t => t.Movie.Title)
+           .Select(t => t.First()).ToList();
+    }
+
+    public List<Movie> GetNotShowingTime()
+    {
+      DateTime now = DateTime.Now;
+      var showTimes=GetAll();
+      var movies=movieService.GetAll();
+      var notShowingTimes=new List<Movie>();
+      foreach (var movie in movies)
+      {
+          if (GetAll(movie).Count==0 && movie.Released > now)
+          {
+              notShowingTimes.Add(movie);
+          }
+      }
+      return notShowingTimes.Distinct().ToList();
     }
 
     private void checkSupportedFormat(ShowTimeCreateDto dto)
