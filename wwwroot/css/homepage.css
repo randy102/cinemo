@@ -4,10 +4,10 @@
 
 .nav__link {
     display: block;
-     padding: 6px;
+    padding: 6px;
 
-     color: #fff;
-     text-decoration: none;
+    color: #a0a3a7;
+    text-decoration: none;
 
     border-bottom: 2px solid transparent;
 }
@@ -15,6 +15,7 @@
 .nav__link:hover {
     color: #f26b38;
     border-bottom-color: #f26b38;
+    text-decoration: none;
     transition-property: all;
     transition-duration: 250ms;
     transition-timing-function: ease;
@@ -22,22 +23,23 @@
 }
 
 .card{
-    width: 16em;
+    width: 15em;
 }
 
 .nav__link.active{
-    color: #f26b38;
+    color: #43464b;
     border-bottom-color: #f26b38;
+    text-decoration: none;
 }
 
 .card-body{
-    max-width: 16em;
+    max-width: 15em;
 }
 
-/*.card-img-top{
+.card-img-top{
     max-width: 15em;
     height: 20em;
-}*/
+}
 
 .middle {
     transition: .5s ease;

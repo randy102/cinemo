@@ -32,6 +32,8 @@ namespace Cinemo.Models {
     public string Title {get; set;}
     public IFormFile Upload {get; set;}
     public string Content {get; set;}
+    
+    [Required(ErrorMessage="You must enter a Date")]
     public string Released { get; set; }
   }
 
