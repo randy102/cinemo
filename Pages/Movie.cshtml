@@ -1,23 +1,18 @@
 ﻿@page
 @model Cinemo.Pages.MovieModel
 
-@using Cinemo.Models;
+@using System.Linq;
 
 @{
-  var theaters = new[] {
-    new {
-      Id = 1,
-      Name = "Theater 1"
-    },
-    new {
-      Id = 2,
-      Name = "Theater 2"
-    },
-    new {
-      Id = 3,
-      Name = "Theater 3"
-    }
-  };
+  var showtimes = Model.ShowTimes;
+
+  var groupedShowtimes =
+    from showtime in showtimes
+    group showtime by showtime.Theater.Name into theaterGroup
+    from formatAndTypeGroup in
+      (from showtime in theaterGroup
+       group showtime by showtime.Format.ToString().Substring(1) + " - " + showtime.Type.ToString())
+    group formatAndTypeGroup by theaterGroup.Key;
 }
 
 @section Scripts {
@@ -61,7 +56,7 @@
 }
 
 <div class="row mb-5">
-  <img class="col-3 p-0" src="~/uploads/b24f908e-9e77-47e0-a5c5-ba510d51c2b8.jpg" />
+  <img class="col-3 p-0" src="~/uploads/@Model.Movie.Img" />
 
   <div class="col">
     <h3 class="mb-3">
@@ -80,12 +75,12 @@
       @Model.Movie.Category.Name
     </div>
 
-    The prehistoric family the Croods are challenged by a rival family the Bettermans, who claim to be better and more evolved.
+    @Model.Movie.Content
   </div>
 </div>
 
 <div>
-  <h4 class="mb-3">SHOW TIMES</h4>
+  <h4 class="mb-4">SHOW TIMES</h4>
 
   <div class="row mb-4">
     <select id="select-theater"
@@ -99,7 +94,7 @@
         All theaters
       </option>
 
-      @foreach (var theater in theaters) {
+      @foreach (var theater in Model.Theaters) {
         <option value="@theater.Id">
           @theater.Name
         </option>
@@ -113,21 +108,29 @@
            type="text">
   </div>
 
-  <div class="row flex-column">
-    <h5>Galaxy Nguyễn Du</h5>
+  @foreach (var theaterGroup in groupedShowtimes) {
+    <div class="card mb-4">
+      <div class="card-header">
+        <h5 class="m-0">@theaterGroup.Key</h5>
+      </div>
 
-    <div class="border border-dark p-3">
-      <div class="row">
-        <div class="col-3 p-0 mr-3">
-          2D - Subtitles
-        </div>
+      <div class="card-body">
+        @foreach (var formatAndTypeGroup in theaterGroup) {
+          <div class="row">
+            <div class="col-3 p-0 mr-3">
+              @formatAndTypeGroup.Key
+            </div>
 
-        <div class="col p-0">
-          <button class="d-inline btn btn-outline-primary btn-sm mb-2 mr-2">
-            13:00
-          </button>
-        </div>
+            <div class="col p-0">
+              @foreach (var showtime in formatAndTypeGroup) {
+                <button class="d-inline btn btn-outline-primary btn-sm mb-2 mr-2">
+                  @showtime.Time.ToString("HH:mm")
+                </button>
+              }
+            </div>
+          </div>
+        }
       </div>
     </div>
-  </div>
+  }
 </div>
