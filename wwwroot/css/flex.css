@@ -13,3 +13,7 @@
   display: flex;
   align-items: center;
 }
+
+.row {
+  margin: 0;
+}
