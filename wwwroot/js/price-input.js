@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-  $('.price-input-label').on('input', function (event) {
+  $('.price-input-label').on('input', function (e) {
     const string = $(this).val().replace(/\D/g, "");
 
     const value = parseInt(string, 10) || 0;

@@ -6,13 +6,19 @@
 @{
   var showtimes = Model.ShowTimes;
 
+  var typeNames = new Dictionary<string, string>() {
+    ["SUB"] = "Subtitles",
+    ["DUB"] = "Dubbed",
+    ["VN"] = "Vietnamese"
+  };
+
   var groupedShowtimes =
-    from showtime in showtimes
-    group showtime by showtime.Theater.Name into theaterGroup
-    from formatAndTypeGroup in
-      (from showtime in theaterGroup
-       group showtime by showtime.Format.ToString().Substring(1) + " - " + showtime.Type.ToString())
-    group formatAndTypeGroup by theaterGroup.Key;
+  from showtime in showtimes
+  group showtime by showtime.Theater.Name into theaterGroup
+  from formatAndTypeGroup in
+    (from showtime in theaterGroup
+     group showtime by showtime.Format.ToString().Substring(1) + " - " + showtime.Type.ToString())
+  group formatAndTypeGroup by theaterGroup.Key;
 }
 
 @section Scripts {
@@ -27,7 +33,7 @@
       $('#select-theater').val(parsedQuery.get('theater') || '-1');
 
       $('#datepicker').flatpickr({
-        dateFormat: "d-m-Y", // ngày-tháng-năm
+        dateFormat: "d-m-Y", // vd 09-12-2020
         defaultDate: parsedQuery.get('date') ?? "today",
         minDate: "today",
         locale: {
@@ -110,9 +116,9 @@
 
   @foreach (var theaterGroup in groupedShowtimes) {
     <div class="card mb-4">
-      <div class="card-header">
-        <h5 class="m-0">@theaterGroup.Key</h5>
-      </div>
+      <h5 class="card-header">
+        @theaterGroup.Key
+      </h5>
 
       <div class="card-body">
         @foreach (var formatAndTypeGroup in theaterGroup) {
@@ -123,9 +129,7 @@
 
             <div class="col p-0">
               @foreach (var showtime in formatAndTypeGroup) {
-                <button class="d-inline btn btn-outline-primary btn-sm mb-2 mr-2">
-                  @showtime.Time.ToString("HH:mm")
-                </button>
+                <a href="/BookTicket?showtime=@(showtime.Id)" class="btn btn-outline-primary btn-sm mb-2 mr-1">@showtime.Time.ToString("HH:mm")</a>
               }
             </div>
           </div>
