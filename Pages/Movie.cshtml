@@ -1,10 +1,66 @@
 ﻿@page
 @model Cinemo.Pages.MovieModel
-@{
 
+@using Cinemo.Models;
+
+@{
+  var theaters = new[] {
+    new {
+      Id = 1,
+      Name = "Theater 1"
+    },
+    new {
+      Id = 2,
+      Name = "Theater 2"
+    },
+    new {
+      Id = 3,
+      Name = "Theater 3"
+    }
+  };
 }
 
-<div class="row">
+@section Scripts {
+  <script>
+    $(document).ready(function () {
+      let parsedQuery = new URLSearchParams(window.location.search);
+
+      function reloadWithQuery() {
+        window.location.search = parsedQuery.toString();
+      }
+
+      $('#select-theater').val(parsedQuery.get('theater') || '-1');
+
+      $('#datepicker').flatpickr({
+        dateFormat: "d-m-Y", // ngày-tháng-năm
+        defaultDate: parsedQuery.get('date') ?? "today",
+        minDate: "today",
+        locale: {
+          firstDayOfWeek: 1
+        }
+      });
+
+      $('#datepicker').on('change', function (e) {
+        parsedQuery.set('date', this.value);
+
+        reloadWithQuery();
+      })
+
+      $('#select-theater').on('change', function (e) {
+        if (this.value === '-1') {
+          parsedQuery.delete('theater');
+        }
+        else {
+          parsedQuery.set('theater', this.value);
+        }
+
+        reloadWithQuery();
+      })
+    })
+  </script>
+}
+
+<div class="row mb-5">
   <img class="col-3 p-0" src="~/uploads/b24f908e-9e77-47e0-a5c5-ba510d51c2b8.jpg" />
 
   <div class="col">
@@ -14,14 +70,64 @@
 
     <div class="mb-3">
       <i class="far fa-clock fa-fw"></i>
+
       96 minutes
     </div>
 
-    <div>
+    <div class="mb-3">
       <i class="far fa-tag fa-fw"></i>
+
       Animation
     </div>
 
+    The prehistoric family the Croods are challenged by a rival family the Bettermans, who claim to be better and more evolved.
+  </div>
+</div>
+
+<div>
+  <h4 class="mb-3">SHOW TIMES</h4>
+
+  <div class="row mb-4">
+    <select id="select-theater"
+            class="selectpicker p-0 col-12 mr-0 mb-3 col-sm-4 mb-sm-0 mr-sm-3"
+            data-style="custom-select"
+            data-size="5"
+            data-live-search="true"
+            data-live-search-normalize="true"
+            data-live-search-placeholder="Search...">
+      <option value="-1">
+        All theaters
+      </option>
+
+      @foreach (var theater in theaters) {
+        <option value="@theater.Id">
+          @theater.Name
+        </option>
+      }
+    </select>
+
+    <input required
+           id="datepicker"
+           class="form-control col-12 col-sm-4 bg-white"
+           placeholder="Choose time & date..."
+           type="text">
   </div>
 
+  <div class="row flex-column">
+    <h5>Galaxy Nguyễn Du</h5>
+
+    <div class="border border-dark p-3">
+      <div class="row">
+        <div class="col-3 p-0 mr-3">
+          2D - Subtitles
+        </div>
+
+        <div class="col p-0">
+          <button class="d-inline btn btn-outline-primary btn-sm mb-2 mr-2">
+            13:00
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
