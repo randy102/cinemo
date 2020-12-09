@@ -53,6 +53,9 @@
             <div>Length</div>
           </th>
           <th>
+            <div>Released</div>
+          </th>
+          <th>
             <div>CreatedAt</div>
           </th>
           <th>
@@ -70,6 +73,7 @@
             <td>@movie.Title</td>
             <td>@movie.Category.Name</td>
             <td>@movie.Length minutes</td>
+            <td>@movie.Released.ToShortDateString()</td>
             <td>@movie.CreatedAt.ToShortDateString()</td>
             <td>
               <a class="btn btn-round btn-primary btn-sm" href="/Admin/Movies/Update?id=@movie.Id">

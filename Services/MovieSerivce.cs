@@ -12,19 +12,36 @@ namespace Cinemo.Service
   public class MovieService
   {
     private MovieRepository repository;
-    private UserManager<User> manager;
     private FileService fileService;
-    private DateTimeUtils dateTimeUtils=new DateTimeUtils();
+    private DateTimeUtils dateTimeUtils;
+    private ShowTimeService showTimeService;
 
-    public MovieService(MovieRepository MovieRepository, FileService fileService)
+    public MovieService(ShowTimeService showTimeService, MovieRepository MovieRepository, FileService fileService,  DateTimeUtils dateTimeUtils)
     {
       this.repository = MovieRepository;
       this.fileService = fileService;
+      this.dateTimeUtils = dateTimeUtils;
+      this.showTimeService = showTimeService;
     }
 
     public List<Movie> GetAll()
     {
       return repository.FindAll();
+    }
+
+    public List<Movie> GetShowingMovies(){
+      return repository.FindWhere(movie => {
+        bool isShowing = showTimeService.GetShowingTimesByMovieId(movie.Id).Any();
+        return isShowing;
+      });
+    }
+
+    public List<Movie> GetUpcomingMovies(){
+      return repository.FindWhere(movie => {
+        bool isNotReleased = DateTime.Now < movie.Released;
+        bool isNotShowing = !showTimeService.GetShowingTimesByMovieId(movie.Id).Any();
+        return isNotReleased && isNotShowing;
+      });
     }
 
     public Movie GetDetail(int id)

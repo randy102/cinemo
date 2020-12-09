@@ -31,13 +31,13 @@
   <div id="nowShowing" class="tab-pane active">
     <div class="row row-cols-md-4 no-gutters pl-4">
       @{
-        foreach( var st in @Model.showingTimes){
+        foreach( var movie in @Model.ShowingMovies){
           <div class="col mb-1">
             <div class="card border-0">
               <a href="#">
                 <div class="bg-transparent">
                   <img class="card-img-top"
-                      src=@FileService.GetPath(st.Movie.Img)
+                      src=@FileService.GetPath(movie.Img)
                       onerror="this.onerror=null; 
                       this.src='www.cgv.vn/media/catalog/product/cache/1/small_image/240x388/dd828b13b1cb77667d034d5f59a82eb6/r/s/rsz_cr2_digtal1sheet_action_vie_1.jpg'">
                   <button class="btn middle">
@@ -46,7 +46,7 @@
                   </button>
                 </div>
                 <div class="card-body p-0">
-                  <h6 class="card-title text-uppercase text-truncate pt-2 text">@st.Movie.Title</h6>
+                  <h6 class="card-title text-uppercase text-truncate pt-2 text">@movie.Title</h6>
                 </div>
               </a>
             </div>
@@ -59,13 +59,13 @@
   <div id="comingSoon" class="tab-pane fade">
     <div class="row row-cols-md-4 no-gutters pl-4">
       @{
-        foreach( var m in @Model.notShowingTimes){
+        foreach( var movie in @Model.UpcomingMovies){
           <div class="col mb-1">
             <div class="card border-0">
               <a href="#">
                 <div class="bg-transparent">
                   <img class="card-img-top"
-                      src=@FileService.GetPath(m.Img)
+                      src=@FileService.GetPath(movie.Img)
                       onerror="this.onerror=null; 
                       this.src='www.cgv.vn/media/catalog/product/cache/1/small_image/240x388/dd828b13b1cb77667d034d5f59a82eb6/r/s/rsz_cr2_digtal1sheet_action_vie_1.jpg'">
                   <button class="btn middle">
@@ -74,7 +74,7 @@
                   </button>
                 </div>
                 <div class="card-body p-0">
-                  <h6 class="card-title text-uppercase text-truncate pt-2 text">@m.Title</h6>
+                  <h6 class="card-title text-uppercase text-truncate pt-2 text">@movie.Title</h6>
                 </div>
               </a>
             </div>

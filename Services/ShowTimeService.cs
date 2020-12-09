@@ -13,18 +13,16 @@ namespace Cinemo.Service
   public class ShowTimeService
   {
     private ShowTimeRepository repository;
+    private MovieRepository movieRepository;
     private RoomService roomService;
-    private MovieService movieService;
     private DateTimeUtils dateTimeUtils;
-    private readonly ILogger<ShowTimeService> _logger;
 
-    public ShowTimeService(ShowTimeRepository showTimeRepository, DateTimeUtils dateTimeUtils, RoomService roomService, MovieService movieService, ILogger<ShowTimeService> logger)
+    public ShowTimeService(MovieRepository movieRepository, ShowTimeRepository showTimeRepository, DateTimeUtils dateTimeUtils, RoomService roomService)
     {
       this.repository = showTimeRepository;
       this.roomService = roomService;
-      this.movieService = movieService;
+      this.movieRepository = movieRepository;
       this.dateTimeUtils = dateTimeUtils;
-      this._logger = logger;
     }
 
     public List<ShowTime> GetAll()
@@ -32,17 +30,22 @@ namespace Cinemo.Service
       return repository.FindAll();
     }
 
+    public List<ShowTime> GetAllPublished()
+    {
+      return repository.FindWhere(s => s.Status == ShowTime.ShowState.PUBLISHED);
+    }
+
     public ShowTime GetDetail(int id)
     {
       return repository.FindById(id);
     }
 
-    public List<ShowTime> GetAll(int roomId)
+    public List<ShowTime> GetByRoomId(int roomId)
     {
       return repository.FindWhere(r => r.RoomId == roomId).ToList();
     }
 
-    public List<ShowTime> GetAll(Movie movie)
+    public List<ShowTime> GetByMovie(Movie movie)
     {
       return repository.FindWhere(r => r.MovieId == movie.Id).ToList();
     }
@@ -76,31 +79,13 @@ namespace Cinemo.Service
       return now <= end;
     }
 
-    // public List<ShowTime> GetShowingTime()
-    // {
-    //   return repository.FindWhere(t => isNotEnd(t));
-    // }
-
     public List<ShowTime> GetShowingTime()
     {
-      return repository.FindWhere(t => isNotEnd(t) && t.Status== ShowTime.ShowState.PUBLISHED).GroupBy(t => t.Movie.Title)
-           .Select(t => t.First()).ToList();
+      return GetAllPublished().Where(t => isNotEnd(t)).ToList();
     }
 
-    public List<Movie> GetNotShowingTime()
-    {
-      DateTime now = DateTime.Now;
-      var showTimes=GetAll();
-      var movies=movieService.GetAll();
-      var notShowingTimes=new List<Movie>();
-      foreach (var movie in movies)
-      {
-          if (GetAll(movie).Count==0 && movie.Released > now)
-          {
-              notShowingTimes.Add(movie);
-          }
-      }
-      return notShowingTimes.Distinct().ToList();
+    public List<ShowTime> GetShowingTimesByMovieId(int movieId){
+      return GetShowingTime().Where(t => t.MovieId == movieId).ToList();
     }
 
     private void checkSupportedFormat(ShowTimeCreateDto dto)
@@ -115,20 +100,21 @@ namespace Cinemo.Service
 
     private void checkDuplicated(ShowTimeCreateDto dto, int exceptId = 0)
     {
-      var movie = movieService.GetDetail(dto.MovieId);
-      var showTimes = GetAll(dto.RoomId);
+      Movie movie = movieRepository.FindById(dto.MovieId);
+      List<ShowTime> showTimes = GetByRoomId(dto.RoomId);
+      DateTime time = dateTimeUtils.Parse(dto.Time);
 
-      var time = dateTimeUtils.Parse(dto.Time);
-
-      var dupplicated = showTimes.Where(s => {
+      ShowTime dupplicated = showTimes.Where(s =>
+      {
         var start = s.Time;
         var end = start.AddMinutes(s.Movie.Length);
         bool isBetween = start <= time && time <= end;
         return s.Id != exceptId && isBetween;
       }).FirstOrDefault();
 
-      if(dupplicated != null) {
-        var dupEnd =  dupplicated.Time.AddMinutes(dupplicated.Movie.Length);
+      if (dupplicated != null)
+      {
+        DateTime dupEnd = dupplicated.Time.AddMinutes(dupplicated.Movie.Length);
         throw new Exception("Room is not available until " + dupEnd.ToString(dateTimeUtils.FORMAT));
       }
     }

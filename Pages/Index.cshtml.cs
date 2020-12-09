@@ -37,18 +37,26 @@ namespace Cinemo.Pages
   public class IndexModel : PageModel
   {
     private readonly ShowTimeService service;
-    public IndexModel(ShowTimeService service)
+    private readonly MovieService movieService;
+
+    public IndexModel(ShowTimeService service, MovieService movieService)
     {
       this.service = service;
+      this.movieService = movieService;
     }
 
-    public List<Cinemo.Models.ShowTime> showingTimes { get; set; }
-    public List<Cinemo.Models.Movie> notShowingTimes { get; set; }
+    public List<Cinemo.Models.Movie> ShowingMovies { get; set; }
+    public List<Cinemo.Models.Movie> UpcomingMovies { get; set; }
+
+    public void InitData()
+    {
+      ShowingMovies = movieService.GetShowingMovies();
+      UpcomingMovies = movieService.GetUpcomingMovies();
+    }
 
     public void OnGet()
     {
-      showingTimes=service.GetShowingTime();
-      notShowingTimes=service.GetNotShowingTime();
+      InitData();
     }
   }
 }
