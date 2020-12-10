@@ -6,7 +6,6 @@
 }
 
 @section Scripts{
-  @* <script src="~/js/taxonomy.min.js"></script> *@
   <script src="~/js/Validation.js"></script>
   <script>
     $(document).ready(function () {
@@ -19,6 +18,22 @@
           firstDayOfWeek: 1
         }
       });
+
+       /*Script tags*/
+      $('#my-tags').taxonomy_jquery({
+        hiddenFieldName: 'UpdateDto.Tags'
+      });
+
+
+      // CKEditor
+      ClassicEditor
+        .create(document.querySelector('#content'))
+        .then(editor => {
+          editor.data.set('@Html.Raw(Model.OldMovie.Content)')
+        })
+        .catch(error => {
+          console.error(error);
+        });
     })
   </script>
 }
@@ -118,22 +133,3 @@
 
   </form>
 </div>
-<script>
- 
-  /*Script tags*/
-  $('#my-tags').taxonomy_jquery({
-    hiddenFieldName: 'UpdateDto.Tags'
-  });
-
-
-  // CKEditor
-  ClassicEditor
-    .create(document.querySelector('#content'))
-    .then(editor => {
-      editor.data.set('@Html.Raw(Model.OldMovie.Content)')
-    })
-    .catch(error => {
-      console.error(error);
-    });
-
-</script>
