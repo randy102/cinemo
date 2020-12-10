@@ -5,7 +5,7 @@
 }
 
 @section Scripts{
-  @* <script src="~/js/taxonomy.min.js"></script> *@
+  <script src="~/js/taxonomy.min.js"></script>
   <script src="~/js/Validation.js"></script>
   <script>
     $(document).ready(function () {
@@ -19,6 +19,12 @@
         }
       });
     })
+
+    ClassicEditor
+      .create(document.querySelector('#content'))
+      .catch(error => {
+        console.error(error);
+      });
   </script>
 }
 

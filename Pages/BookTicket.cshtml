@@ -1,12 +1,18 @@
 @page
 @model BookTicketModel
 
-@{ var NumRow = 10;
+@{
+  var NumRow = 15;
 
-  var NumCol = 10; }
+  var NumCol = 20;
+}
 
 @section Styles {
   <style>
+    :root {
+      --seat-available-bg: 108, 117, 125;
+    }
+
     .quantity-input {
       max-width: 100px;
     }
@@ -19,20 +25,73 @@
       vertical-align: middle;
     }
 
-    .room {
-      background: var(--gray-dark);
-    }
-
     .screen {
-      border-bottom: 2px solid black;
+      border-bottom: 4px solid var(--gray-dark);
     }
 
     .seat {
-      display: inline-block;
+      display: flex;
       width: 20px;
       height: 20px;
-      text-align: center;
-      vertical-align: middle;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .seat-available {
+      background: rgba(var(--seat-available-bg), .25);
+      cursor: pointer;
+    }
+
+      .seat-available:hover {
+        background: rgba(var(--seat-available-bg), .5);
+      }
+
+    .seat-chosen {
+      background: var(--primary);
+      cursor: pointer;
+    }
+
+      .seat-chosen:hover {
+        background: #0069d9;
+      }
+
+    .seat-sold {
+      background: var(--danger);
+    }
+
+    .seat-available-legend {
+      background: rgba(var(--seat-available-bg), .25);
+    }
+
+    .seat-chosen-legend {
+      background: var(--primary);
+    }
+
+    .seat-sold-legend {
+      background: var(--danger);
+    }
+
+    .card.sticky-top {
+      top: 1rem;
+      z-index: 0;
+    }
+
+    .info-poster {
+      max-width: 100%;
+      max-height: 150px;
+    }
+
+    .info-line {
+      display: flex;
+    }
+
+    .info-label {
+      font-weight: bold;
+      margin-right: .25rem;
+    }
+
+    .info-content {
+      word-break: keep-all;
     }
   </style>
 }
@@ -40,6 +99,21 @@
 @section Scripts {
   <script>
     $(function () {
+      // Activate all tooltips
+      $('[data-toggle="tooltip"]').tooltip();
+
+      // Available seat tooltip
+      $('.seat-available').tooltip({
+        delay: {
+          show: 100,
+          hide: 0,
+        },
+        title: function () {
+          return $(this).data('seat');
+        }
+      });
+
+      // Quantity input number only
       $('.quantity-input').on('input', function (e) {
         const string = $(this).val().replace(/\D/g, "");
 
@@ -48,12 +122,23 @@
         $(this).val(value || 0);
       });
 
+      // Quantity input blur on Enter or Esc
       $('.quantity-input').keyup(function (e) {
         if ([13, 27].includes(e.which)) {
           $(this).blur();
         }
       })
 
+      // Update quantity and blur quantity input on minus or plus click
+      $('.btn-minus, .btn-plus').click(function (e) {
+        const input = $(this).siblings('.quantity-input')
+
+        const newQuantity = $(this).hasClass('btn-minus') ? Math.max(0, input.val() - 1) : +input.val() + 1;
+
+        input.val(newQuantity).blur();
+      });
+
+      // Update total price on quantity input blur
       $('.quantity-input').blur(function (e) {
         const tr = $(this).closest('tr');
 
@@ -68,22 +153,49 @@
         );
       })
 
-      $('.btn-minus, .btn-plus').click(function (e) {
-        const input = $(this).siblings('.quantity-input')
-
-        const newQuantity = $(this).hasClass('btn-minus') ? Math.max(0, input.val() - 1) : +input.val() + 1;
-
-        input.val(newQuantity);
-
-        $(this).closest('tr').find('.quantity-input').blur();
+      // Toggle chosen class on available seat click
+      $('.seat-available').click(function (e) {
+        $(this).toggleClass('seat-chosen seat-available');
       });
 
+      let infoSeats = $('.info-content.info-seats');
+
+      function onAvailableSeatClick() {
+        const thisSeat = $(this).data('seat');
+
+        let chosenSeats = infoSeats.text();
+
+        if (chosenSeats.length === 0) {
+          chosenSeats = thisSeat
+        }
+        else {
+          chosenSeats += ", " + thisSeat;
+        }
+
+        infoSeats.text(chosenSeats);
+
+        $(this).one('click', onChosenSeatClick);
+      }
+
+      function onChosenSeatClick() {
+        const thisSeat = $(this).data('seat');
+
+        let chosenSeats = infoSeats.text().split(', ');
+
+        chosenSeats = chosenSeats.filter(seat => seat !== thisSeat);
+
+        infoSeats.text(chosenSeats.join(', '));
+
+        $(this).one('click', onAvailableSeatClick);
+      }
+
+      $('.seat-available').one('click', onAvailableSeatClick);
     })
   </script>
 }
 
 <div class="row">
-  <div class="col-md-9 col-12">
+  <div class="p-0 col-12 col-md-9">
     <div class="card mb-5">
       <h5 class="card-header">
         Choose tickets
@@ -127,34 +239,133 @@
 
       <div class="card-body">
         <div class="room d-flex flex-column align-items-center">
-          <div class="screen pb-1 text-center w-50">
+          <div class="d-flex mb-4">
+            <div class="d-flex mr-4 align-items-center">
+              <div class="seat seat-available-legend mr-1"></div>
+              Available
+            </div>
+
+            <div class="d-flex mr-4 align-items-center">
+              <div class="seat seat-chosen-legend mr-1"></div>
+              Choosing
+            </div>
+
+            <div class="d-flex align-items-center">
+              <div class="seat seat-sold-legend mr-1"></div>
+              Sold
+            </div>
+          </div>
+
+          <div class="screen pb-1 mb-5 text-center w-50">
             Screen
           </div>
 
           <div>
-            @*@for (var row = 1; row <= NumRow; row++) {
-                      var rowChar = (char)(row + 64);
+            @for (var row = 1; row <= NumRow; row++) {
+              var rowChar = (char)(row + 64);
 
-              <div class="seat mr-3">
-                @rowChar
+              <div class="d-flex mb-2">
+                <div class="seat mr-3">
+                  @rowChar
+                </div>
+
+                @for (var col = 1; col <= NumCol; col++) {
+                  <div class="seat seat-available has-tooltip mr-1"
+                       data-seat="@rowChar&#8209;@col"></div>
+                }
+
+                <div class="seat ml-3">
+                  @rowChar
+                </div>
               </div>
+            }
 
-                      @for (var col = 1; col <= NumCol; col++) {
-              <div class="seat" title="@rowChar@col">
-                @col
-              </div>}
-
-                              <div class="seat ml-3">
-                                @rowChar
-                              </div>
-                                      <br />}*@
+            <div class="d-flex mt-3 justify-content-center">
+              @for (var col = 1; col <= NumCol; col++) {
+                <div class="seat mr-1">
+                  @col
+                </div>
+              }
+            </div>
           </div>
+
+
         </div>
       </div>
     </div>
   </div>
 
-  <div class="col-3">
+  <div class="col-12   p-0     mt-5
+              col-md-3 pl-md-3 mt-md-0">
+    <div class="card sticky-top">
+      <h5 class="card-header">Checkout</h5>
+
+      <div class="card-body">
+        <div class="d-flex justify-content-center mb-1">
+          <img class="info-poster" src="~/uploads/6ab443f9-0474-4fb7-a6c8-26cfc71f8cbc.jpg" />
+        </div>
+
+        <h6 class="text-center text-uppercase mb-4">Avengers: Endgame</h6>
+
+        <div class="info-line">
+          <div class="info-label">
+            Theater:
+          </div>
+
+          <div class="info-content">
+            Galaxy Nguyen Du
+          </div>
+        </div>
+
+        <div class="info-line">
+          <div class="info-label">
+            Room:
+          </div>
+
+          <div class="info-content">
+            1
+          </div>
+        </div>
+
+        <div class="info-line">
+          <div class="info-label">
+            Date:
+          </div>
+
+          <div class="info-content">
+            12/10/2020
+          </div>
+        </div>
+
+        <div class="info-line">
+          <div class="info-label">
+            Time:
+          </div>
+
+          <div class="info-content">
+            07:00
+          </div>
+        </div>
+
+        <div class="info-line">
+          <div class="info-label">
+            Type:
+          </div>
+
+          <div class="info-content">
+            2D - Subtitles
+          </div>
+        </div>
+
+        <div class="info-line">
+          <div class="info-label">
+            Seats:
+          </div>
+
+          <div class="info-content info-seats"></div>
+        </div>
+      </div>
+    </div>
 
   </div>
 </div>
