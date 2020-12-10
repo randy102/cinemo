@@ -52,7 +52,7 @@
   <hr class="my-4">
 
   <form method="post" class="needs-validation" novalidate enctype="multipart/form-data">
-    <input value="@Model.OldMovie.Id" asp-for="@Model.UpdateDto.Id"  hidden>
+    <input value="@Model.OldMovie.Id" asp-for="@Model.UpdateDto.Id" hidden>
 
     <div class="form-group">
       <label class="h5" for="title-input">Title</label>
@@ -68,7 +68,6 @@
       <label class="h5" for="category-select">Category</label>
 
       <select asp-items="@Model.Categories" asp-for="@Model.UpdateDto.CategoryId" class="custom-select" id="category-select" required>
-        
       </select>
 
       <div class="invalid-feedback">
@@ -104,28 +103,27 @@
     <div class="form-group">
       <label class="h5">Image</label>
       <input type="file" asp-for="@Model.UpdateDto.Upload" />
-      
+
     </div>
-    
-    @if(Model.OldMovie.Img != null){
+
+    @if (Model.OldMovie.Img != null) {
       <div class="form-group">
         <img src="@FileService.GetPath(Model.OldMovie.Img)" width="300" />
       </div>
     }
-    
+
     <div class="form-group">
       <label class="h5">Tags</label>
 
       <ul id="my-tags" class="tag-cloud list-inline row">
-        @if(Model.OldMovie.Tags != null)
-        @foreach (string tag in Model.OldMovie.Tags.Split(',').ToList())
-        {    
-          <li class="btn btn-primary ml-3 tag tag-active">
-            @tag
-            <a href="#" class="tag-undo" data-tag-slug="@tag">X</a>
-          </li>
-          <input hidden name="UpdateDto.Tags" value="@tag">
-        }
+        @if (Model.OldMovie.Tags != null)
+          @foreach (string tag in Model.OldMovie.Tags.Split(',').ToList()) {
+            <li class="btn btn-primary ml-3 tag tag-active">
+              @tag
+              <a href="#" class="tag-undo" data-tag-slug="@tag">X</a>
+            </li>
+            <input hidden name="UpdateDto.Tags" value="@tag">
+          }
       </ul>
     </div>
 

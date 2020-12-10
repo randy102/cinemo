@@ -1,0 +1,85 @@
+﻿:root {
+  --seat-available-bg: 108, 117, 125;
+}
+
+.quantity-input {
+  max-width: 100px;
+}
+
+.table-tickets td {
+  vertical-align: middle;
+}
+
+.table-tickets th {
+  vertical-align: middle;
+}
+
+.screen {
+  border-bottom: 4px solid var(--gray-dark);
+}
+
+.seat {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+}
+
+.seat-available {
+  background: rgba(var(--seat-available-bg), .25);
+  cursor: pointer;
+}
+
+  .seat-available:hover {
+    background: rgba(var(--seat-available-bg), .5);
+  }
+
+.seat-chosen {
+  background: var(--primary);
+  cursor: pointer;
+}
+
+  .seat-chosen:hover {
+    background: #0069d9;
+  }
+
+.seat-sold {
+  background: var(--danger);
+}
+
+.seat-available-legend {
+  background: rgba(var(--seat-available-bg), .25);
+}
+
+.seat-chosen-legend {
+  background: var(--primary);
+}
+
+.seat-sold-legend {
+  background: var(--danger);
+}
+
+.card.sticky-top {
+  top: 1rem;
+  z-index: 0;
+}
+
+.info-poster {
+  max-width: 100%;
+  max-height: 150px;
+}
+
+.info-line {
+  display: flex;
+}
+
+.info-label {
+  font-weight: bold;
+  margin-right: .25rem;
+}
+
+.info-content {
+  word-break: keep-all;
+}

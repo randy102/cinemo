@@ -2,28 +2,21 @@
 @model Cinemo.Pages.MovieModel
 
 @using System.Linq;
+@using System.Web;
 
 @{
-  var showtimes = Model.ShowTimes;
-
-  var typeNames = new Dictionary<string, string>() {
-    ["SUB"] = "Subtitles",
-    ["DUB"] = "Dubbed",
-    ["VN"] = "Vietnamese"
-  };
-
   var groupedShowtimes =
-  from showtime in showtimes
+  from showtime in Model.ShowTimes
   group showtime by showtime.Theater.Name into theaterGroup
   from formatAndTypeGroup in
     (from showtime in theaterGroup
-     group showtime by showtime.Format.ToString().Substring(1) + " - " + showtime.Type.ToString())
+     group showtime by showtime.FormatString + " - " + showtime.TypeString)
   group formatAndTypeGroup by theaterGroup.Key;
 }
 
 @section Scripts {
   <script>
-    $(document).ready(function () {
+    $(function () {
       let parsedQuery = new URLSearchParams(window.location.search);
 
       function reloadWithQuery() {
@@ -81,7 +74,7 @@
       @Model.Movie.Category.Name
     </div>
 
-    @Model.Movie.Content
+    @Html.Raw(HttpUtility.HtmlDecode(Model.Movie.Content))
   </div>
 </div>
 
@@ -129,7 +122,7 @@
 
             <div class="col p-0">
               @foreach (var showtime in formatAndTypeGroup) {
-                <a href="/BookTicket?showtime=@(showtime.Id)" class="btn btn-outline-primary btn-sm mb-2 mr-1">@showtime.Time.ToString("HH:mm")</a>
+                <a href="/BookTicket?showtimeId=@(showtime.Id)" class="btn btn-outline-primary btn-sm mb-2 mr-1">@showtime.Time.ToString("HH:mm")</a>
               }
             </div>
           </div>

@@ -4,7 +4,7 @@
   Layout = "_AdminLayout";
 }
 
-@section Scripts{
+@section Scripts {
   <script src="~/js/Validation.js"></script>
   <script>
     $(document).ready(function () {
@@ -17,6 +17,7 @@
           firstDayOfWeek: 1
         }
       });
+
       /*Script tags*/
       $('#my-tags').taxonomy_jquery({
         hiddenFieldName: 'CreateDto.Tags'
@@ -30,12 +31,6 @@
           console.error(error);
         });
     })
-
-    ClassicEditor
-      .create(document.querySelector('#content'))
-      .catch(error => {
-        console.error(error);
-      });
   </script>
 }
 

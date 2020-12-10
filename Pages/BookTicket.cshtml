@@ -2,92 +2,7 @@
 @model BookTicketModel
 
 @section Styles {
-  <style>
-    :root {
-      --seat-available-bg: 108, 117, 125;
-    }
-
-    .quantity-input {
-      max-width: 100px;
-    }
-
-    .table-tickets td {
-      vertical-align: middle;
-    }
-
-    .table-tickets th {
-      vertical-align: middle;
-    }
-
-    .screen {
-      border-bottom: 4px solid var(--gray-dark);
-    }
-
-    .seat {
-      display: flex;
-      width: 20px;
-      height: 20px;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .seat-available {
-      background: rgba(var(--seat-available-bg), .25);
-      cursor: pointer;
-    }
-
-      .seat-available:hover {
-        background: rgba(var(--seat-available-bg), .5);
-      }
-
-    .seat-chosen {
-      background: var(--primary);
-      cursor: pointer;
-    }
-
-      .seat-chosen:hover {
-        background: #0069d9;
-      }
-
-    .seat-sold {
-      background: var(--danger);
-    }
-
-    .seat-available-legend {
-      background: rgba(var(--seat-available-bg), .25);
-    }
-
-    .seat-chosen-legend {
-      background: var(--primary);
-    }
-
-    .seat-sold-legend {
-      background: var(--danger);
-    }
-
-    .card.sticky-top {
-      top: 1rem;
-      z-index: 0;
-    }
-
-    .info-poster {
-      max-width: 100%;
-      max-height: 150px;
-    }
-
-    .info-line {
-      display: flex;
-    }
-
-    .info-label {
-      font-weight: bold;
-      margin-right: .25rem;
-    }
-
-    .info-content {
-      word-break: keep-all;
-    }
-  </style>
+  <link rel="stylesheet" href="~/css/book-ticket.css" />
 }
 
 @section Scripts {
@@ -255,7 +170,7 @@
           </div>
 
           <div>
-            @for (var row = 1; row <= NumRow; row++) {
+            @for (var row = 1; row <= Model.Showtime.Room.NumRow; row++) {
               var rowChar = (char)(row + 64);
 
               <div class="d-flex mb-2">
@@ -263,7 +178,7 @@
                   @rowChar
                 </div>
 
-                @for (var col = 1; col <= NumCol; col++) {
+                @for (var col = 1; col <= Model.Showtime.Room.NumCol; col++) {
                   <div class="seat seat-available has-tooltip mr-1"
                        data-seat="@rowChar&#8209;@col"></div>
                 }
@@ -275,7 +190,7 @@
             }
 
             <div class="d-flex mt-3 justify-content-center">
-              @for (var col = 1; col <= NumCol; col++) {
+              @for (var col = 1; col <= Model.Showtime.Room.NumCol; col++) {
                 <div class="seat mr-1">
                   @col
                 </div>
@@ -296,7 +211,7 @@
 
       <div class="card-body">
         <div class="d-flex justify-content-center mb-1">
-          <img class="info-poster" src="~/uploads/6ab443f9-0474-4fb7-a6c8-26cfc71f8cbc.jpg" />
+          <img class="info-poster" src="~/uploads/@Model.Showtime.Movie.Img" />
         </div>
 
         <h6 class="text-center text-uppercase mb-4">Avengers: Endgame</h6>
@@ -307,7 +222,7 @@
           </div>
 
           <div class="info-content">
-            Galaxy Nguyen Du
+            @Model.Showtime.Theater.Name
           </div>
         </div>
 
@@ -317,7 +232,7 @@
           </div>
 
           <div class="info-content">
-            1
+            @Model.Showtime.Room.Name
           </div>
         </div>
 
@@ -327,7 +242,7 @@
           </div>
 
           <div class="info-content">
-            12/10/2020
+            @Model.Showtime.Time.ToString("dd/MM/yyyy")
           </div>
         </div>
 
@@ -337,7 +252,7 @@
           </div>
 
           <div class="info-content">
-            07:00
+            @Model.Showtime.Time.ToString("HH:mm")
           </div>
         </div>
 
@@ -347,7 +262,7 @@
           </div>
 
           <div class="info-content">
-            2D - Subtitles
+            @Model.Showtime.FormatString - @Model.Showtime.TypeString
           </div>
         </div>
 
