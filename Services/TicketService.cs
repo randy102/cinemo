@@ -26,6 +26,11 @@ namespace Cinemo.Service
       return repository.Delete(id);
     }
 
+    public List<Ticket> GetBookedTickets(int showtimeId)
+    {
+      return repository.FindWhere(t => t.ShowTimeId == showtimeId).ToList();
+    }
+
     public void CheckDupplicatedSeat(string Seat, int ShowTimeId)
     {
       bool isSeatExisted = repository.FindWhere(t => t.Seat == Seat && t.ShowTimeId == ShowTimeId).Any();
