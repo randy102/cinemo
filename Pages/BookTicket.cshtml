@@ -1,10 +1,9 @@
 @page
-@model Cinemo.Pages.BookTicketModel
-@{
-  var NumRow = 10;
+@model BookTicketModel
 
-  var NumCol = 10;
-}
+@{ var NumRow = 10;
+
+  var NumCol = 10; }
 
 @section Styles {
   <style>
@@ -18,6 +17,10 @@
 
     .table-tickets th {
       vertical-align: middle;
+    }
+
+    .room {
+      background: var(--gray-dark);
     }
 
     .screen {
@@ -129,25 +132,22 @@
           </div>
 
           <div>
-            @for (var row = 1; row <= NumRow; row++) {
-              var rowChar = (char)(row + 64);
+            @*@for (var row = 1; row <= NumRow; row++) {
+                      var rowChar = (char)(row + 64);
 
               <div class="seat mr-3">
                 @rowChar
               </div>
 
-              @for (var col = 1; col <= NumCol; col++) {
-                <div class="seat" title="@rowChar@col">
-                  @col
-                </div>
-              }
+                      @for (var col = 1; col <= NumCol; col++) {
+              <div class="seat" title="@rowChar@col">
+                @col
+              </div>}
 
-              <div class="seat ml-3">
-                @rowChar
-              </div>
-
-              <br />
-            }
+                              <div class="seat ml-3">
+                                @rowChar
+                              </div>
+                                      <br />}*@
           </div>
         </div>
       </div>
