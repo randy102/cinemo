@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Cinemo.Pages
 {
-  public class BookTicket : PageModel
+  public class BookTicketModel : PageModel
   {
     [BindProperty(SupportsGet = true)]
     public int showtime { get; set; }
