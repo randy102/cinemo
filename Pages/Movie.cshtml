@@ -107,6 +107,10 @@
            type="text">
   </div>
 
+  @if (groupedShowtimes.Count() == 0) {
+    <div>No showtimes found</div>
+  }
+
   @foreach (var theaterGroup in groupedShowtimes) {
     <div class="card mb-4">
       <h5 class="card-header">

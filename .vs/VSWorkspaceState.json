@@ -1,13 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Areas",
-    "\\Areas\\Identity",
-    "\\Areas\\Identity\\Pages",
-    "\\Pages",
-    "\\Pages\\Admin",
-    "\\Pages\\Admin\\Rooms"
+    ""
   ],
-  "SelectedNode": "\\Pages\\Admin\\Rooms\\Create.cshtml",
   "PreviewInSolutionExplorer": false
 }

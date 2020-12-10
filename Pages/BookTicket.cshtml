@@ -6,161 +6,11 @@
 }
 
 @section Scripts {
-  <script>
-    $(function () {
-      const tooltipSharedProps = {
-        delay: {
-          show: 100,
-          hide: 0,
-        }
-      }
-
-      // Proceed button tooltip
-      $('#proceed-btn-wrapper').tooltip({
-        ...tooltipSharedProps,
-        title: function () {
-          return "Please choose a ticket and a seat first.";
-        }
-      });
-
-      // Available seat tooltip
-      $('.seat-available').tooltip({
-        ...tooltipSharedProps,
-        title: function () {
-          return $(this).data('seat');
-        }
-      });
-
-      // Quantity input number only
-      $('.quantity-input').on('input', function (e) {
-        const string = $(this).val().replace(/\D/g, "");
-
-        const value = parseInt(string, 10) || 0;
-
-        $(this).val(value || 0);
-      });
-
-      // Quantity input blur on Enter or Esc
-      $('.quantity-input').keyup(function (e) {
-        if ([13, 27].includes(e.which)) {
-          $(this).blur();
-        }
-      })
-
-      // Update quantity and blur quantity input on minus or plus click
-      $('.btn-minus, .btn-plus').click(function (e) {
-        const input = $(this).siblings('.quantity-input')
-
-        const newQuantity = $(this).hasClass('btn-minus') ? Math.max(0, input.val() - 1) : +input.val() + 1;
-
-        input.val(newQuantity).blur();
-      });
-
-      // Update total price on quantity input blur
-      $('.quantity-input').blur(function (e) {
-        const tr = $(this).closest('tr');
-
-        const price = parseInt(
-          tr.find('.ticket-price')
-            .text()
-            .replace(/\,/g, ''),
-          10);
-
-        tr.find('.total-tickets-price').html(
-          (price * $(this).val()).toLocaleString('en-US')
-        );
-      })
-
-      const proceedBtn = $('#proceed-btn');
-
-      const proceedBtnWrapper = $('#proceed-btn-wrapper');
-
-      // Toggle chosen class on available seat click
-      $('.seat-available').click(function (e) {
-        $(this).toggleClass('seat-chosen seat-available');
-      });
-
-      let infoSeats = $('.info-content.info-seats');
-
-      function onAvailableSeatClick() {
-        const thisSeat = $(this).data('seat');
-
-        let chosenSeats = infoSeats.text().split(', ');
-
-        chosenSeats = chosenSeats[0] === ""
-          ? [thisSeat]
-          : [...chosenSeats, thisSeat].sort((a, b) => a.localeCompare(b, 'en', { numeric: true }))
-
-        infoSeats.text(chosenSeats.join(', '));
-
-        $(this).one('click', onChosenSeatClick);
-
-        proceedBtn.prop("disabled", false)
-
-        proceedBtnWrapper.tooltip('disable');
-      }
-
-      function onChosenSeatClick() {
-        const thisSeat = $(this).data('seat');
-
-        let chosenSeats = infoSeats.text().split(', ');
-
-        chosenSeats = chosenSeats.filter(seat => seat !== thisSeat);
-
-        infoSeats.text(chosenSeats.join(', '));
-
-        $(this).one('click', onAvailableSeatClick);
-
-        if (chosenSeats.length == 0) {
-          proceedBtn.prop("disabled", true)
-
-          proceedBtnWrapper.tooltip('enable');
-        }
-      }
-
-      $('.seat-available').one('click', onAvailableSeatClick);
-    })
-  </script>
+  <script src="~/js/book-ticket.js"></script>
 }
 
 <div class="row">
   <div class="p-0 col-12 col-md-9">
-    <div class="card mb-5">
-      <h5 class="card-header">
-        Choose tickets
-      </h5>
-
-      <div class="card-body">
-        <table class="table table-striped table-tickets m-0">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">Ticket Type</th>
-              <th scope="col" class="text-center">Quantity</th>
-              <th scope="col" class="text-right">Price (VND)</th>
-              <th scope="col" class="text-right">Total (VND)</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td>Normal</td>
-              <td>
-                <div class="d-flex align-items-center justify-content-center">
-                  <button class="btn btn-round btn-primary btn-xs btn-minus"><i class="fas fa-minus fa-fw"></i></button>
-
-                  <input class="form-control form-control-sm quantity-input text-center mx-2" value="0" />
-
-                  <button class="btn btn-round btn-primary btn-xs btn-plus"><i class="fas fa-plus fa-fw"></i></button>
-                </div>
-              </td>
-              <td class="text-right ticket-price">75,000</td>
-              <td class="text-right total-tickets-price">0</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
     <div class="card">
       <h5 class="card-header">
         Choose seats
@@ -313,4 +163,8 @@
     </div>
 
   </div>
+</div>
+
+<div id="choose-ticket-popover" hidden>
+  <div>This is your div content</div>
 </div>
