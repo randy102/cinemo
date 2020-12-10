@@ -27,6 +27,36 @@ namespace Cinemo.Service
       if(!isValidTime) throw new Exception("Ticket can only be cancelled on 4 hours before showtime!");
     }
 
+    // -1 Old
+    // 0 nowShowing
+    // 1 upComing
+    public List<Ticket> StatusTickets(User user,int status)
+    {
+      List<Ticket> tickets=user.Tickets;
+      List<Ticket> oldTickets=new List<Ticket>();
+      List<Ticket> nowShowingTickets=new List<Ticket>();
+      List<Ticket> upComingTickets=new List<Ticket>();
+      DateTime now = DateTime.Now;
+      foreach (var t in tickets)
+      {
+        var start=t.ShowTime.Time;
+        var end=start.AddMinutes(t.ShowTime.Movie.Length);
+          if(end<now)
+            oldTickets.Add(t);
+          else if(start<=now && now<end)
+            nowShowingTickets.Add(t);
+          else if(now<start)
+            upComingTickets.Add(t);
+      }
+      switch (status)
+      {
+          case -1: return oldTickets;
+          case 0: return nowShowingTickets;
+          case 1: return upComingTickets;
+      }
+      return null;
+    }
+
     public Ticket Delete(int id)
     {
       Ticket ticket = repository.FindById(id);

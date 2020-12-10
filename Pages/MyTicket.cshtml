@@ -1,0 +1,152 @@
+﻿@page
+@model Cinemo.Pages.MyTicketModel
+@{
+  @* Layout = "_AdminLayout"; *@
+}
+
+@section Scripts {
+  <script>
+    function handleDelete(form) {
+      confirmDelete({
+        form: form,
+        title: "Cancel ticket?",
+        message: "Are you sure you want to cancel this ticket?",
+      });
+    }
+  </script>
+}
+<partial name="Shared/_ErrorAlert" model="@Model.ErrorMessage" />
+
+UPCOMING TICKETS
+<div class="container">
+  <div class="cinemo-datatable">
+    <table class="table">
+      <thead>
+        <tr>
+          <th><div>Time</div></th>
+          <th><div>Movie</div></th>
+          <th><div>Room</div></th>
+          <th><div>Theater</div></th>
+          <th><div>Type</div></th>
+          <th><div>Seat</div></th>
+          <th><div>Cancel</div></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @foreach (var ticket in Model.UpComingTickets)
+        {
+          <tr>
+            <td>@ticket.ShowTime.Time</td>
+            <td>@ticket.ShowTime.Movie.Title</td>
+            <td>@ticket.ShowTime.Room.Name</td>
+            <td>@ticket.ShowTime.Room.Theater.Name</td>
+            <td>@ticket.TicketType.Name</td>
+            <td>@ticket.Seat</td>
+            <td>
+              <form id="cancel-ticket" method="POST" asp-page-handler="Delete">
+                <input type="hidden" name="id" value="@ticket.Id">
+
+                <button type="button" class="btn btn-round btn-danger btn-sm"
+                  onclick="handleDelete(this.form)"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+NOW SHOWING TICKETS
+<div class="container">
+  <div class="cinemo-datatable">
+    <table class="table">
+      <thead>
+        <tr>
+          <th><div>Time</div></th>
+          <th><div>Movie</div></th>
+          <th><div>Room</div></th>
+          <th><div>Theater</div></th>
+          <th><div>Type</div></th>
+          <th><div>Seat</div></th>
+          <th><div>Cancel</div></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @foreach (var ticket in Model.NowShowingTickets)
+        {
+          <tr>
+            <td>@ticket.ShowTime.Time</td>
+            <td>@ticket.ShowTime.Movie.Title</td>
+            <td>@ticket.ShowTime.Room.Name</td>
+            <td>@ticket.ShowTime.Room.Theater.Name</td>
+            <td>@ticket.TicketType.Name</td>
+            <td>@ticket.Seat</td>
+            <td>
+              <form id="cancel-ticket" method="POST" asp-page-handler="Delete">
+                <input type="hidden" name="id" value="@ticket.Id">
+
+                <button type="button" class="btn btn-round btn-danger btn-sm"
+                  onclick="handleDelete(this.form)"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+OLD TICKETS
+<div class="container">
+  <div class="cinemo-datatable">
+    <table class="table">
+      <thead>
+        <tr>
+          <th><div>Time</div></th>
+          <th><div>Movie</div></th>
+          <th><div>Room</div></th>
+          <th><div>Theater</div></th>
+          <th><div>Type</div></th>
+          <th><div>Seat</div></th>
+          <th><div>Cancel</div></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @foreach (var ticket in Model.OldTickets)
+        {
+          <tr>
+            <td>@ticket.ShowTime.Time</td>
+            <td>@ticket.ShowTime.Movie.Title</td>
+            <td>@ticket.ShowTime.Room.Name</td>
+            <td>@ticket.ShowTime.Room.Theater.Name</td>
+            <td>@ticket.TicketType.Name</td>
+            <td>@ticket.Seat</td>
+            <td>
+              <form id="cancel-ticket" method="POST" asp-page-handler="Delete">
+                <input type="hidden" name="id" value="@ticket.Id">
+
+                <button type="button" class="btn btn-round btn-danger btn-sm"
+                  onclick="handleDelete(this.form)"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
