@@ -8,15 +8,24 @@
 @section Scripts {
   <script>
     $(function () {
-      // Activate all tooltips
-      $('[data-toggle="tooltip"]').tooltip();
-
-      // Available seat tooltip
-      $('.seat-available').tooltip({
+      const tooltipSharedProps = {
         delay: {
           show: 100,
           hide: 0,
-        },
+        }
+      }
+
+      // Proceed button tooltip
+      $('#proceed-btn-wrapper').tooltip({
+        ...tooltipSharedProps,
+        title: function () {
+          return "Please choose a ticket and a seat first.";
+        }
+      });
+
+      // Available seat tooltip
+      $('.seat-available').tooltip({
+        ...tooltipSharedProps,
         title: function () {
           return $(this).data('seat');
         }
@@ -62,6 +71,10 @@
         );
       })
 
+      const proceedBtn = $('#proceed-btn');
+
+      const proceedBtnWrapper = $('#proceed-btn-wrapper');
+
       // Toggle chosen class on available seat click
       $('.seat-available').click(function (e) {
         $(this).toggleClass('seat-chosen seat-available');
@@ -72,18 +85,19 @@
       function onAvailableSeatClick() {
         const thisSeat = $(this).data('seat');
 
-        let chosenSeats = infoSeats.text();
+        let chosenSeats = infoSeats.text().split(', ');
 
-        if (chosenSeats.length === 0) {
-          chosenSeats = thisSeat
-        }
-        else {
-          chosenSeats += ", " + thisSeat;
-        }
+        chosenSeats = chosenSeats[0] === ""
+          ? [thisSeat]
+          : [...chosenSeats, thisSeat].sort((a, b) => a.localeCompare(b, 'en', { numeric: true }))
 
-        infoSeats.text(chosenSeats);
+        infoSeats.text(chosenSeats.join(', '));
 
         $(this).one('click', onChosenSeatClick);
+
+        proceedBtn.prop("disabled", false)
+
+        proceedBtnWrapper.tooltip('disable');
       }
 
       function onChosenSeatClick() {
@@ -96,6 +110,12 @@
         infoSeats.text(chosenSeats.join(', '));
 
         $(this).one('click', onAvailableSeatClick);
+
+        if (chosenSeats.length == 0) {
+          proceedBtn.prop("disabled", true)
+
+          proceedBtnWrapper.tooltip('enable');
+        }
       }
 
       $('.seat-available').one('click', onAvailableSeatClick);
@@ -179,8 +199,14 @@
                 </div>
 
                 @for (var col = 1; col <= Model.Showtime.Room.NumCol; col++) {
-                  <div class="seat seat-available has-tooltip mr-1"
-                       data-seat="@rowChar&#8209;@col"></div>
+                  string thisSeat = @rowChar.ToString() + @col.ToString();
+
+                  var thisSeatIsSold = Model.BookedTickets.FirstOrDefault(ticket => ticket.Seat == thisSeat) != null;
+
+                  var seatClass = thisSeatIsSold ? "seat-sold" : "seat-available has-tooltip";
+
+                  <div class="mr-1 seat @seatClass"
+                       data-seat="@thisSeat"></div>
                 }
 
                 <div class="seat ml-3">
@@ -216,62 +242,72 @@
 
         <h6 class="text-center text-uppercase mb-4">Avengers: Endgame</h6>
 
-        <div class="info-line">
-          <div class="info-label">
-            Theater:
+        <div class="ticket-info mb-4">
+          <div class="info-line">
+            <div class="info-label">
+              Theater:
+            </div>
+
+            <div class="info-content">
+              @Model.Showtime.Theater.Name
+            </div>
           </div>
 
-          <div class="info-content">
-            @Model.Showtime.Theater.Name
+          <div class="info-line">
+            <div class="info-label">
+              Room:
+            </div>
+
+            <div class="info-content">
+              @Model.Showtime.Room.Name
+            </div>
+          </div>
+
+          <div class="info-line">
+            <div class="info-label">
+              Date:
+            </div>
+
+            <div class="info-content">
+              @Model.Showtime.Time.ToString("dd/MM/yyyy")
+            </div>
+          </div>
+
+          <div class="info-line">
+            <div class="info-label">
+              Time:
+            </div>
+
+            <div class="info-content">
+              @Model.Showtime.Time.ToString("HH:mm")
+            </div>
+          </div>
+
+          <div class="info-line">
+            <div class="info-label">
+              Type:
+            </div>
+
+            <div class="info-content">
+              @Model.Showtime.FormatString - @Model.Showtime.TypeString
+            </div>
+          </div>
+
+          <div class="info-line">
+            <div class="info-label">
+              Seats:
+            </div>
+
+            <div class="info-content info-seats"></div>
           </div>
         </div>
 
-        <div class="info-line">
-          <div class="info-label">
-            Room:
-          </div>
-
-          <div class="info-content">
-            @Model.Showtime.Room.Name
-          </div>
-        </div>
-
-        <div class="info-line">
-          <div class="info-label">
-            Date:
-          </div>
-
-          <div class="info-content">
-            @Model.Showtime.Time.ToString("dd/MM/yyyy")
-          </div>
-        </div>
-
-        <div class="info-line">
-          <div class="info-label">
-            Time:
-          </div>
-
-          <div class="info-content">
-            @Model.Showtime.Time.ToString("HH:mm")
-          </div>
-        </div>
-
-        <div class="info-line">
-          <div class="info-label">
-            Type:
-          </div>
-
-          <div class="info-content">
-            @Model.Showtime.FormatString - @Model.Showtime.TypeString
-          </div>
-        </div>
-
-        <div class="info-line">
-          <div class="info-label">
-            Seats:
-          </div>
-
-          <div class="info-content info-seats"></div>
+        <div class="d-flex justify-content-center">
+          <span id="proceed-btn-wrapper" class="d-inline-block" title="Please choose a ticket and a seat first">
+            <button id="proceed-btn" class="btn btn-primary" disabled>
+              Proceed to payment
+            </button>
+          </span>
         </div>
       </div>
     </div>

@@ -83,3 +83,7 @@
 .info-content {
   word-break: keep-all;
 }
+
+#proceed-btn:disabled {
+  pointer-events: none;
+}
