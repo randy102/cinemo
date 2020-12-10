@@ -21,8 +21,17 @@ namespace Cinemo.Service
       return repository.FindAll();
     }
 
+    private void CheckCancellableTicket(Ticket ticket)
+    {
+      bool isValidTime = DateTime.Now.AddHours(4) <= ticket.ShowTime.Time;
+      if(!isValidTime) throw new Exception("Ticket can only be cancelled on 4 hours before showtime!");
+    }
+
     public Ticket Delete(int id)
     {
+      Ticket ticket = repository.FindById(id);
+      CheckCancellableTicket(ticket);
+
       return repository.Delete(id);
     }
 
