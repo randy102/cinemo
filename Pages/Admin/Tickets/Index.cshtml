@@ -21,7 +21,7 @@
     <div class="d-inline-block display-4 mr-3">Tickets</div>
     <a class="btn btn-success btn-sm align-text-bottom ml-auto" href="/Admin/Tickets/Create">
       <i class="fas fa-plus"></i>
-      Book ticket
+      Create Ticket
     </a>
   </div>
   <div class="cinemo-datatable">
@@ -33,6 +33,7 @@
           <th><div>Room</div></th>
           <th><div>Theater</div></th>
           <th><div>Type</div></th>
+          <th><div>Seat</div></th>
           <th><div>Cancel</div></th>
         </tr>
       </thead>
@@ -46,7 +47,7 @@
             <td>@ticket.ShowTime.Room.Name</td>
             <td>@ticket.ShowTime.Room.Theater.Name</td>
             <td>@ticket.TicketType.Name</td>
-  
+            <td>@ticket.Seat</td>
             <td>
               <form id="cancel-ticket" method="POST" asp-page-handler="Delete">
                 <input type="hidden" name="id" value="@ticket.Id">

@@ -9,16 +9,17 @@ namespace Cinemo.Pages.Admin.Theater
   public class CreateModel : PageModel
   {
     private readonly TheaterService service;
-    public CreateModel(TheaterService service)
-    {
-      this.service = service;
-    }
 
     [BindProperty]
     public TheaterCreateDto CreateDto { get; set; }
 
     [BindProperty]
-    public string ErrorMessage {get; set;}
+    public string ErrorMessage { get; set; }
+
+    public CreateModel(TheaterService service)
+    {
+      this.service = service;
+    }
 
     public void OnGet()
     {
@@ -26,10 +27,13 @@ namespace Cinemo.Pages.Admin.Theater
 
     public IActionResult OnPost()
     {
-      try{
+      try
+      {
         service.Create(CreateDto);
         return Redirect("./");
-      } catch(Exception error){
+      }
+      catch (Exception error)
+      {
         ErrorMessage = error.Message;
         return Page();
       }

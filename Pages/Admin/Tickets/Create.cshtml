@@ -17,12 +17,36 @@
   <hr class="my-4">
 
   <form method="post">
+    <partial name="Shared/_ErrorAlert" model="@Model.ErrorMessage" />
+    
     <div class="form-group required">
       <label for="theater-select">Show Time</label>
-      <select asp-for="@Model.CreateDto.ShowTimeId" asp-items="@Model.ShowTimeSelectList" required id="theater-select"
-        class="selectpicker d-block col-6 p-0" title="Choose theater" data-style="custom-select" data-size="5"
+      <select asp-for="@Model.CreateDto.ShowTimeId" asp-items="@Model.ShowTimeSelectList" required id="showtime-select"
+        class="selectpicker d-block col-6 p-0" title="Choose Showtime" data-style="custom-select" data-size="5"
         data-live-search="true" data-live-search-normalize="true" data-live-search-placeholder="Search...">
       </select>
+    </div>
+
+    <div class="form-group required">
+      <label for="theater-select">Ticket Type</label>
+      <select asp-for="@Model.CreateDto.TicketTypeId" asp-items="@Model.TicketTypeSelectList" required
+        id="ticket-type-select" class="selectpicker d-block col-6 p-0" title="Choose Ticket Type"
+        data-style="custom-select" data-size="5" data-live-search="true" data-live-search-normalize="true"
+        data-live-search-placeholder="Search...">
+      </select>
+    </div>
+
+    <div class="form-group required">
+      <label for="theater-select">User</label>
+      <select asp-for="@Model.CreateDto.UserId" asp-items="@Model.UserSelectList" required id="user-select"
+        class="selectpicker d-block col-6 p-0" title="Choose User" data-style="custom-select" data-size="5"
+        data-live-search="true" data-live-search-normalize="true" data-live-search-placeholder="Search...">
+      </select>
+    </div>
+
+    <div class="form-group col-9 p-0 required">
+      <label>Seat</label>
+      <input class="form-control" type="text" asp-for="@Model.CreateDto.Seat" placeholder="Enter seat" required>
     </div>
 
     <div class="form-group">
