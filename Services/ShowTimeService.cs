@@ -88,6 +88,13 @@ namespace Cinemo.Service
       return GetShowingTime().Where(t => t.MovieId == movieId).ToList();
     }
 
+    public List<ShowTime> GetShowTimesByFilters(int movieId, int theaterId, string date)
+    {
+      var result = GetShowingTimesByMovieId(movieId);
+      Console.WriteLine(theaterId  +"------"+ date);
+      return result;
+    }
+
     private void checkSupportedFormat(ShowTimeCreateDto dto)
     {
       Room room = roomService.GetDetail(dto.RoomId);
@@ -121,6 +128,8 @@ namespace Cinemo.Service
 
     public ShowTime Delete(int id)
     {
+      ShowTime showTime = GetDetail(id);
+      CheckShowtimeHasTicket(showTime);
       return repository.Delete(id);
     }
 
@@ -163,12 +172,19 @@ namespace Cinemo.Service
       return repository.Update(entity);
     }
 
+    public void CheckShowtimeHasTicket(ShowTime showTime)
+    {
+      if(showTime.Tickets.Any()) throw new Exception("Showtime has been booked!");
+    }
+
     public ShowTime ChangeStatus(int id)
     {
       ShowTime showTime = GetDetail(id);
+      CheckShowtimeHasTicket(showTime);
+
       if (showTime.Status == ShowTime.ShowState.DRAFT)
         showTime.Status = ShowTime.ShowState.PUBLISHED;
-      else //TODO: Check if ticket is booked
+      else
         showTime.Status = ShowTime.ShowState.DRAFT;
 
       return repository.Update(showTime);

@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System;
 using Cinemo.Interface;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace Cinemo.Models
 {
@@ -23,6 +24,7 @@ namespace Cinemo.Models
     public virtual Room Room { get; set; }
     public virtual Theater Theater { get; set; }
     public virtual Movie Movie { get; set; }
+    public virtual List<Ticket> Tickets {get; set; }
 
 
     public enum ShowState

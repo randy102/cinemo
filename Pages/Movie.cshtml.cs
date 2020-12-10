@@ -17,6 +17,12 @@ namespace Cinemo.Pages
     [BindProperty(SupportsGet = true)]
     public int id { get; set; }
 
+    [BindProperty(SupportsGet = true)]
+    public int theater { get; set; }
+
+    [BindProperty(SupportsGet = true)]
+    public string date { get; set; }
+
     public List<Theater> Theaters {get; set;}
     public Cinemo.Models.Movie Movie {get; set;}
     public List<ShowTime> ShowTimes {get; set;}
@@ -31,7 +37,7 @@ namespace Cinemo.Pages
     public void InitData(){
       Movie = movieService.GetDetail(id);
       Theaters = theaterService.GetAll();
-      ShowTimes = showTimeService.GetShowingTimesByMovieId(id);
+      ShowTimes = showTimeService.GetShowTimesByFilters(id, theater, date);
     }
 
     public void OnGet()

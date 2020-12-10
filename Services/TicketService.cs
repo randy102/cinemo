@@ -52,8 +52,17 @@ namespace Cinemo.Service
       if(!isInRange) throw new Exception("Seat Invalid!");
     }
 
+    public void CheckPublishedShowtime(int showtimeId)
+    {
+      ShowTime showTime = showTimeRepository.FindById(showtimeId);
+      bool isPublished = showTime.Status == ShowTime.ShowState.PUBLISHED;
+
+      if(!isPublished) throw new Exception("Showtime is not published!"); 
+    }
+
     public Ticket BookTicket(TicketBookDto dto, string UserId)
     {
+      CheckPublishedShowtime(dto.ShowTimeId);
       CheckSeatInRange(dto.Seat, dto.ShowTimeId);
       CheckDupplicatedSeat(dto.Seat, dto.ShowTimeId);
 
