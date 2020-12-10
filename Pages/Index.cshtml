@@ -34,7 +34,7 @@
         foreach( var movie in @Model.ShowingMovies){
           <div class="col mb-1">
             <div class="card border-0">
-              <a href="#">
+              <a href="/Movie?id=@movie.Id">
                 <div class="bg-transparent">
                   <img class="card-img-top"
                       src=@FileService.GetPath(movie.Img)

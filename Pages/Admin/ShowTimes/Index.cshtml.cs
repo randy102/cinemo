@@ -12,7 +12,6 @@ namespace Cinemo.Pages.Admin.ShowTime
   {
     private readonly ShowTimeService service;
 
-    [BindProperty(Name = "error", SupportsGet = true)]
     public string ErrorMessage { get; set; }
 
     public List<Cinemo.Models.ShowTime> showTimes { get; set; }
@@ -22,21 +21,38 @@ namespace Cinemo.Pages.Admin.ShowTime
       this.service = service;
     }
 
-    public void OnGet()
+    public void InitData()
     {
       showTimes = service.GetAll();
     }
 
+    public void OnGet()
+    {
+      InitData();
+    }
+
     public IActionResult OnPostDelete(int id)
     {
-      service.Delete(id);
-      return Redirect("/Admin/ShowTimes");
+      try {
+        service.Delete(id);
+        return RedirectToPage();
+      } catch (Exception exception){
+        ErrorMessage = exception.Message;
+        InitData();
+        return Page();
+      }
     }
 
     public IActionResult OnPostChangeStatus(int id)
     {
-      service.ChangeStatus(id);
-      return Redirect("/Admin/ShowTimes");
+      try {
+        service.ChangeStatus(id);
+        return Redirect("/Admin/ShowTimes");
+      } catch (Exception exception){
+        ErrorMessage = exception.Message;
+        InitData();
+        return Page();
+      }
     }
   }
 }

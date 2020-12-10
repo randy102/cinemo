@@ -20,6 +20,9 @@ namespace Cinemo.Pages.Admin.Ticket
     [BindProperty]
     public TicketCreateDto CreateDto { get; set; }
 
+    [BindProperty]
+    public string ErrorMessage { get; set; }
+
     public List<SelectListItem> ShowTimeSelectList { get; set; }
     public List<SelectListItem> TicketTypeSelectList { get; set; }
     public List<SelectListItem> UserSelectList { get; set; }
@@ -36,13 +39,28 @@ namespace Cinemo.Pages.Admin.Ticket
       this.ticketTypeService = ticketTypeService;
     }
 
-    private void GetInitData(){
+    private void GetInitData()
+    {
       ShowTimeSelectList = showTimeService.GetShowingSelectListItems();
+      TicketTypeSelectList = ticketTypeService.GetSelectListItems();
+      UserSelectList = userService.GetSelectListItems();
     }
 
     public void OnGet()
     {
       GetInitData();
+    }
+
+    public IActionResult OnPost()
+    {
+      try{
+        ticketService.CreateTicket(CreateDto);
+        return Redirect("./");
+      } catch(Exception error){
+        ErrorMessage = error.Message;
+        GetInitData();
+        return Page();
+      }
     }
   }
 }
