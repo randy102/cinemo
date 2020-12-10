@@ -84,15 +84,26 @@ namespace Cinemo.Service
       return GetAllPublished().Where(t => isNotEnd(t)).ToList();
     }
 
-    public List<ShowTime> GetShowingTimesByMovieId(int movieId){
+    public List<ShowTime> GetShowingTimesByMovieId(int movieId)
+    {
       return GetShowingTime().Where(t => t.MovieId == movieId).ToList();
     }
 
     public List<ShowTime> GetShowTimesByFilters(int movieId, int theaterId, string date)
     {
-      var result = GetShowingTimesByMovieId(movieId);
-      Console.WriteLine(theaterId  +"------"+ date);
-      return result;
+      var showTimes = GetShowingTimesByMovieId(movieId);
+
+      if (theaterId != 0)
+        showTimes = showTimes.Where(s => s.TheaterId == theaterId).ToList();
+
+      if (date != null)
+        showTimes = showTimes.Where(s =>
+        {
+          DateTime parsedDate = DateTime.ParseExact(date, "dd-MM-yyyy", null).Date;
+          return s.Time.Date == parsedDate;
+        }).ToList();
+
+      return showTimes;
     }
 
     private void checkSupportedFormat(ShowTimeCreateDto dto)
@@ -174,7 +185,7 @@ namespace Cinemo.Service
 
     public void CheckShowtimeHasTicket(ShowTime showTime)
     {
-      if(showTime.Tickets.Any()) throw new Exception("Showtime has been booked!");
+      if (showTime.Tickets.Any()) throw new Exception("Showtime has been booked!");
     }
 
     public ShowTime ChangeStatus(int id)
