@@ -11,11 +11,14 @@ namespace Cinemo.Pages
   public class BookTicketModel : PageModel
   {
     private readonly TicketService ticketService;
+    private readonly ShowTimeService showTimeService;
 
     [BindProperty(SupportsGet = true)]
     public int showtime { get; set; }
 
-    public List<Ticket> BookedTickets {get; set;}
+    public ShowTime Showtime { get; set; }
+
+    public List<Ticket> BookedTickets { get; set; }
 
     public BookTicketModel(TicketService ticketService)
     {
