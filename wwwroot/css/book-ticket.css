@@ -36,12 +36,12 @@
     background: rgba(var(--seat-available-bg), .5);
   }
 
-.seat-chosen {
+.seat-chosen, .seat-choosing {
   background: var(--primary);
   cursor: pointer;
 }
 
-  .seat-chosen:hover {
+  .seat-chosen:hover, .seat-choosing:hover {
     background: #0069d9;
   }
 
@@ -87,3 +87,19 @@
 #proceed-btn:disabled {
   pointer-events: none;
 }
+
+.popover-body {
+  padding: 0;
+}
+
+.ticket-table {
+  margin: 0;
+}
+
+  .ticket-table th {
+    border-top: none;
+  }
+
+  .ticket-table .ticket-row {
+    cursor: pointer;
+  }

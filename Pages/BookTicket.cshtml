@@ -53,10 +53,13 @@
 
                   var thisSeatIsSold = Model.BookedTickets.FirstOrDefault(ticket => ticket.Seat == thisSeat) != null;
 
-                  var seatClass = thisSeatIsSold ? "seat-sold" : "seat-available has-tooltip";
+                  var seatClass = thisSeatIsSold ? "seat-sold" : "seat-available";
 
                   <div class="mr-1 seat @seatClass"
-                       data-seat="@thisSeat"></div>
+                       data-seat="@thisSeat"
+                       data-html="true"
+                       data-content=""
+                       title=""></div>
                 }
 
                 <div class="seat ml-3">
@@ -166,5 +169,21 @@
 </div>
 
 <div id="choose-ticket-popover" hidden>
-  <div>This is your div content</div>
+  <table class="table table-hover ticket-table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Ticket</th>
+        <th scope="col" class="text-right">Price (VND)</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @foreach (var ticket in Model.TicketTypes) {
+        <tr class="ticket-row" data-ticket-id="@ticket.Id" onclick="onTicketRowClick()">
+          <td>@ticket.Name</td>
+          <td class="text-right">@ticket.Price.ToString("#,##0")</td>
+        </tr>
+      }
+    </tbody>
+  </table>
 </div>

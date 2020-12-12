@@ -1,4 +1,6 @@
 ﻿$(function () {
+
+
   // Tooltip props shared between proceed button tooltip and available tooltip
   const tooltipSharedProps = {
     delay: {
@@ -17,40 +19,39 @@
     }
   });
 
-  // Initialize tooltip for available seats
-  $('.seat-available').tooltip({
-    ...tooltipSharedProps,
-    title: function () {
-      return $(this).data('seat');
-    },
-  });
+  $('.seat-available')
+    // Initialize tooltip for available seats
+    .tooltip({
+      ...tooltipSharedProps,
+      title: function () {
+        return $(this).data('seat');
+      },
+    })
+    // Initialize popover for available seats
+    .popover({
+      html: true,
+      placement: function (popover, seat) {
+        return 'top';
+      },
+      content: () => $('#choose-ticket-popover').html(),
+      trigger: 'manual',
+      sanitize: false,
+    })
+    // Available handler on mount
+    .on('click', onAvailableSeatClick);
 
-  // Initialize choose ticket popover for available seats
-  $('.seat-available').popover({
-    html: true,
-    placement: 'top',
-    content: function () {
-      return $('#choose-ticket-popover').html();
-    },
-  });
-
-  // On choose ticket popover show
-  $('#choose-ticket-popover').on('show.bs.popover', function () {
-
-  });
-
-  const proceedBtn = $('#proceed-btn');
-
-  const proceedBtnWrapper = $('#proceed-btn-wrapper');
-
-  // Toggle chosen class on available seat click
-  $('.seat-available').click(function (e) {
-    $(this).toggleClass('seat-chosen seat-available');
-  });
 
   // On available seat click
   function onAvailableSeatClick() {
-    $(this).tooltip('hide').tooltip('disable');
+    $(this)
+      .toggleClass('seat-available seat-choosing')
+      .tooltip('hide')
+      .tooltip('disable')
+      .off('click', onAvailableSeatClick)
+      .on('click', onChoosingSeatClick)
+      .popover('show')
+
+    // Popover automatically opens
 
     //const thisSeat = $(this).data('seat');
 
@@ -62,32 +63,54 @@
 
     //infoSeats.text(chosenSeats.join(', '));
 
-    $(this).one('click', onChosenSeatClick);
-
     //proceedBtn.prop('disabled', false)
 
     //proceedBtnWrapper.tooltip('disable');
+
+
   }
 
+  function onChoosingSeatClick() {
+    $(this)
+      .toggleClass('seat-choosing seat-available')
+      .tooltip('enable')
+      .off('click', onChoosingSeatClick)
+      .on('click', onAvailableSeatClick)
+      .popover('hide')
+      .tooltip('show')
+
+    // Popover automatically closes
+
+
+  }
+
+  // On chosen seat click
   function onChosenSeatClick() {
-    $(this).tooltip('enable').tooltip('show');
+    $(this)
+      .toggleClass('seat-chosen seat-available')
+      .off('click', onChosenSeatClick)
+      .on('click', onAvailableSeatClick);
 
-    const thisSeat = $(this).data('seat');
+    // Remove this seat from chosenSeats array
+    let chosenSeats = infoSeats
+      .text()
+      .split(', ')
+      .filter(seat => seat !== $(this).data('seat'))
+      .join(', ');
 
-    let chosenSeats = infoSeats.text().split(', ');
+    // Update seats info
+    infoSeats.text(chosenSeats);
 
-    chosenSeats = chosenSeats.filter(seat => seat !== thisSeat);
-
-    infoSeats.text(chosenSeats.join(', '));
-
-    $(this).one('click', onAvailableSeatClick);
-
+    // If there are no seats left
     if (chosenSeats.length == 0) {
-      proceedBtn.prop("disabled", true)
+      // Disable proceed button
+      $('#proceed-btn').prop("disabled", true)
 
-      proceedBtnWrapper.tooltip('enable');
+      // Enable tooltip on proceed button
+      $('#proceed-btn-wrapper').tooltip('enable');
     }
   }
 
-  $('.seat-available').one('click', onAvailableSeatClick);
+
+
 });
