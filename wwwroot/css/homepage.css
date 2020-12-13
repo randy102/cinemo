@@ -13,17 +13,17 @@
 }
 
 .nav__link:hover {
-    color: #f26b38;
+    color: black;
     border-bottom-color: #f26b38;
     text-decoration: none;
     transition-property: all;
-    transition-duration: 250ms;
+    transition-duration: 550ms;
     transition-timing-function: ease;
     transition-delay: 0.18s;
 }
 
 .card{
-    width: 15em;
+    width: 15.25em;
 }
 
 .nav__link.active{
@@ -33,12 +33,12 @@
 }
 
 .card-body{
-    max-width: 15em;
+    max-width: 15.25em;
 }
 
 .card-img-top{
-    max-width: 15em;
-    height: 20em;
+    max-width: 15.25em;
+    height: 20.5em;
 }
 
 .middle {

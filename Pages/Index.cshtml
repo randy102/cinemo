@@ -11,14 +11,14 @@
 
 <div>
   <ul class="nav nav-tabs text-uppercase">
-    <li class="pr-1 nav__item">
-      <a class="nav__link active" data-toggle="tab" href="#nowShowing">
+    <li class="mr-4 nav__item">
+      <a class="nav__link active p-0" data-toggle="tab" href="#nowShowing">
         Now Showing
       </a>
     </li>
 
     <li class="nav__item ">
-      <a class="nav__link" data-toggle="tab" href="#comingSoon">
+      <a class="nav__link p-0" data-toggle="tab" href="#comingSoon">
         Coming Soon
       </a>
     </li>
@@ -29,10 +29,10 @@
 <br>
 <div class="tab-content">
   <div id="nowShowing" class="tab-pane active">
-    <div class="row row-cols-md-4 no-gutters pl-4">
+    <div class="row">
       @{
         foreach (var movie in @Model.ShowingMovies) {
-          <div class="col mb-1">
+          <div class="card-columns-md-3 mx-2 px-2">
             <div class="card border-0">
               <a href="/Movie?id=@movie.Id">
                 <div class="bg-transparent">
@@ -53,12 +53,12 @@
       }
     </div>
   </div>
-
+  
   <div id="comingSoon" class="tab-pane fade">
-    <div class="row row-cols-md-4 no-gutters pl-4">
+    <div class="row">
       @{
         foreach (var movie in @Model.UpcomingMovies) {
-          <div class="col mb-1">
+          <div class="card-columns-md-3 mx-2 px-2">
             <div class="card border-0">
               <a href="/Movie?id=@movie.Id">
                 <div class="bg-transparent">
