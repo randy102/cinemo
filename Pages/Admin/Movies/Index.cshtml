@@ -16,14 +16,25 @@
     }
   </script>
 }
+@section Styles {
+  <link rel="stylesheet" href="~/css/search.css">
+}
 
 <div class="container">
-  <div class="mb-3">
-    <div class="d-inline-block display-4 mr-3">Movies</div>
-    <a class="btn btn-success btn-sm align-text-bottom ml-auto" href="/Admin/Movies/Create">
-      <i class="fas fa-plus"></i>
-      Create Movie
-    </a>
+  <div class="mb-3 d-flex">
+    <div class="mr-auto p-2">
+      <div class="d-inline-block display-4 mr-3">Movies</div>
+      <a class="btn btn-success btn-sm align-text-bottom ml-auto" href="/Admin/Movies/Create">
+        <i class="fas fa-plus"></i>
+        Create Movie
+      </a> 
+    </div>
+    <div class="p-2">
+      <input class="form-control mt-3 pl-0" 
+            id="myInput" 
+            type="text" placeholder="Search"
+            aria-label="Search">
+    </div>
   </div>
 
   @if (Model.ErrorMessage != null) {
@@ -66,7 +77,7 @@
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="myTable">
         @foreach (var movie in Model.Movies) {
           <tr>
             <td><img src="@FileService.GetPath(movie.Img)" width="100" /></td>

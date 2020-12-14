@@ -8,12 +8,20 @@
 }
 
 @section Styles {
-  <link href="~/css/table.css" rel="stylesheet" type="text/css" />
+   <link rel="stylesheet" href="~/css/search.css">
 }
 
 <div class="container">
-  <div class="mb-3">
-    <div class="d-inline-block display-4 mr-3">Users</div>
+  <div class="mb-3 d-flex">
+    <div class="mr-auto p-2">
+      <div class="d-inline-block display-4 mr-3">Users</div>
+    </div>
+    <div class="p-2">
+      <input class="form-control mt-3 pl-0" 
+            id="myInput" 
+            type="text" placeholder="Search"
+            aria-label="Search">
+    </div>
   </div>
 
   <div class="cinemo-datatable">
@@ -28,7 +36,7 @@
         </tr>
       </thead>
 
-      <tbody>
+      <tbody id="myTable">
         @foreach (var user in Model.Users) {
           <tr>
             <td>@user.Email</td>
