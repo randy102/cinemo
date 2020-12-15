@@ -23,75 +23,75 @@
   <hr class="my-4">
 
   <form class="needs-validation" method="POST">
-      <partial name="Shared/_ErrorAlert" model="@Model.ErrorMessage" />
-      <input asp-for="@Model.UpdateDto.Id" value="@Model.OldRoom.Id" hidden />
+    <partial name="Shared/_ErrorAlert" model="@Model.ErrorMessage" />
+    <input asp-for="@Model.UpdateDto.Id" value="@Model.OldRoom.Id" hidden />
 
-      <div class="form-group col-9 p-0 required">
-          <label>Name</label>
-          <input class="form-control" 
-                 type="text"
-                 asp-for="UpdateDto.Name"
-                 value="@Model.OldRoom.Name"
-                 placeholder="Enter name" 
-                 required>
-      </div>
+    <div class="form-group col-12 p-0 required">
+      <label>Name</label>
+      <input class="form-control"
+             type="text"
+             asp-for="UpdateDto.Name"
+             value="@Model.OldRoom.Name"
+             placeholder="Enter name"
+             required>
+    </div>
 
-      <div class="form-group required">
-          <label for="theater-select">Theater</label>
-          <select asp-for="@Model.UpdateDto.TheaterId" required
-                asp-items="@Model.theaters" 
-                id="theater-select"
-                class="selectpicker d-block col-6 p-0"
-                title="Choose theater"
-                data-style="custom-select"
-                data-size="5"
-                data-live-search="true"
-                data-live-search-normalize="true"
-                data-live-search-placeholder="Search...">
-          </select>
-      </div>
+    <div class="form-group required">
+      <label for="theater-select">Theater</label>
+      <select asp-for="@Model.UpdateDto.TheaterId" required
+              asp-items="@Model.theaters"
+              id="theater-select"
+              class="selectpicker d-block col-6 p-0"
+              title="Choose theater"
+              data-style="custom-select"
+              data-size="5"
+              data-live-search="true"
+              data-live-search-normalize="true"
+              data-live-search-placeholder="Search...">
+      </select>
+    </div>
 
-      <div class="form-group required">
-          <label>Column number</label>
-          <input asp-for="UpdateDto.NumCol" required
-                 type="number" min="0"
-                 value="@Model.OldRoom.NumCol"
-                 placeholder="Enter number" 
-                 class="form-control col-3">
-      </div>
+    <div class="form-group required">
+      <label>Column number</label>
+      <input asp-for="UpdateDto.NumCol" required
+             type="number" min="0"
+             value="@Model.OldRoom.NumCol"
+             placeholder="Enter number"
+             class="form-control col-3">
+    </div>
 
-      <div class="form-group required">
-          <label>Row number</label>
-          <input asp-for="UpdateDto.NumRow" required
-                 type="number" min="0"
-                 value="@Model.OldRoom.NumRow"
-                 placeholder="Enter number" 
-                 class="form-control col-3">
-      </div>
+    <div class="form-group required">
+      <label>Row number</label>
+      <input asp-for="UpdateDto.NumRow" required
+             type="number" min="0"
+             value="@Model.OldRoom.NumRow"
+             placeholder="Enter number"
+             class="form-control col-3">
+    </div>
 
-      <div class="form-group required">
-          <label>Format</label>
-          <br />
-          <input type="text" asp-for="UpdateDto.Formats" id="formats" hidden>
-          @foreach (string name in Enum.GetNames(typeof(Room.Format))) {
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox"
-                     class="custom-control-input required_group" 
-                     name="format"
-                     value="@name" 
-                     id="@name"
-                     checked="@Model.OldRoom.Formats.Contains(name)">
-              <label class="custom-control-label" for="@name">
-                    @name.Substring(1)
-              </label>
-            </div>
-          }
-      </div>
+    <div class="form-group required">
+      <label>Format</label>
+      <br />
+      <input type="text" asp-for="UpdateDto.Formats" id="formats" hidden>
+      @foreach (string name in Enum.GetNames(typeof(Room.Format))) {
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox"
+                 class="custom-control-input required_group"
+                 name="format"
+                 value="@name"
+                 id="@name"
+                 checked="@Model.OldRoom.Formats.Contains(name)">
+          <label class="custom-control-label" for="@name">
+            @name.Substring(1)
+          </label>
+        </div>
+      }
+    </div>
 
-      <div class="form-group">
-          <button class="btn btn-primary" type="submit">
-              Edit Room
-          </button>
-      </div>
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit">
+        Edit Room
+      </button>
+    </div>
   </form>
 </div>

@@ -27,13 +27,13 @@
       <a class="btn btn-success btn-sm align-text-bottom ml-auto" href="/Admin/Rooms/Create">
         <i class="fas fa-plus"></i>
         Create Room
-      </a> 
+      </a>
     </div>
     <div class="p-2">
-      <input class="form-control mt-3 pl-0" 
-            id="myInput" 
-            type="text" placeholder="Search"
-            aria-label="Search">
+      <input class="form-control mt-3 pl-0"
+             id="myInput"
+             type="text" placeholder="Search"
+             aria-label="Search">
     </div>
   </div>
 
@@ -44,8 +44,8 @@
           <th><div>Name</div></th>
           <th><div>Theater</div></th>
           <th><div>Formats</div></th>
-          <th><div>NumCol</div></th>
-          <th><div>NumRow</div></th>
+          <th><div>Columns</div></th>
+          <th><div>Rows</div></th>
           <th><div>Total</div></th>
           <th><div>Edit</div></th>
           <th><div>Delete</div></th>
@@ -56,7 +56,7 @@
           <tr>
             <td>@r.Name</td>
             <td>@r.Theater.Name</td>
-            <td>@r.Formats</td>
+            <td>@(String.Join(", ", r.Formats.Split(", ").Select(format => format.ToString().Substring(1))))</td>
             <td>@r.NumCol</td>
             <td>@r.NumRow</td>
             <td>@r.Total</td>
