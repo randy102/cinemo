@@ -131,7 +131,7 @@
     <div class="form-group required">
       <label>Format</label>
 
-      @foreach (string format in Enum.GetNames(typeof(ShowTime.FormatEnum))) {
+      @foreach (string showFormat in Enum.GetNames(typeof(ShowTime.FormatEnum))) {
         var id = Guid.NewGuid().ToString("N");
 
         <br />
@@ -139,12 +139,12 @@
         <div class="custom-control custom-radio custom-control-inline">
           <input required
                  type="radio"
-                 value="@format"
+                 value="@showFormat"
                  asp-for="UpdateDto.Format"
                  id="@id"
                  class="custom-control-input"
-                 checked="@(format.ToString() == Model.OldShowTime.Format.ToString())" />
-          <label class="custom-control-label" for="@id">@format.Substring(1)</label>
+                 checked="@(showFormat.ToString() == Model.OldShowTime.Format.ToString())" />
+          <label class="custom-control-label" for="@id">@showFormat.Substring(1)</label>
         </div>
       }
     </div>
