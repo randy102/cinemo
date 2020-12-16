@@ -15,9 +15,13 @@
     }
   </script>
 }
+@section Styles{
+   <link rel="stylesheet" href="~/css/fixedcol_1col.css">
+}
+
 <partial name="Shared/_ErrorAlert" model="@Model.ErrorMessage" />
 
-<h3>UPCOMING TICKETS</h3>
+<div>UPCOMING TICKETS</div>
 <div class="container">
   <div class="cinemo-datatable">
     <table class="table">
@@ -62,7 +66,7 @@
 </div>
 
 
-<h3>NOW SHOWING TICKETS</h3>
+<div>NOW SHOWING TICKETS</div>
 <div class="container">
   <div class="cinemo-datatable">
     <table class="table">
@@ -107,7 +111,7 @@
 </div>
 
 
-<h3>OLD TICKETS</h3>
+<div>OLD TICKETS</div>
 <div class="container">
   <div class="cinemo-datatable">
     <table class="table">
