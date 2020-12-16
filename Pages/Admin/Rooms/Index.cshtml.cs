@@ -8,26 +8,41 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Cinemo.Pages.Admin.Room
 {
-    public class IndexModel : PageModel
-    {       
-        private readonly RoomService service;
+  public class IndexModel : PageModel
+  {
+    private readonly RoomService service;
+
+    public List<Cinemo.Models.Room> Rooms { get; set; }
+    public string ErrorMessage { get; set; }
+
     public IndexModel(RoomService service)
     {
       this.service = service;
     }
 
-
-    public List<Cinemo.Models.Room> Rooms { get; set; }
-
-    public void OnGet()
+    public void InitData()
     {
       Rooms = service.GetAll();
     }
 
+    public void OnGet()
+    {
+      InitData();
+    }
+
     public IActionResult OnPostDelete(int id)
     {
-      service.Delete(id);
-      return Redirect("/Admin/Rooms");
+      try
+      {
+        service.Delete(id);
+        return RedirectToPage();
+      }
+      catch (Exception error)
+      {
+        InitData();
+        ErrorMessage = error.Message;
+        return Page();
+      }
     }
-    }
+  }
 }
