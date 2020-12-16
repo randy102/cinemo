@@ -18,6 +18,7 @@
   <hr class="my-4">
 
   <form method="post">
+    <input asp-for="@Model.TicketType.Id" value="@Model.OldTicketType.Id" hidden />
     <div class="form-group mx-0">
       <label>Name</label><br>
       <select asp-for="TicketType.Name"
