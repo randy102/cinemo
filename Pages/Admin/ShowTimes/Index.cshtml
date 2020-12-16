@@ -28,13 +28,13 @@
       <a class="btn btn-success btn-sm align-text-bottom ml-auto" href="/Admin/ShowTimes/Create">
         <i class="fas fa-plus"></i>
         Create Show Time
-      </a> 
+      </a>
     </div>
     <div class="p-2">
-      <input class="form-control mt-3 pl-0" 
-            id="myInput" 
-            type="text" placeholder="Search"
-            aria-label="Search">
+      <input class="form-control mt-3 pl-0"
+             id="myInput"
+             type="text" placeholder="Search"
+             aria-label="Search">
     </div>
   </div>
 
@@ -58,61 +58,60 @@
         </tr>
       </thead>
       <tbody id="myTable">
-        @foreach (var st in Model.showTimes)
-          {
-        <tr>
-          <td>@st.Theater.Name</td>
-          <td>@st.Room.Name</td>
-          <td>@st.Movie.Title</td>
-          <td>@st.ExtraPrice ₫</td>
-          <td>@st.Type</td>
-          <td>@st.Format</td>
-          <td>@DateTimeUtils.ToString(st.Time)</td>
-          <td>@ShowTimeService.GetFilmStatus(st)</td>
-          <td>@st.Status</td>
-          <td>
-
-            <form id="delete-room" method="POST" asp-page-handler="ChangeStatus">
-              <input type="hidden" name="id" value="@st.Id">
-              <button class="btn btn-primary btn-sm" type="submit">
-                @(st.Status == Models.ShowTime.ShowState.DRAFT ? "Publish" : "Unpublish")
-              </button>
-            </form>
-
-          </td>
-          @if (st.Status == Cinemo.Models.ShowTime.ShowState.DRAFT){
+        @foreach (var st in Model.showTimes) {
+          <tr>
+            <td>@st.Theater.Name</td>
+            <td>@st.Room.Name</td>
+            <td>@st.Movie.Title</td>
+            <td>@st.ExtraPrice.ToString("N0") ₫</td>
+            <td>@st.TypeString</td>
+            <td>@st.FormatString</td>
+            <td>@DateTimeUtils.ToString(st.Time)</td>
+            <td>@ShowTimeService.GetFilmStatus(st)</td>
+            <td>@st.Status</td>
             <td>
-              <a class="btn btn-round btn-primary btn-sm" href="/Admin/ShowTimes/Update?id=@st.Id">
-                <i class="fas fa-pen"></i>
-              </a>
+
+              <form id="delete-room" method="POST" asp-page-handler="ChangeStatus">
+                <input type="hidden" name="id" value="@st.Id">
+                <button class="btn btn-primary btn-sm" type="submit">
+                  @(st.Status == Models.ShowTime.ShowState.DRAFT ? "Publish" : "Unpublish")
+                </button>
+              </form>
+
             </td>
-          }
-          else{
+            @if (st.Status == Cinemo.Models.ShowTime.ShowState.DRAFT) {
+              <td>
+                <a class="btn btn-round btn-primary btn-sm" href="/Admin/ShowTimes/Update?id=@st.Id">
+                  <i class="fas fa-pen"></i>
+                </a>
+              </td>
+            }
+            else {
+              <td>
+                <button class="btn btn-round btn-primary btn-sm" disabled>
+                  <i class="fas fa-pen"></i>
+                </button>
+              </td>
+
+            }
+
             <td>
-            <button class="btn btn-round btn-primary btn-sm" disabled>
-              <i class="fas fa-pen"></i>
-            </button>
-          </td>
-
-          }
-
-          <td>
-            <form id="delete-room" method="POST" asp-page-handler="Delete">
-              <input type="hidden" name="id" value="@st.Id">
-              @if (st.Status == Cinemo.Models.ShowTime.ShowState.DRAFT){
+              <form id="delete-room" method="POST" asp-page-handler="Delete">
+                <input type="hidden" name="id" value="@st.Id">
+                @if (st.Status == Cinemo.Models.ShowTime.ShowState.DRAFT) {
                   <button type="button" class="btn btn-round btn-danger btn-sm"
-                      onclick="handleDelete(this.form)">
-                <i class="fas fa-trash"></i>
-              </button>
-              }
-              else{
-                <button type="button" class="btn btn-round btn-danger btn-sm" disabled>
-                <i class="fas fa-trash"></i>
-              </button>
-              }
-            </form>
-          </td>
-        </tr>
+                          onclick="handleDelete(this.form)">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                }
+                else {
+                  <button type="button" class="btn btn-round btn-danger btn-sm" disabled>
+                    <i class="fas fa-trash"></i>
+                  </button>
+                }
+              </form>
+            </td>
+          </tr>
         }
       </tbody>
     </table>

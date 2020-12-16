@@ -7,53 +7,48 @@
   <script src="~/js/Validation.js"></script>
 }
 
-<div class="row no-gutters align-self-center m-auto">
-  <div style="width: 500px">
-    <a href="/Admin/Theaters/Index">
-      <i class="fa fa-arrow-left mr-1"></i>Back to Theaters
-    </a>
-    <div class="display-4 text-center">
-      Change Theater
+<div class="container">
+  <a href="/Admin/Theaters">
+    <i class="fas fa-angle-left mr-1"></i>Back to Theaters
+  </a>
+
+  <div class="display-4">
+    Update Theater
+  </div>
+
+
+  <form method="post" class="needs-validation" novalidate>
+    <partial name="Shared/_ErrorAlert" model="@Model.ErrorMessage" />
+
+    <div class="form-group required">
+      <label>Name</label>
+      <input type="text" required
+             asp-for="@Model.UpdateDto.Name"
+             value="@Model.OldTheater.Name"
+             class="form-control col"
+             placeholder="Enter name">
+      <div class="invalid-feedback">
+        Please provide name.
+      </div>
     </div>
 
-    <hr class="my-4">
-
-    <form method="POST" class="needs-validation" novalidate>
-      <div class="form-group row mx-0">
-        <label for="new-name" class="col-sm-2 col-form-label mr-sm-1 pl-0">
-          Name:
-        </label>
-        <input value="@Model.OldTheater.Id" asp-for="@Model.UpdateDto.Id" hidden>
-        <input value="@Model.OldTheater.Name" 
-               id="new-name" required 
-               type="text" 
-               class="form-control col" 
-               asp-for="@Model.UpdateDto.Name"
-               placeholder="Enter name">
-        <div class="invalid-feedback">
-          Please provide name.
-        </div>
+    <div class="form-group required">
+      <label>Address</label>
+      <input type="text" required
+             asp-for="@Model.UpdateDto.Address"
+             value="@Model.OldTheater.Address"
+             class="form-control"
+             placeholder="Enter address">
+      <div class="invalid-feedback">
+        Please provide address
       </div>
+    </div>
 
-      <div class="form-group row mx-0">
-        <label for="new-theatername" class="col-sm-2 col-form-label mr-sm-1 pl-0">
-            Address:
-        </label>
-        <input value="@Model.OldTheater.Address" 
-               id="new-theatername" 
-               required type="text" 
-               class="form-control col" 
-               asp-for="@Model.UpdateDto.Address" 
-               placeholder="Enter address">
-        <div class="invalid-feedback">
-            Please provide address.
-        </div>
-      </div>
-
-      <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
-      </div> 
-    </form>
-  </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">
+        Save
+      </button>
+    </div>
+  </form>
 </div>
 
