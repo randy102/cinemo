@@ -2,6 +2,7 @@ using Cinemo.Repository;
 using Cinemo.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using Microsoft.AspNetCore.Mvc.Rendering;
 namespace Cinemo.Service
 {
@@ -35,6 +36,8 @@ namespace Cinemo.Service
 
     public TicketType Delete(int id)
     {
+      var existed = GetDetail(id);
+      if(existed.Tickets.Any()) throw new Exception("Can not delete Ticket Type that already booked!");
       return repository.Delete(id);
     }
 

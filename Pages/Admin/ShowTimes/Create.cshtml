@@ -5,12 +5,6 @@
 
 @{
   Layout = "_AdminLayout";
-
-  var typeDictionary = new Dictionary<string, string>() {
-    ["SUB"] = "Subtitles",
-    ["DUB"] = "Dubbed",
-    ["VN"] = "Vietnamese"
-  };
 }
 
 @section Scripts {
@@ -77,8 +71,8 @@
 
     <div class="form-group">
       <label>Extra price</label>
-      <div class="input-group">
-        <input class="form-control col-3 price-input-label" type="text"
+      <div class="input-group col-3 p-0">
+        <input class="form-control price-input-label" type="text"
                value="0" />
 
         <input class="price-input-value" hidden
@@ -113,7 +107,7 @@
         <div class="custom-control custom-radio custom-control-inline">
           <input required type="radio" value="@type" id="@id" class="custom-control-input" asp-for="CreateDto.Type">
           <label class="custom-control-label" for="@id">
-            @typeDictionary[type.ToString()]
+            @ShowTime.TypeNames[type.ToString()]
           </label>
         </div>
       }

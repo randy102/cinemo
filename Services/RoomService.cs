@@ -45,6 +45,8 @@ namespace Cinemo.Service
 
     public Room Delete(int id)
     {
+      var existed = GetDetail(id);
+      if (existed.ShowTimes.Any()) throw new Exception("Can not delete Room that already had Showtimes!");
       return repository.Delete(id);
     }
 

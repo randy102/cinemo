@@ -43,6 +43,10 @@ namespace Cinemo.Service
     public Theater Delete(int id) {
       bool isShowTimeCreated = showTimeRepository.FindWhere(s => s.TheaterId == id).Any();
       if(isShowTimeCreated) throw new Exception("Không thể xóa phòng chiếu đã tạo lịch");
+
+      var  existed = GetDetail(id);
+      if(existed.Rooms.Any()) throw new Exception("Can not delete Theater that already had Rooms");
+
       return repository.Delete(id);
     }
 

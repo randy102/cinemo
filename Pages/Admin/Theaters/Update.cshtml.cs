@@ -25,24 +25,30 @@ namespace Cinemo.Pages.Admin.Theater
     public int id { get; set; }
 
     [BindProperty]
-    public TheaterUpdateDto UpdateDto {get; set;}
-public string ErrorMessage {get; set;}
+    public TheaterUpdateDto UpdateDto { get; set; }
+    public string ErrorMessage { get; set; }
     public IActionResult OnGet()
     {
       OldTheater = service.GetDetail(id);
-      if (OldTheater == null) {
+      if (OldTheater == null)
+      {
         return Redirect("./");
-      } else {
+      }
+      else
+      {
         return Page();
       }
     }
 
     public IActionResult OnPost()
     {
-      try{
+      try
+      {
         service.Update(UpdateDto);
         return Redirect("./");
-      } catch(Exception error){
+      }
+      catch (Exception error)
+      {
         ErrorMessage = error.Message;
         OldTheater = service.GetDetail(id);
         return Page();

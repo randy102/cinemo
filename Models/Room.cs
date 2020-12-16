@@ -8,12 +8,15 @@ namespace Cinemo.Models
   {
     public int Id { get; set; }
     public int TheaterId { get; set; }
-    public virtual Theater Theater { get; set; }
     public string Name { get; set; }
     public int NumCol { get; set; }
     public int NumRow { get; set; }
     public int Total { get; set; }
     public string Formats { get; set; }
+
+    public virtual Theater Theater { get; set; }
+    public virtual List<ShowTime> ShowTimes { get; set; }
+
     public enum Format
     {
       _2D,

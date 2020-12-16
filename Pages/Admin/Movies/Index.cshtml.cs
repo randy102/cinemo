@@ -9,19 +9,23 @@ namespace Cinemo.Pages.Movie
   public class IndexModel : PageModel
   {
     private readonly MovieService service;
+
+    public List<Cinemo.Models.Movie> Movies { get; set; }
+    public string ErrorMessage { get; set; }
+    
     public IndexModel(MovieService service)
     {
       this.service = service;
     }
 
-    public List<Cinemo.Models.Movie> Movies { get; set; }
-
-    [BindProperty(Name = "error", SupportsGet = true)]
-    public string ErrorMessage { get; set; }
+    public void InitData()
+    {
+      Movies = service.GetAll();
+    }
 
     public void OnGet()
     {
-      Movies = service.GetAll();
+      InitData();
     }
 
     public IActionResult OnPostDelete(int id)
@@ -33,8 +37,9 @@ namespace Cinemo.Pages.Movie
       }
       catch (Exception error)
       {
+        InitData();
         ErrorMessage = error.Message;
-        return RedirectToPage(new { error = error.Message });
+        return Page();
       }
 
     }

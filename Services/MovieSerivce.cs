@@ -62,8 +62,11 @@ namespace Cinemo.Service
     public Movie Delete(int id)
     {
       var existed = GetDetail(id);
+      if(existed.ShowTimes.Any()) throw new Exception("Can not delete Movie that already had Showtimes");
+
       if (existed.Img != null)
         fileService.Remove(existed.Img);
+
       return repository.Delete(id);
     }
 

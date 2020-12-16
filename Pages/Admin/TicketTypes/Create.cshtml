@@ -19,7 +19,7 @@
   <form method="post">
     <div class="form-group mx-0">
       <label>Name</label><br>
-      <select asp-for="CreateDto.Name" class="form-control col-7">
+      <select asp-for="CreateDto.Name" class="form-control col-6">
         @{
           foreach (Cinemo.Models.TicketType.Type type in Enum.GetValues(typeof(Cinemo.Models.TicketType.Type))) {
             <option asp-value="type">@type</option>
