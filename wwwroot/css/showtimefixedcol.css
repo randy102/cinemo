@@ -1,0 +1,18 @@
+th:nth-last-of-type(1), td:nth-last-of-type(1)
+{
+  position: sticky;
+  right: 0em;
+  background-color: white;
+}
+th:nth-last-of-type(2), td:nth-last-of-type(2)
+{
+  position: sticky;
+  right: 4.55em;
+  background-color: white;
+}
+th:nth-last-of-type(3), td:nth-last-of-type(3)
+{
+  position: sticky;
+  right: 8.17em ;
+  background-color: white;
+}

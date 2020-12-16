@@ -1,0 +1,6 @@
+th:nth-last-of-type(1), td:nth-last-of-type(1)
+{
+  position: sticky;
+  right: 0em;
+  background-color: white;
+}
