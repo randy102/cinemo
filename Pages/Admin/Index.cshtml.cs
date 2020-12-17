@@ -12,7 +12,7 @@ namespace Cinemo.Pages.Admin {
       if(User.IsInRole("Admin"))
         return Redirect("Admin/Users");
       else
-        return Redirect("Admin/Movies");
+        return Redirect("Admin/Tickets");
     }
   }
 }

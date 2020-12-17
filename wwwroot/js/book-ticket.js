@@ -108,6 +108,13 @@
   function onTicketClick() {
     const ticketId = $(this).data('ticket-id');
     const ticketName = $(this).data('ticket-name');
+    const ticketPrice = $(this).data('ticket-price');
+
+    const newTotalPrice = +$('#total-price').text().trim() + ticketPrice;
+
+    console.log(newTotalPrice);
+
+    $('#total-price').text(newTotalPrice)
 
     // Update chosen seats in js
     chosenSeats[choosingSeat] = ticketName;

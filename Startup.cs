@@ -41,7 +41,11 @@ namespace Cinemo
         .AuthorizeFolder("/Admin", "OnlyStaff")
         .AuthorizeFolder("/Admin/Users", "OnlyAdmin")
         .AuthorizeFolder("/Admin/Theaters", "OnlyAdmin")
-        .AuthorizeFolder("/Admin/Rooms", "OnlyAdmin");
+        .AuthorizeFolder("/Admin/Rooms", "OnlyAdmin")
+        .AuthorizeFolder("/Admin/Movies", "OnlyAdmin")
+        .AuthorizeFolder("/Admin/Categories", "OnlyAdmin")
+        .AuthorizeFolder("/Admin/ShowTimes", "OnlyAdmin")
+        .AuthorizeFolder("/Admin/TicketTypes", "OnlyAdmin");
       });
 
       services.AddAuthorization(options =>
@@ -49,7 +53,7 @@ namespace Cinemo
         options.FallbackPolicy = new AuthorizationPolicyBuilder()
           .RequireAuthenticatedUser()
           .Build();
-        options.AddPolicy("OnlyStaff", policy => policy.RequireRole("Admin","Member"));
+        options.AddPolicy("OnlyStaff", policy => policy.RequireRole("Member"));
         options.AddPolicy("OnlyAdmin", policy => policy.RequireRole("Admin"));
       });
 

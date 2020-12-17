@@ -7,6 +7,17 @@
 
 @section Scripts {
   <script src="~/js/book-ticket.js"></script>
+  <script src="~/js/confirmBookTicket.js"></script>
+
+  <script>
+    function handleDelete(form) {
+      confirmBookTicket({
+        form: form,
+        title: "Book tickets?",
+        message: "Are you sure you want to book these tickets?",
+      });
+    }
+  </script>
 }
 
 <div class="row">
@@ -92,7 +103,7 @@
           <img class="info-poster" src="~/uploads/@Model.Showtime.Movie.Img" />
         </div>
 
-        <h6 class="text-center text-uppercase mb-4">Avengers: Endgame</h6>
+        <h6 class="text-center text-uppercase mb-4">@Model.Showtime.Movie.Title</h6>
 
         <div class="ticket-info mb-4">
           <div class="info-line">
@@ -154,11 +165,22 @@
               None
             </div>
           </div>
+
+          <div class="info-line">
+            <div class="info-label">
+              Total Price:
+            </div>
+
+            <div id="total-price" class="info-content">
+              0
+            </div>
+            đ
+          </div>
         </div>
 
         <div class="d-flex justify-content-center">
           <form method="post" id="proceed-btn-wrapper" class="d-inline-block" title="Please choose a ticket and a seat first">
-            <button type="submit" id="proceed-btn" class="btn btn-primary" disabled>
+            <button type="button" onclick="handleDelete(this.form)" id="proceed-btn" class="btn btn-primary" disabled>
               Proceed to payment
             </button>
           </form>
@@ -183,7 +205,9 @@
       @foreach (var ticket in Model.TicketTypes) {
         <tr class="ticket-row"
             data-ticket-id="@ticket.Id"
-            data-ticket-name="@ticket.Name">
+            data-ticket-name="@ticket.Name"
+            data-ticket-price="@ticket.Price"
+            >
           <td>@ticket.Name</td>
           <td class="text-right">@ticket.Price.ToString("#,##0")</td>
         </tr>

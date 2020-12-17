@@ -56,7 +56,7 @@ namespace Cinemo.Pages
       try
       {
         ticketService.BookUserTickets(CreateDto, userService.GetCurrentUser(HttpContext).Id);
-        return Redirect("./");
+        return Redirect("./MyTicket");
       }
       catch (Exception exception)
       {

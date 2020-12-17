@@ -23,9 +23,14 @@ namespace Cinemo.Pages.Admin.Ticket
     [BindProperty]
     public string ErrorMessage { get; set; }
 
+    [BindProperty(SupportsGet = true)]
+    public int showtimeId { get; set; }
+
     public List<SelectListItem> ShowTimeSelectList { get; set; }
     public List<SelectListItem> TicketTypeSelectList { get; set; }
     public List<SelectListItem> UserSelectList { get; set; }
+    public List<Cinemo.Models.Ticket> BookedTickets { get; set; }
+    public Cinemo.Models.ShowTime Showtime {get; set;}
 
     public CreateModel(
       ShowTimeService showTimeService,
@@ -41,9 +46,12 @@ namespace Cinemo.Pages.Admin.Ticket
 
     private void GetInitData()
     {
-      ShowTimeSelectList = showTimeService.GetShowingSelectListItems();
+      
+      ShowTimeSelectList = showTimeService.GetShowingSelectListItems(showtimeId);
       TicketTypeSelectList = ticketTypeService.GetSelectListItems();
       UserSelectList = userService.GetSelectListItems();
+      Showtime = showTimeService.GetDetail(showtimeId);
+      BookedTickets = ticketService.GetBookedTickets(showtimeId);
     }
 
     public void OnGet()
