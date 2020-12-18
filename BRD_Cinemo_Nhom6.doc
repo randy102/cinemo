@@ -1,0 +1,497 @@
+Date: Fri, 18 Dec 2020 04:17:00 +0000 (UTC)
+Message-ID: <922369277.11.1608265020206@7824b5b74eac>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_10_227681799.1608265020206"
+
+------=_Part_10_227681799.1608265020206
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>BRD - Cinemo</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        font-size: 10pt;
+        line-height: 1.2;
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: #fff !important;
+        color: #000 !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: #000;
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        page-break-after: avoid;
+    }
+
+    pre {
+        font-family: Monaco, "Courier New", monospace;
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>BRD - Cinemo</h1>
+    <div class=3D"Section1">
+        <div class=3D"table-wrap">
+<table data-layout=3D"default" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 71.0px;">
+<col style=3D"width: 111.0px;">
+<col style=3D"width: 578.0px;">
+</colgroup>
+<tbody>
+<tr>
+<th class=3D"confluenceTh"><p><strong>Ch=E1=BB=A9c n=C4=83ng</strong></p></=
+th>
+<th class=3D"confluenceTh"><p><strong>M=E1=BB=A9c ng=C6=B0=E1=BB=9Di d=C3=
+=B9ng</strong></p></th>
+<th class=3D"confluenceTh"><p><strong>M=E1=BB=A9c h=E1=BB=87 th=E1=BB=91ng<=
+/strong></p></th>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<ol>
+<li><p>Qu=E1=BA=A3n l=C3=BD r=E1=BA=A1p chi=E1=BA=BFu phim</p></li>
+</ol></td>
+<td class=3D"confluenceTd"><p>Admin c=C3=B3 th=E1=BB=83 th=C3=AAm, x=C3=B3a=
+, s=E1=BB=ADa, xem danh s=C3=A1ch r=E1=BA=A1p chi=E1=BA=BFu phim</p></td>
+<td class=3D"confluenceTd">
+<ol>
+<li><p>Admin c=C3=B3 th=E1=BB=83 nh=E1=BA=A5n n=C3=BAt t=E1=BA=A1o r=E1=BA=
+=A1p chi=E1=BA=BFu phim =C4=91=E1=BB=83 nh=E1=BA=ADp th=C3=B4ng tin r=E1=BA=
+=A1p g=E1=BB=93m:</p>
+<ul>
+<li><p>T=C3=AAn</p></li>
+<li><p>=C4=90=E1=BB=8Ba ch=E1=BB=89</p></li>
+</ul></li>
+<li><p>Admin c=C3=B3 th=E1=BB=83 xem danh s=C3=A1ch r=E1=BA=A1p</p></li>
+<li><p>Admin c=C3=B3 th=E1=BB=83 s=E1=BB=ADa r=E1=BA=A1p chi=E1=BA=BFu phim=
+</p></li>
+<li><p>Admin c=C3=B3 th=E1=BB=83 x=C3=B3a r=E1=BA=A1p chi=E1=BA=BFu phim <s=
+trong>n=E1=BA=BFu ch=C6=B0a c=C3=B3 l=E1=BB=8Bch chi=E1=BA=BFu</strong> n=
+=C3=A0o =C4=91=C6=B0=E1=BB=A3c t=E1=BA=A1o.</p></li>
+</ol></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd"><p>2. Qu=E1=BA=A3n l=C3=BD ph=C3=B2ng chi=E1=BA=
+=BFu</p></td>
+<td class=3D"confluenceTd"><p>Admin c=C3=B3 th=E1=BB=83 th=C3=AAm, x=C3=B3a=
+, s=E1=BB=ADa, xem danh s=C3=A1ch ph=C3=B2ng chi=E1=BA=BFu</p></td>
+<td class=3D"confluenceTd">
+<ol>
+<li><p>Admin c=C3=B3 th=E1=BB=83 t=E1=BA=A1o ph=C3=B2ng chi=E1=BA=BFu phim =
+g=E1=BB=93m: </p>
+<ul>
+<li><p>T=C3=AAn</p></li>
+<li><p>=C4=90=E1=BB=8Bnh d=E1=BA=A1ng chi=E1=BA=BFu (2D, 3D, IMAX)</p></li>
+<li><p>R=E1=BA=A1p chi=E1=BA=BFu</p></li>
+<li><p>S=E1=BB=91 h=C3=A0ng gh=E1=BA=BF (NumRow)</p></li>
+<li><p>S=E1=BB=91 gh=E1=BA=BF m=E1=BB=97i h=C3=A0ng (NumCol)</p></li>
+<li><p>T=E1=BB=95ng s=E1=BB=91 gh=E1=BA=BF (s=E1=BA=BD <strong>=C4=91=C6=B0=
+=E1=BB=A3c t=C3=ADnh t=E1=BB=B1 =C4=91=E1=BB=99ng</strong> tr=C3=AAn NumRow=
+ * NumCol) </p></li>
+</ul></li>
+<li><p>Admin c=C3=B3 th=E1=BB=83 xem danh s=C3=A1ch c=C3=A1c ph=C3=B2ng chi=
+=E1=BA=BFu</p></li>
+<li><p>Admin c=C3=B3 th=E1=BB=83 s=E1=BB=ADa th=C3=B4ng tin ph=C3=B2ng chi=
+=E1=BA=BFu ngo=E1=BA=A1i tr=E1=BB=AB r=E1=BA=A1p chi=E1=BA=BFu.</p></li>
+<li><p>Admin c=C3=B3 th=E1=BB=83 x=C3=B3a ph=C3=B2ng chi=E1=BA=BFu<strong> =
+n=E1=BA=BFu ch=C6=B0a c=C3=B3 l=E1=BB=8Bch chi=E1=BA=BFu </strong>n=C3=A0o =
+=C4=91=C6=B0=E1=BB=A3c t=E1=BA=A1o</p></li>
+</ol></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd"><p>3. Qu=E1=BA=A3n l=C3=BD l=E1=BB=8Bch chi=E1=
+=BA=BFu</p></td>
+<td class=3D"confluenceTd"><p>Admin c=C3=B3 th=E1=BB=83 th=C3=AAm, x=C3=B3a=
+, s=E1=BB=ADa, xem danh s=C3=A1ch l=E1=BB=8Bch chi=E1=BA=BFu</p></td>
+<td class=3D"confluenceTd">
+<ol>
+<li><p>Admin c=C3=B3 th=E1=BB=83 th=C3=AAm l=E1=BB=8Bch chi=E1=BA=BFu g=E1=
+=BB=93m: </p>
+<ul>
+<li><p>Ph=C3=B2ng chi=E1=BA=BFu</p></li>
+<li><p>Phim</p></li>
+<li><p>Gi=C3=A1 th=C3=AAm (%)</p></li>
+<li><p>Lo=E1=BA=A1i chi=E1=BA=BFu (Ph=E1=BB=A5 =C4=91=E1=BB=81, L=E1=BB=93n=
+g ti=E1=BA=BFng, Ti=E1=BA=BFng Vi=E1=BB=87t)</p></li>
+<li><p>=C4=90=E1=BB=8Bnh d=E1=BA=A1ng (2D, 3D, IMAX)</p></li>
+<li><p>Th=E1=BB=9Di gian chi=E1=BA=BFu</p></li>
+</ul></li>
+<li><p>M=E1=BB=99t ph=C3=B2ng chi=E1=BA=BFu <strong>kh=C3=B4ng th=E1=BB=83 =
+c=C3=B3 2 l=E1=BB=8Bch chi=E1=BA=BFu</strong> trong <strong>c=C3=B9ng m=E1=
+=BB=99t th=E1=BB=9Di =C4=91i=E1=BB=83m</strong></p></li>
+<li><p>Ph=C3=B2ng chi=E1=BA=BFu =C4=91=C6=B0=E1=BB=A3c ch=E1=BB=8Dn ph=E1=
+=BA=A3i h=E1=BB=97 tr=E1=BB=A3 chi=E1=BA=BFu =C4=91=C6=B0=E1=BB=A3c =C4=91i=
+nh d=E1=BA=A1ng =C4=91=C3=A3 ch=E1=BB=8Dn</p></li>
+<li><p>L=E1=BB=8Bch chi=E1=BA=BFu m=E1=BB=9Bi t=E1=BA=A1o c=C3=B3 tr=E1=BA=
+=A1ng th=C3=A1i DRAFT ch=C6=B0a =C4=91=C6=B0=E1=BB=A3c hi=E1=BB=83n th=E1=
+=BB=8B tr=C3=AAn trang ch=E1=BB=A7</p></li>
+<li><p>Admin <strong>ch=E1=BB=89 </strong>c=C3=B3 th=E1=BB=83 s=E1=BB=ADa t=
+h=C3=B4ng tin l=E1=BB=8Bch chi=E1=BA=BFu khi =E1=BB=9F tr=E1=BA=A1ng th=C3=
+=A1i <strong>DRAFT</strong></p></li>
+<li><p>Admin c=C3=B3 th=E1=BB=83 hi=E1=BB=83n th=E1=BB=8B l=E1=BB=8Bch chi=
+=E1=BA=BFu khi nh=E1=BA=A5n n=C3=BAt Publish. Khi =C4=91=C3=B3 l=E1=BB=8Bch=
+ chi=E1=BA=BFu c=C3=B3 tr=E1=BA=A1ng th=C3=A1i PUBLISHED</p></li>
+<li><p>Admin c=C3=B3 th=E1=BB=83 <strong>=E1=BA=A9n </strong>l=E1=BB=8Bch c=
+hi=E1=BA=BFu b=E1=BA=B1ng c=C3=A1ch nh=E1=BA=A5n n=C3=BAt Unpublish <strong=
+>ch=E1=BB=89 khi ch=C6=B0a c=C3=B3 v=C3=A9 </strong>n=C3=A0o =C4=91=C6=B0=
+=E1=BB=A3c b=C3=A1n. L=E1=BB=8Bch chi=E1=BA=BFu s=E1=BA=BD v=E1=BB=81 tr=E1=
+=BA=A1ng th=C3=A1i DRAFT</p></li>
+<li><p>Admin c=C3=B3 th=E1=BB=83 x=C3=B3a l=E1=BB=8Bch chi=E1=BA=BFu <stron=
+g>ch=E1=BB=89 </strong>khi =E1=BB=9F tr=E1=BA=A1ng th=C3=A1i <strong>DRAFT<=
+/strong></p></li>
+</ol></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd"><p>4. Qu=E1=BA=A3n l=C3=BD lo=E1=BA=A1i v=C3=A9<=
+/p></td>
+<td class=3D"confluenceTd"><p>Admin c=C3=B3 th=E1=BB=83 th=C3=AAm, x=C3=B3a=
+, s=E1=BB=ADa, xem danh s=C3=A1ch lo=E1=BA=A1i v=C3=A9</p></td>
+<td class=3D"confluenceTd">
+<ol>
+<li><p>Admin c=C3=B3 th=E1=BB=83 t=E1=BA=A1o lo=E1=BA=A1i v=C3=A9 g=E1=BB=
+=93m: </p>
+<ul>
+<li><p>T=C3=AAn lo=E1=BA=A1i</p></li>
+<li><p>Gi=C3=A1</p></li>
+</ul></li>
+<li><p>Admin c=C3=B3 th=E1=BB=83 xem danh s=C3=A1ch s=E1=BB=ADa th=C3=B4ng =
+tin lo=E1=BA=A1i v=C3=A9</p></li>
+<li><p>Admin c=C3=B3 th=E1=BB=83 x=C3=B3a lo=E1=BA=A1i v=C3=A9 n=E1=BA=BFu =
+<strong>ch=C6=B0a =C4=91=C6=B0=E1=BB=A3c =C4=91=E1=BA=B7t</strong></p></li>
+</ol></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd"><p>5. Qu=E1=BA=A3n l=C3=BD v=C3=A9</p></td>
+<td class=3D"confluenceTd"><p>Admin c=C3=B3 th=E1=BB=83 xem danh s=C3=A1ch,=
+ t=E1=BA=A1o, h=E1=BB=A7y v=C3=A9 =C4=91=C3=A3 =C4=91=E1=BA=B7t</p></td>
+<td class=3D"confluenceTd">
+<ol>
+<li><p>Admin c=C3=B3 th=E1=BB=83 xem danh s=C3=A1ch v=C3=A9 =C4=91=C3=A3 =
+=C4=91=E1=BA=B7t theo filter (c=C3=A1c filter c=C3=B3 th=E1=BB=83 <strong>=
+=C3=A1p d=E1=BB=A5ng =C4=91=E1=BB=93ng th=E1=BB=9Di</strong>, vd: Filter c=
+=C3=A1c v=C3=A9 =C4=91=C3=A3 =C4=91=E1=BA=B7t v=C3=A0o ng=C3=A0y 20/11/2020=
+ c=E1=BB=A7a phim Spider Man t=E1=BA=A1i r=E1=BA=A1p Cinema1): </p>
+<ul>
+<li><p>Ng=C3=A0y</p></li>
+<li><p>Phim</p></li>
+<li><p>Ph=C3=B2ng</p></li>
+<li><p>R=E1=BA=A1p</p></li>
+<li><p>Lo=E1=BA=A1i v=C3=A9</p></li>
+</ul></li>
+<li><p>Admin c=C3=B3 th=E1=BB=83 t=E1=BA=A1o v=C3=A9 g=E1=BB=93m: </p>
+<ul>
+<li><p>L=E1=BB=8Bch chi=E1=BA=BFu</p></li>
+<li><p>M=C3=A3 ch=E1=BB=97 ng=E1=BB=93i</p></li>
+</ul></li>
+<li><p>V=C3=A9 =C4=91=C6=B0=E1=BB=A3c t=E1=BA=A1o ph=E1=BA=A3i c=C3=B3 <str=
+ong>hi=E1=BB=87n t=E1=BA=A1i</strong> &lt; <strong>l=E1=BB=8Bch chi=E1=BA=
+=BFu + 15p</strong> v=C3=A0 m=C3=A3 ch=E1=BB=97 ng=E1=BB=93i <strong>ch=C6=
+=B0a =C4=91=C6=B0=E1=BB=A3c =C4=91=E1=BA=B7t c=E1=BB=A7al=E1=BB=8Bch chi=E1=
+=BA=BFu</strong> =C4=91=C3=B3</p></li>
+<li><p>Admin<strong> </strong>c=C3=B3 th=E1=BB=83 <strong>h=E1=BB=A7y </str=
+ong>v=C3=A9<strong> tr=C6=B0=E1=BB=9Bc gi=E1=BB=9D chi=E1=BA=BFu</strong></=
+p></li>
+</ol></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd"><p>6. Hi=E1=BB=83n th=E1=BB=8B trang ch=E1=BB=A7=
+</p></td>
+<td class=3D"confluenceTd"><p>User, Admin, Guest c=C3=B3 th=E1=BB=83 xem: <=
+/p>
+<ul>
+<li><p> Danh s=C3=A1ch c=C3=A1c phim =C4=91ang c=C3=B3 l=E1=BB=8Bch chi=E1=
+=BA=BFu v=C3=A0o 3 ng=C3=A0y ti=E1=BA=BFp theo</p></li>
+<li><p>Danh s=C3=A1ch c=C3=A1c phim m=E1=BB=9Bi v=C3=A0 phim s=E1=BA=AFp kh=
+=E1=BB=9Fi chi=E1=BA=BFu</p></li>
+</ul></td>
+<td class=3D"confluenceTd">
+<ol>
+<li><p>User, Guest, Admin c=C3=B3 th=E1=BB=83 xem danh s=C3=A1ch c=C3=A1c p=
+him =C4=91ang c=C3=B3 l=E1=BB=8Bch chi=E1=BA=BFu v=C3=A0o 3 ng=C3=A0y ti=E1=
+=BA=BFp theo (<strong>l=E1=BB=8Bch chi=E1=BA=BFu - 3h &lt; ng=C3=A0y hi=E1=
+=BB=87n t=E1=BA=A1i + 3 ng=C3=A0y</strong>) tr=C3=AAn trang ch=E1=BB=A7. Nh=
+=E1=BB=AFng phim <strong>=C4=91ang chi=E1=BA=BFu</strong> s=E1=BA=BD =C4=91=
+=C6=B0=E1=BB=A3c k=C3=BD hi=E1=BB=87u</p></li>
+<li><p>User, Guest, Admin c=C3=B3 th=E1=BB=83 xem danh s=C3=A1ch c=C3=A1c p=
+him s=E1=BA=AFp kh=E1=BB=9Fi chi=E1=BA=BFu (<strong>hi=E1=BB=87n t=E1=BA=A1=
+i &lt; released</strong>)</p></li>
+</ol></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd"><p>7. =C4=90=E1=BA=B7t v=C3=A9</p></td>
+<td class=3D"confluenceTd"><p>User c=C3=B3 th=E1=BB=83 =C4=91=E1=BA=B7t v=
+=C3=A9 tr=C3=AAn trang ch=E1=BB=A7 sau khi =C4=91=C4=83ng nh=E1=BA=ADp</p><=
+/td>
+<td class=3D"confluenceTd">
+<ol>
+<li><p>Sau khi ch=E1=BB=8Dn phim, User c=C3=B3 th=E1=BB=83 xem danh s=C3=A1=
+ch lich chi=E1=BA=BFu theo filter (c=C3=A1c filter c=C3=B3 th=E1=BB=83<stro=
+ng> =C3=A1p d=E1=BB=A5ng =C4=91=E1=BB=93ng th=E1=BB=9Di</strong>, vd: hi=E1=
+=BB=83n th=E1=BB=8B c=C3=A1c l=E1=BB=8Bch chi=E1=BA=BFu c=E1=BB=A7a phim Sp=
+ider Man c=C3=B3 =C4=91=E1=BB=8Bnh d=E1=BA=A1ng 3D v=C3=A0o ng=C3=A0y 20/11=
+ t=E1=BA=A1i r=E1=BA=A1p Cinemo2): </p>
+<ul>
+<li><p>Ng=C3=A0y chi=E1=BA=BFu (3 ng=C3=A0y ti=E1=BA=BFp theo c=E1=BB=A7a h=
+i=E1=BB=87n t=E1=BA=A1i)</p></li>
+<li><p>R=E1=BA=A1p</p></li>
+<li><p>=C4=90=E1=BB=8Bnh d=E1=BA=A1ng (2D, 3D, IMAX)</p></li>
+</ul></li>
+<li><p>Nh=E1=BB=AFng l=E1=BB=8Bch chi=E1=BA=BFu h=E1=BA=BFt ch=E1=BB=97, c=
+=C3=B2n ch=E1=BB=97, =C4=91ang chi=E1=BA=BFu s=E1=BA=BD =C4=91=C6=B0=E1=BB=
+=A3c k=C3=BD hi=E1=BB=87u. C=C3=A1c ch=E1=BB=97 =C4=91=C3=A3 =C4=91=E1=BA=
+=B7t s=E1=BA=BD kh=C3=B4ng th=E1=BB=83 ch=E1=BB=8Dn =C4=91=E1=BA=B7t</p></l=
+i>
+<li><p>Sau khi ch=E1=BB=8Dn l=E1=BB=8Bch chi=E1=BA=BFu, h=E1=BB=87 th=E1=BB=
+=91ng s=E1=BA=BD hi=E1=BB=83n th=E1=BB=8B b=E1=BA=A3ng ch=E1=BB=97 ng=E1=BB=
+=93i c=E1=BB=A7a l=E1=BB=8Bch chi=E1=BA=BFu. C=C3=A1c ch=E1=BB=97 =C4=91=C3=
+=A3 =C4=91=E1=BA=B7t hay ch=C6=B0a =C4=91=E1=BA=B7t s=E1=BA=BD c=C3=B3 k=C3=
+=BD hi=E1=BB=87u. M=E1=BA=B7c =C4=91=E1=BB=8Bnh 3 h=C3=A0ng =C4=91=E1=BA=A7=
+u s=E1=BA=BD l=C3=A0 VIP</p></li>
+<li><p> Sau khi ch=E1=BB=8Dn c=C3=A1c ch=E1=BB=97 mu=E1=BB=91n =C4=91=E1=BA=
+=B7t, h=E1=BB=87 th=E1=BB=91ng hi=E1=BB=83n th=E1=BB=8B danh s=C3=A1ch c=C3=
+=A1c v=C3=A9 k=C3=A8m theo m=E1=BB=A5c ch=E1=BB=8Dn lo=E1=BA=A1i v=C3=A9 v=
+=C3=A0 t=E1=BB=95ng gi=C3=A1 ti=E1=BB=81n c=E1=BA=A7n thanh to=C3=A1n.</p><=
+/li>
+<li><p>Sau khi User ch=E1=BB=8Dn x=C3=A1c nh=E1=BA=ADn thanh to=C3=A1n, h=
+=E1=BB=87 th=E1=BB=91ng s=E1=BA=BD ki=E1=BB=83m tra m=C3=A3 ch=E1=BB=97 ng=
+=E1=BB=93i v=C3=A0 t=E1=BA=A1o v=C3=A9.</p></li>
+</ol></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd"><p>8. Ng=C6=B0=E1=BB=9Di d=C3=B9ng c=C3=B3 th=E1=
+=BB=83 xem danh s=C3=A1ch v=C3=A9 =C4=91=C3=A3 =C4=91=E1=BA=B7t</p></td>
+<td class=3D"confluenceTd"><p>User c=C3=B3 th=E1=BB=83 xem danh s=C3=A1ch v=
+=C3=A0 h=E1=BB=A7y v=C3=A9 =C4=91=C3=A3 =C4=91=E1=BA=B7t</p></td>
+<td class=3D"confluenceTd">
+<ol>
+<li><p>User c=C3=B3 th=E1=BB=83 v=C3=A0o m=E1=BB=A5c =E2=80=9CV=C3=A9 c=E1=
+=BB=A7a t=C3=B4i=E2=80=9C =C4=91=E1=BB=83 xem nh=E1=BB=AFng v=C3=A9 =C4=91=
+=C3=A3 =C4=91=E1=BA=B7t</p></li>
+<li><p>Nh=E1=BB=AFng v=C3=A9 s=E1=BA=AFp =C4=91=C6=B0=E1=BB=A3c chi=E1=BA=
+=BFu (<strong>hi=E1=BB=87n t=E1=BA=A1i &lt; gi=E1=BB=9D chi=E1=BA=BFu</stro=
+ng>), nh=E1=BB=AFng v=C3=A9 =C4=91ang chi=E1=BA=BFu (<strong>hi=E1=BB=87n t=
+=E1=BA=A1i &lt; gi=E1=BB=9D chi=E1=BA=BFu + th=E1=BB=9Di l=C6=B0=E1=BB=A3ng=
+</strong>) v=C3=A0 nh=E1=BB=AFng phim =C4=91=C3=A3 chi=E1=BA=BFu (<strong>g=
+i=E1=BB=9D chi=E1=BA=BFu + th=E1=BB=9Di l=C6=B0=E1=BB=A3ng &lt; hi=E1=BB=87=
+n t=E1=BA=A1</strong>i) s=E1=BA=BD =C4=91=C6=B0=E1=BB=A3c k=C3=BD hi=E1=BB=
+=87u</p></li>
+<li><p>User c=C3=B3 th=E1=BB=83 <strong>h=E1=BB=A7y</strong> <strong>v=C3=
+=A9 tr=C6=B0=E1=BB=9Bc </strong>th=E1=BB=9Di gian chi=E1=BA=BFu <strong>4h<=
+/strong></p></li>
+</ol></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd"><p></p></td>
+<td class=3D"confluenceTd"><p></p></td>
+<td class=3D"confluenceTd"><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+    </div>
+</body>
+</html>
+------=_Part_10_227681799.1608265020206--
