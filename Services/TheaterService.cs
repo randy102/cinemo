@@ -10,8 +10,11 @@ namespace Cinemo.Service
 {
   public class TheaterService{
     private TheaterRepository repository;
-    public TheaterService(TheaterRepository TheaterRepository) {
+    private ShowTimeRepository showTimeRepository;
+
+    public TheaterService(TheaterRepository TheaterRepository, ShowTimeRepository showTimeRepository) {
       this.repository = TheaterRepository;
+      this.showTimeRepository = showTimeRepository;
     }
 
     public List<Theater> GetAll() {
@@ -38,6 +41,8 @@ namespace Cinemo.Service
     }
 
     public Theater Delete(int id) {
+      bool isShowTimeCreated = showTimeRepository.FindWhere(s => s.TheaterId == id).Any();
+      if(isShowTimeCreated) throw new Exception("Không thể xóa phòng chiếu đã tạo lịch");
       return repository.Delete(id);
     }
 

@@ -11,6 +11,7 @@
 
 <div class="row">
   <div class="p-0 col-12 col-md-9">
+    <partial name="Shared/_ErrorAlert" model="@Model.ErrorMessage" />
     <div class="card">
       <h5 class="card-header">
         Choose seats
@@ -49,7 +50,7 @@
                 </div>
 
                 @for (var col = 1; col <= Model.Showtime.Room.NumCol; col++) {
-                  string thisSeat = @rowChar.ToString() + @col.ToString();
+                  string thisSeat = @rowChar.ToString() +'-'+ @col.ToString();
 
                   var thisSeatIsSold = Model.BookedTickets.FirstOrDefault(ticket => ticket.Seat == thisSeat) != null;
 
@@ -192,4 +193,4 @@
 </div>
 
 <input hidden id="ticket-hidden-input"
-       name="CreateDto.Field" />
+       name="CreateDto.Tickets" />

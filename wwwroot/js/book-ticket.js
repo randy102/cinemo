@@ -121,7 +121,8 @@
     $('#ticket-hidden-input')
       .clone()
       .attr('id', 'ticket-for-seat-' + choosingSeat)
-      .val([showtimeId, choosingSeat, ticketId].join(','))
+      .attr('value', `${showtimeId},${ticketId},${choosingSeat}`)
+      .val([showtimeId, ticketId, choosingSeat ].join(','))
       .appendTo('#proceed-btn-wrapper');
 
     $('.seat-choosing')

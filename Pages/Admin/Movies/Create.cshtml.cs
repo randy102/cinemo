@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Cinemo.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Cinemo.Service;
+using System;
 
 namespace Cinemo.Pages.Movie
 {
@@ -16,6 +17,12 @@ namespace Cinemo.Pages.Movie
     private readonly CategoryService categoryService;
     private readonly UserService userService;
 
+    [BindProperty]
+    public MovieCreateDto CreateDto { get; set; }
+
+    public List<SelectListItem> CategorySelectList { get; set; }
+    public string ErrorMessage {get; set;}
+
     public CreateModel(MovieService service, CategoryService categoryService, UserService userService)
     {
       this.service = service;
@@ -23,20 +30,28 @@ namespace Cinemo.Pages.Movie
       this.userService = userService;
     }
 
-    [BindProperty]
-    public MovieCreateDto CreateDto { get; set; }
-
-    public List<SelectListItem> CategorySelectList { get; set; }
+    public void InitData(){
+      CategorySelectList = categoryService.GetSelectListItems();
+    }
 
     public void OnGet()
     {
-      CategorySelectList = categoryService.GetSelectListItems();
+      InitData();
     }
 
     public IActionResult OnPost()
     {
-      service.Create(CreateDto);
-      return Redirect("./Index");
+      try
+      {
+        service.Create(CreateDto);
+        return Redirect("./Index");
+      }
+      catch (Exception exception)
+      {
+        InitData();
+        ErrorMessage = exception.Message;
+        return Page();
+      }
     }
   }
 }

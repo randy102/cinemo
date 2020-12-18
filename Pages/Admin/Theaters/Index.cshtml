@@ -22,6 +22,7 @@
 <div class="container">
   <div class="mb-3 d-flex">
     <div class="mr-auto p-2">
+      <partial name="Shared/_ErrorAlert" model="@Model.ErrorMessage" />
       <div class="d-inline-block display-4 mr-3">Theaters</div>
       <a class="btn btn-success btn-sm align-text-bottom ml-auto" href="/Admin/Theaters/Create">
         <i class="fas fa-plus"></i>

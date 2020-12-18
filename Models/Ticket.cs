@@ -11,24 +11,23 @@ namespace Cinemo.Models
     public int TicketTypeId { get; set; }
     public string UserId { get; set; }
     public string Seat { get; set; }
-    
+
     public virtual User User { get; set; }
     public virtual TicketType TicketType { get; set; }
     public virtual ShowTime ShowTime { get; set; }
   }
 
-
-
-  public class TicketBookDto
+  public class TicketCreateDto
   {
     public int ShowTimeId { get; set; }
     public int TicketTypeId { get; set; }
     public string Seat { get; set; }
+    public string UserId { get; set; }
   }
 
-  public class TicketCreateDto : TicketBookDto
+  public class TicketBookDto
   {
-    public string UserId { get; set; }
+    public string[] Tickets { get; set; }
   }
 
   public class TicketUpdateDto : RoomCreateDto

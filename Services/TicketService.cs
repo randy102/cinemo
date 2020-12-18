@@ -24,35 +24,35 @@ namespace Cinemo.Service
     private void CheckCancellableTicket(Ticket ticket)
     {
       bool isValidTime = DateTime.Now.AddHours(4) <= ticket.ShowTime.Time;
-      if(!isValidTime) throw new Exception("Ticket can only be cancelled on 4 hours before showtime!");
+      if (!isValidTime) throw new Exception("Ticket can only be cancelled on 4 hours before showtime!");
     }
 
     // -1 Old
     // 0 nowShowing
     // 1 upComing
-    public List<Ticket> StatusTickets(User user,int status)
+    public List<Ticket> StatusTickets(User user, int status)
     {
-      List<Ticket> tickets=user.Tickets;
-      List<Ticket> oldTickets=new List<Ticket>();
-      List<Ticket> nowShowingTickets=new List<Ticket>();
-      List<Ticket> upComingTickets=new List<Ticket>();
+      List<Ticket> tickets = user.Tickets;
+      List<Ticket> oldTickets = new List<Ticket>();
+      List<Ticket> nowShowingTickets = new List<Ticket>();
+      List<Ticket> upComingTickets = new List<Ticket>();
       DateTime now = DateTime.Now;
       foreach (var t in tickets)
       {
-        var start=t.ShowTime.Time;
-        var end=start.AddMinutes(t.ShowTime.Movie.Length);
-          if(end<now)
-            oldTickets.Add(t);
-          else if(start<=now && now<end)
-            nowShowingTickets.Add(t);
-          else if(now<start)
-            upComingTickets.Add(t);
+        var start = t.ShowTime.Time;
+        var end = start.AddMinutes(t.ShowTime.Movie.Length);
+        if (end < now)
+          oldTickets.Add(t);
+        else if (start <= now && now < end)
+          nowShowingTickets.Add(t);
+        else if (now < start)
+          upComingTickets.Add(t);
       }
       switch (status)
       {
-          case -1: return oldTickets;
-          case 0: return nowShowingTickets;
-          case 1: return upComingTickets;
+        case -1: return oldTickets;
+        case 0: return nowShowingTickets;
+        case 1: return upComingTickets;
       }
       return null;
     }
@@ -73,7 +73,7 @@ namespace Cinemo.Service
     public void CheckDupplicatedSeat(string Seat, int ShowTimeId)
     {
       bool isSeatExisted = repository.FindWhere(t => t.Seat == Seat && t.ShowTimeId == ShowTimeId).Any();
-      if(isSeatExisted) throw new Exception("Seat has been booked!");
+      if (isSeatExisted) throw new Exception("Seat has been booked!");
     }
 
     private Tuple<int, int> ParseSeat(string Seat)
@@ -91,9 +91,9 @@ namespace Cinemo.Service
       int numCol = showTime.Room.NumCol;
       int numRow = showTime.Room.NumRow;
       Tuple<int, int> parsedSeat = ParseSeat(Seat);
-      
+
       bool isInRange = parsedSeat.Item1 <= numRow && parsedSeat.Item2 <= numCol;
-      if(!isInRange) throw new Exception("Seat Invalid!");
+      if (!isInRange) throw new Exception("Seat Invalid!");
     }
 
     public void CheckPublishedShowtime(int showtimeId)
@@ -101,16 +101,17 @@ namespace Cinemo.Service
       ShowTime showTime = showTimeRepository.FindById(showtimeId);
       bool isPublished = showTime.Status == ShowTime.ShowState.PUBLISHED;
 
-      if(!isPublished) throw new Exception("Showtime is not published!"); 
+      if (!isPublished) throw new Exception("Showtime is not published!");
     }
 
-    public Ticket BookTicket(TicketBookDto dto, string UserId)
+    public Ticket BookTicket(TicketCreateDto dto, string UserId)
     {
       CheckPublishedShowtime(dto.ShowTimeId);
       CheckSeatInRange(dto.Seat, dto.ShowTimeId);
       CheckDupplicatedSeat(dto.Seat, dto.ShowTimeId);
 
-      Ticket entity = new Ticket{
+      Ticket entity = new Ticket
+      {
         Seat = dto.Seat,
         ShowTimeId = dto.ShowTimeId,
         TicketTypeId = dto.TicketTypeId,
@@ -122,6 +123,28 @@ namespace Cinemo.Service
     public Ticket CreateTicket(TicketCreateDto dto)
     {
       return BookTicket(dto, dto.UserId);
+    }
+
+    public void BookUserTickets(TicketBookDto dto, string UserId)
+    {
+      foreach (string ticket in dto.Tickets)
+      {
+        string[] ticketInfos = ticket.Split(',');
+
+        int ShowTimeId = Int32.Parse(ticketInfos[0]);
+        int TicketTypeId = Int32.Parse(ticketInfos[1]);
+        string Seat = ticketInfos[2];
+
+        TicketCreateDto createDto = new TicketCreateDto
+        {
+          Seat = Seat,
+          ShowTimeId = ShowTimeId,
+          TicketTypeId = TicketTypeId,
+          UserId = UserId
+        };
+
+        BookTicket(createDto, UserId);
+      }
     }
 
   }

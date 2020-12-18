@@ -17,8 +17,10 @@ namespace Cinemo.Pages.Admin.ShowTime
 
     [BindProperty]
     public Cinemo.Models.ShowTime OldShowTime { get; set; }
+    
     [BindProperty(SupportsGet = true)]
     public int id { get; set; }
+    
     [BindProperty]
     public ShowTimeUpdateDto UpdateDto { get; set; }
 

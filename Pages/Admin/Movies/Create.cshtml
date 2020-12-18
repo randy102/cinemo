@@ -46,6 +46,7 @@
   <hr class="my-4">
 
   <form method="post" class="needs-validation" novalidate enctype="multipart/form-data">
+    <partial name="Shared/_ErrorAlert" model="@Model.ErrorMessage" />
     <div class="form-group required">
       <label class="h5" for="title-input">Title</label>
       <input asp-for="@Model.CreateDto.Title" required 

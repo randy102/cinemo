@@ -26,6 +26,10 @@
           </a>
         }
 
+        <a href="/MyTicket" class="dropdown-item">
+          <i class="fas fa-ticket-alt fa-fw mr-2"></i> My Tickets
+        </a>
+
         <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
           <button type="submit" class="dropdown-item">
             <i class="fa fa-sign-out-alt fa-fw mr-2"></i> Logout

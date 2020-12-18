@@ -46,6 +46,7 @@
           <th><div>Theater</div></th>
           <th><div>Type</div></th>
           <th><div>Seat</div></th>
+          <th><div>User</div></th>
           <th><div>Cancel</div></th>
         </tr>
       </thead>
@@ -60,6 +61,7 @@
             <td>@ticket.ShowTime.Room.Theater.Name</td>
             <td>@ticket.TicketType.Name</td>
             <td>@ticket.Seat</td>
+            <td>@ticket.User.Email</td>
             <td>
               <form id="cancel-ticket" method="POST" asp-page-handler="Delete">
                 <input type="hidden" name="id" value="@ticket.Id">
